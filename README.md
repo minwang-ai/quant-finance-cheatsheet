@@ -1,2 +1,2 @@
-# AI-for-trading-notes-and-cheat-sheet
-My notes and summary (cheat sheet) for [AI for Trading Nanodegree Program at udacity](https://www.udacity.com/course/ai-for-trading--nd880).
+# MFE notes
+My notes and summary for courses of [master of finacial engineering at WorldQuant University](https://www.wqu.edu/mscfe).
