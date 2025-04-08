@@ -37,5 +37,5 @@ In financial markets, buy side and sell side are terms used to describe two dist
 
 
 ### Global Trading and Arbitrage
-Stocks can be listed and traded across multiple markets globally. For instance, HSBC shares trade in both New York and Hong Kong. While the same stock may trade at slightly different prices in different markets due to supply and demand, significant price discrepancies typically resolve quickly.
+Stocks can be listed and traded across multiple markets globally. For instance, HSBC shares trade in both New York and Hong Kong.While the same stock may trade at slightly different prices in different markets due to supply and demand, significant price discrepancies typically resolve quickly.
 * **Arbitrage:** Traders can exploit small price differences across markets —buying a stock in one market at a lower price and selling it in another market at a higher price, capitalizing on market inefficiencies.
