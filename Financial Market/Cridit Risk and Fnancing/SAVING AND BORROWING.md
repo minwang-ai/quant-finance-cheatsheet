@@ -1,14 +1,13 @@
 # Table of Contents
-1. [Interest](#interest)
-    * [Table: Basic Concept of Interest](#basic-concept-of-interest)
-    * [Table: Simple Interest vs. Compound Interest](#simple-interest-vs-compound-interest)
-        * [Figure 1: Difference between simple and compounded interest over time](#figure-1-difference-between-simple-and-compounded-interest-over-time)
-    * [Table: Compound Interest](#compound-interest)
-    * [Table: Spot Rate vs. Forward Rate](#spot-rate-vs-forward-rate)
-    * [Table: Types of Yield Curves](#types-of-yield-curves)
-    * [Table: Fixed vs. Variable Interest Rates](#fixed-vs-variable-interest-rates)
-    * [Table: Nominal Rates vs. Real Rates](#nominal-rates-vs-real-rates)
-    * [Table: Rate of Saving vs. Rate of Borrowing](#rate-of-saving-vs-rate-of-borrowing)
+* [Table: Basic Concept of Interest](#basic-concept-of-interest)
+* [Table: Simple Interest vs. Compound Interest](#simple-interest-vs-compound-interest)
+    * [Figure 1: Difference between simple and compounded interest over time](#figure-1-difference-between-simple-and-compounded-interest-over-time)
+* [Table: Compound Interest](#compound-interest)
+* [Table: Spot Rate vs. Forward Rate](#spot-rate-vs-forward-rate)
+* [Table: Types of Yield Curves](#types-of-yield-curves)
+* [Table: Fixed vs. Variable Interest Rates](#fixed-vs-variable-interest-rates)
+* [Table: Nominal Rates vs. Real Rates](#nominal-rates-vs-real-rates)
+* [Table: Rate of Saving vs. Rate of Borrowing](#rate-of-saving-vs-rate-of-borrowing)
 
 
 
