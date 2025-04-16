@@ -9,7 +9,7 @@
 * Financial Institutions 
     * [Table: Financial Institutions Types](#financial-institutions-types)
     * [Table: Financial Institutions: Risk and Regulation](#financial-institutions-risk-and-regulation)
-* [Table: Fixed-income Investment: Bond vs CD](#fixed-income-investment-bond-vs-cd)
+
 
 # Risk
 
@@ -98,15 +98,4 @@ Credit risk makes finance less predictable: There is a small probability associa
 
 
 
-## Fixed-income Investment: Bond vs CD
-| **Aspect** | **Bond**    | **Certificate of Deposit (CD)**   |
-|-----|----------|-----------------------------------|
-| **Type**                    | Tradable debt security                                                                      | Non-tradable bank savings product                                             |
-| **Issuer**              | Governments or corporations                                                                 | Banks                                                                         |                   |
-| The amount borrowed/lended called         | **Face/Par Value**         |Principal |                                
-| Interest Rate |   coupon |  Interest rate    |
-| **Liquidity**               | Can be sold in secondary markets                                      | Must hold until maturity (early withdrawal = penalty)                         |
-| **Risk**                    | Credit risk (issuer may default); <br> market risk (price fluctuates in markets)                | Very low risk if FDIC insured                                                 |                                     |
-| **How to Get Paid**         | 1. Coupon payments<br>2. Maturity repayment<br>3. Additional: Selling before maturity                   | 1. Interest <br>2. Principal repayment at maturity      |
----
 

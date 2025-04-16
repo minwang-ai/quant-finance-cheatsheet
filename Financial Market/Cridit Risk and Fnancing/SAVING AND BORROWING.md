@@ -1,7 +1,7 @@
 # Table of Contents
 * [Table: Basic Concept of Interest](#basic-concept-of-interest)
 * [Table: Simple Interest vs. Compound Interest](#simple-interest-vs-compound-interest)
-    * [Figure 1: Difference between simple and compounded interest over time](#figure-1-difference-between-simple-and-compounded-interest-over-time)
+    * [Figure: Difference between simple and compounded interest over time](#figure-1-difference-between-simple-and-compounded-interest-over-time)
 * [Table: Compound Interest](#compound-interest)
 * [Table: Spot Rate vs. Forward Rate](#spot-rate-vs-forward-rate)
 * [Table: Types of Yield Curves](#types-of-yield-curves)
@@ -50,7 +50,7 @@
 | Compound Interest | Interest earned on principal + accumulated previous interest. | $ \text{Compound Interest} = P \times (1 + r)^t - P$ <br> $$FV = PV \times(1+r)^t$$ <br> $$ \Rightarrow PV = \frac{FV}{(1 + r)^t}$$  <br> $$ \Rightarrow r = \left(\frac{FV}{PV}\right)^{1/t} - 1$$| Most common type. Better when we are depositor/investor. <br> [Growth of investments over time:](https://worldquantuniversity.shinyapps.io/wqu_compound_interest_m1_ck/) <br> • the nearly linear growth with low interest rates and fewer compounding periods <br> • an exponential growth pattern when higher interest rates, more frequent compounding periods, and extended time frames are applied. 
 -------
 
-#### Figure 1: Difference between simple and compounded interest over time
+#### Figure : Difference between simple and compounded interest over time
 ![Difference between the simple and compounded interest](Difference_simple_compounded_interest.png "Difference between the simple and compounded interest")
 Note: the compound interest grows much faster than simple interest over time
 
@@ -76,7 +76,7 @@ Note: the compound interest grows much faster than simple interest over time
 
 | Term	| Meaning |
 |-------|---------|
-| Yield <br> (y-axis) | The interest rate (return) earned from investing in a bond.|
+| Yield <br> (y-axis) | The spot interest rate (profits) earned from investing in a bond.|
 | Term to Maturity <br> (x-axis)| The length of time your investment (e.g., Certificates of Deposit (CDs), bonds) is "locked in" and you have to wait before you get pay back| 
 | Yield Curve | A graph showing the relationship between the short-term and long-term interest rates of fixed income securities (typically **goverment bonds**, considered very safe).| 
 -------
