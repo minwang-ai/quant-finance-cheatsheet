@@ -1,11 +1,12 @@
 # Table of Contents
 * [Table : Risk Types](#risk-types)
-* default
+* Default
     *  [Table: Default (time based stages)](#default-basic-concepts)
     * [Table: Default: Basic Concepts](#default-basic-concepts)
 * Credict Risk
     *  [Table: Credict Risk: Perspectives from Lenders](#credict-risk-perspectives-from-lenders)
     * [Table: Mitigation of Credict Risk - Collateral](#mitigation-of-credict-risk---collateral) 
+    * [table]
 * Financial Institutions 
     * [Table: Financial Institutions Types](#financial-institutions-types)
     * [Table: Financial Institutions: Risk and Regulation](#financial-institutions-risk-and-regulation)
@@ -53,18 +54,17 @@
 
 
 
-## Credict Risk 
-Credit risk makes finance less predictable: There is a small probability associated with the timing and/or the size of each payment. 
+## Credict Risk
+- Credict risk is always an issue for a lender. 
+- Credit risk makes finance less predictable: There is a small probability associated with the timing and/or the size of each payment. 
 
 ### Credict Risk: Perspectives from Lenders
-| **Aspects\lenders** | **Perspective of Investors & Depositors**| **Perspective of Banks**   |
-|-------------|------|---------|
-| **Concern**       | Worry that a bank may be unable to return deposits or pay interest (e.g., in a bank run). | The risk that the borrower (individual/companies) can't or won't repay the loan fully or on time.      |
-| **Why This Happens**        | Banks invest depositor funds; bad investments or economic downturns can cause bank failures.| Income loss (e.g., job loss), medical expenses, poor business performance, etc.        |
-| **Protection Mechanism**    | **Deposit insurance** (e.g., FDIC in U.S.) protects up to a fixed amount (e.g., \$250,000). | **No Insurance**: <br> Individual borrowers don’t have deposit insurance. Their repayment depends on their **creditworthiness**.   Riskier borrowers are charged higher interest rates to compensate for the greater risk.  <br>  **Take Collateral**: see below   |
-----------    
-
-
+| **Aspects\\Lenders**       | **Perspective of Investors & Depositors**                                                                                  | **Perspective of Banks**                                                                                       |
+|----------------------------|-----------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| **Concern**                | - Depositor: bank may fail to return deposits or pay interest (e.g., in a bank run)<br>- Bond holder: issuer may default and fail to pay coupons or principal | Borrower (individual or company) may not repay loan fully or on time                                           |
+| **Why This Happens**       | - Banks invest depositor funds but bad investments or economic downturns causes bank failures.<br>- Issuer of bond faces financial distress or mismanagement                                | Income loss, business failure, medical expenses etc                                        |
+| **Protection Mechanism**   | - **Deposit Insurance** (e.g., FDIC in U.S. insures up to \$250,000)<br>- **Bond yield compensation**                      | - **No Insurance** <br> Individual borrowers don’t have deposit insurance.  <br>- **Risk-based interest rates**  Their repayment depends on their **creditworthiness**.   Riskier borrowers are charged higher interest rates to compensate for the greater risk.  <br>- **Collateral** <br> see below    |
+----
 
 
 ### Mitigation of Credict Risk - Collateral 
@@ -75,6 +75,15 @@ Credit risk makes finance less predictable: There is a small probability associa
 | **Bank's Preference** | Banks don’t actually want the car — they prefer timely loan payments, their goal is to minimize defaults and avoid taking over collateral.|
 ----
 
+### Risk-Free vs Risky Bonds
+| **Feature**                  | **Risk-Free Government Bonds**                                          | **Risky Government or Corporate Bonds**                             |
+|-----------------------------|-------------------------------------------------------------------------|----------------------------------------------------------------------|
+| **Example Issuers**         | U.S., Japan, Germany                    | Argentina, Russia, Greece; companies             |
+| **Default Risk**            | Near zero <br> (assumed in models because of own currency, stable economy)                                           | Non-zero; depends on creditworthiness                               |
+| **Yield**                   | Lower <br>(due to low risk)                                                 | Higher <br>(to compensate for credit risk)                              |
+| **Common Tools to Avoid Default** | - Raise taxes<br>- Print money<br>- Issue new bonds to roll over old debt | - Cut costs<br>- Restructure debt<br>- Seek external support         |
+| **Do These Tools Always Work?** | Only with market trust and moderate use. <br> Printing too much → inflation; excessive rolling over → debt spiral | Often limited or unavailable for companies or weaker countries       |
+---
 
 ## Financial Institutions 
 

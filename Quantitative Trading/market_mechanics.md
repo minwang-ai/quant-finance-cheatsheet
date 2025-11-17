@@ -35,6 +35,28 @@ In financial markets, buy side and sell side are terms used to describe two dist
     * **Brokers:** Intermediaries that execute trades on behalf of the buy side (clients) and charge a commission for doing so.
     * **Investment Banks:** Banks that assist companies with raising capital through IPOs and bond issuance, facilitate large financial transactions such as mergers and acquisitions, and may operate trading desks to offer market-making services.
 
+## Buy-Side vs. Sell-Side
+| **Aspect**            | **Buy-Side**                                                       | **Sell-Side**                                                     |
+|-----------------------|---------------------------------------------------------------------|-------------------------------------------------------------------|
+| **Role**              | collects funds from and clients and invests money on behalf of clients                 | Facilitates trades, makes markets, provides liquidity             |
+| **Primary Goal**      | Maximize investment returns through strategic buying and selling securities                  | Earn profits from transaction fees, commissions, and bid-ask spreads       |
+| **Client Type**       | End investors (individuals, pension holders)          | Other financial firms or buy-side clients                         |
+| **Examples**          | Mutual funds, hedge funds, pension funds, individual investors      | Investment banks, brokers, market makers                          |
+| **Revenue Sources**   | Management fees, performance incentives                              | Bid-ask spread, underwriting fees, commissions                     |
+| **Investment Horizon**| Medium to long-term                                                 | Short-term trading focused (inventory turnover/liquidity provision) |
+----
+
+| **Aspect**            | **Buy-Side**                                                                                          | **Sell-Side**                                                                                                   |
+|-----------------------|--------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| **Role**              | Collects funds from clients and invests on their behalf to meet return objectives and risk tolerances. | Facilitates market activity: executes trades, makes markets, provides research, issues securities.              |
+| **Primary Goal**      | Maximize investment returns for clients/shareholders.                                                  | Earn revenue by servicing market demand, providing liquidity, and charging for services.                        |
+| **Client Type**       | End investors (individuals, pension holders, institutions).                                            | Serves buy-side firms and other market participants.                                                            |
+| **Examples**          | - **Mutual Funds**: pooled investments in diversified portfolios<br>- **Hedge Funds**: high-risk, high-return strategies<br>- **Pension Funds**: retirement-focused institutional investors<br>- **Individual Investors**: self-directed portfolios | - **Brokers**: execute trades and charge commissions<br>- **Investment Banks**: underwrite IPOs, advise M&A<br>- **Market Makers**: quote bid/ask prices to provide liquidity and earn the spread (not all sell-side firms do this) |
+| **Revenue Sources**   | - Management fees <br>- Performance/incentive fees (especially for hedge funds)<br>- Consulting or advisory fees | - Commissions (brokers)<br>- Underwriting/spread fees (investment banks)<br>- Bid-ask spread profits (market makers) |
+| **Investment Horizon**| Medium to long-term (build and hold portfolios).                                                       | Generally short-term: focus on trade execution, liquidity, and market turnover.                                 |
+---
+
+
 
 ### Global Trading and Arbitrage
 Stocks can be listed and traded across multiple markets globally. For instance, HSBC shares trade in both New York and Hong Kong.While the same stock may trade at slightly different prices in different markets due to supply and demand, significant price discrepancies typically resolve quickly.
