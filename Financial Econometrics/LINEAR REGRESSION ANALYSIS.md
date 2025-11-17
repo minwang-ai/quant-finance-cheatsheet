@@ -1,6 +1,10 @@
 
 ## Table of Contents
 * [Table: Overview of the Linear Regression Project Setup](#overview-of-the-linear-regression-project-setup)
+* [Table: OLS Regression](#ols-regression)
+* [Table: Assess the Model fit (Metrics)](#assess-the-model-fit-metrics)
+* [Table: Extreme points and Influence](#extreme-points-and-influence)
+* [Code](#code)
 
 ## Overview of the Linear Regression Project Setup
 | Step | Meaning / Examples | Key Actions |
@@ -21,14 +25,29 @@
     * Because daily data is noisy. Quarterly data matches how real economic factors move (Many important financial things only change every 3 months, such as: company earnings, interest rate policy, GDP growth, inflation trends, industry performance). 
 
 
-## 
+## OLS Regression
+| Concept | Formula / Definition | Meaning |
+|--------|------------------------|---------|
+| **Simple OLS model** | $ Y = \beta_0 + \beta_1 X + \varepsilon $ | Estimate Y using one factor X |
+| **Multiple OLS model** | $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \varepsilon $ | Estimate Y using several factors. <br> $\beta$ are called parameters or coefficients. Once the values of the parameters are obtained from the OLS calculation, we call these values estimates.|
+---
 
 
 
-##
+## Assess the Model fit (Metrics)
+| Metric | Meaning (per notebook) | Range | How to Evaluate |
+|--------|--------------------------|--------|-------------------------------------|
+| **p-value** <br> $Pr(>\|t\|)$ for each coefficient| indicate whether each X variable can explain the change of the Y variable | 0 to 1 | The lower, the better <br> • **p < 0.05 → X variable is significant**; <br> • p > 0.05 → transform the X variable, <br> e.g, take the square root or the logarithm of it and draw the scatter plot again|
+| **R-squared (R²)** | indicate model fit: the percent of the variation in Y explained by the variation of all the X variables | 0 to 1 | **Higher is better**;  <br> 1 = perfect fit. <br> too low → consider adding a new exogenous variable (X) but not too many, because it might cause the issue of model overfitting  |
+| **Adjusted R²** | indicate whether adding new independent variables to the model is worth it. | 0 to 1 | Higher is better; **Adjusted R²** will **increase** if the degree of improvement from adding one exogenous variable is greater than the penalty imposed by one additional exogenous variable to the model. <br> → **best practice:** builds several versions of the regression models and then compares their  **Adjusted R²**  to pick a final model. |
 
+##  Extreme points and Influence
 
-
+| Concept | Meaning | How It Affects Regression | How to identify |
+|--------|-----------------|------------------|---------------------------|
+| **Outlier** | A point with an unusual **Y value** (vertical direction) | Not all of outliers and leverage points will influence the result of the regression model.| scatter plot |
+| **Leverage Point** | A point with an unusual or extrame **X value** (horizontal direction) | | scatter plot  |
+| **Influential Point** | An extreme point that can significantly alter the regression result if removed | **Does change** the regression result noticeably | large bubble in the influence plot: <br> we can use Cook's Distance to identify influence point in the dataset <br> → The higher the Cook's D, the greater the influence. <br> A data point with a Cook's D larger than 1 is considered an influential point.  |
 
 
 ## Code
@@ -112,4 +131,20 @@ result.summary()
 
 # Show Parameters with 6 significant digits
 result.summary2().tables[1]
+
+
+
+
+
+
+
+# Influence plot
+fig = sm.graphics.influence_plot(result, criterion="cooks", alpha=0.5)
+fig.tight_layout(pad=1.0)
+
+# Finding most influential points using Cook's distance 
+influence = result.get_influence()
+inf_sum = influence.summary_frame().sort_values("cooks_d", ascending=False)
+inf_sum.head(30)
+
 ```
