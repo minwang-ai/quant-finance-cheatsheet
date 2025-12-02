@@ -1,7 +1,8 @@
 
 ## Table of Contents
 * [Table: Overview of the Linear Regression Project Setup](#overview-of-the-linear-regression-project-setup)
-* [Table: OLS Regression](#ols-regression)
+* OLS Regression
+    * [Table: OLS Regression](#ols-regression)
 * [Table: Assess the Model fit (Metrics)](#assess-the-model-fit-metrics)
 * [Table: Extreme points and Influence](#extreme-points-and-influence)
 * [Code](#code)
@@ -29,8 +30,53 @@
 | Concept | Formula / Definition | Meaning |
 |--------|------------------------|---------|
 | **Simple OLS model** | $ Y = \beta_0 + \beta_1 X + \varepsilon $ | Estimate Y using one factor X |
-| **Multiple OLS model** | $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \varepsilon $ | Estimate Y using several factors. <br> $\beta$ are called parameters or coefficients. Once the values of the parameters are obtained from the OLS calculation, we call these values estimates.|
+| **Multiple OLS model** | $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \epsilon $ | Estimate Y using several factors. <br> $\beta$ are called parameters or coefficients. Once the values of the parameters are obtained from the OLS calculation, we call these values estimates.|
 ---
+
+
+### OLS Assumptions
+| OLS Assumption | Meaning / Mathematical Form | What Violation Causes | How to Detect | How to Fix (Methods) |
+|----------------|-----------------------------|------------------------|----------------|------------------------|
+| **1. Linearity** (correct functional form) | Relationship between X and Y is linear:  $ Y = \beta_0 + \beta_1 X_1 + \dots + \beta_k X_k + \epsilon $ | Model misspecification → unreliable coefficients, standard errors and biased estimates | <br> • Residual plots show curvature <br> • Likelihood ratio (LR) test | Get the form correct by trial and error <br> • Add polynomial terms  <br> • Transform variables (e.g., log, sqrt, Box-Cox)  <br> • Use nonlinear models |
+| [**2.No Multicollinearity**](Correlation and Multicollinearity.md)| X variables are not correlated themselves:  $ X_1 \neq c_1 X_2  + ... $ | coefficients and standard errors of affected variables are not reliable | <br> • High correlation values between X variables <br> • High Variance Inflation Factors(VIF) > 5 | <br>  • Drop variables  <br> • principal component analysis (PCA) <br> • factor analysis   |
+| **3. Independence of Errors** | Errors are independent:  $ \text{Cov}(\epsilon_i, \epsilon_j) = 0 \; (i \neq j) $ | Autocorrelation (occur for time series data) → unreliable standard errors | <br> • Durbin-Watson test (specifically for the autocorrelation of the first -order, i.e., t-1) <br> •  Breusch-Godfrey test (generally, beyond first-order) | <br> • Investigate omitted variables <br> • Generalised idfference equation(Cochrane-Orchutt or AR(1) methods) <br>  • Use time-series models   |
+| **4. Normality of Errors** | Errors normally distributed:  $\epsilon \sim \mathcal{N}(\mu, \sigma^2)$ | if n is small, unreliable standard errors  |  <br> • histogram  (not bell shape) <br> •  QQ-plot(deviates from the line)  <br> •  Shapiro-Wilk test  <br> •  Komologorov-Smirnov test  <br> • Anderson-Darling test |  <br> • change functional form|
+| **5. Zero Mean of Errors** (omiited variables) | $E[\epsilon] = 0$ <br> The error term accounts for the variation in the dependent variable that the independent variables do not explain. A non-zero average error indicates that our model systematically underpredicts the observed values and we should add that information to the regression model.  | Model can only be used for predictive purpose (cannot infer causation) | Residual mean not near zero | • using instrumental variables |
+| **6. Homoscedasticity (Constant Variance)** | The variances of error terms are constant:  $\text{Var}(Y\|X) = \text{Var}(\epsilon\|X) = \sigma^2$ |  $\text{Var}(Y\|X)$ is not constant (Heteroscedasticity) →  unreliable standard errors | <br> • Residual plot shows one or more fan shapes <br> •  Breusch-Pagan test <br> • Goldfeldt-Quant test|  <br> • **Weighted Least Squares (WLS)**   <br> • White's standard errors |
+---
+> **Footnote — Error Term Distribution and Variance Structure (from OLS Assumptions 4, 5, 6)**  
+>  
+> Under the OLS assumptions of **zero-mean errors**, **homoscedasticity**, and **independence of errors**,  
+> the error terms are **IID (independent and identically distributed)**:  
+>  
+> $$ e \sim N(0,\sigma^2) $$
+>  
+> The regression mean function can be written as:
+>  
+> $$ E(Y \mid X) = \beta X $$
+>  
+> And the conditional variance of error term $e$ (equivalently, of $Y$ is constant):
+>  
+> $$ \operatorname{Var}(Y \mid X) = \operatorname{Var}(e \mid X) = \sigma^2 $$
+>  
+> Because we have multiple observations, the variance of the error variance is a **covariance matrix**.  
+> * Independence ⇒ all off-diagonal elements are zero.  
+> * Homoscedasticity ⇒ all diagonal elements equal the same constant variance.
+>  
+> $$ 
+> \operatorname{Var}(e) =
+> \begin{pmatrix}
+> \sigma^2 & 0        & 0        & \cdots & 0 \\
+> 0        & \sigma^2 & 0        & \cdots & 0 \\
+> 0        & 0        & \sigma^2 & \cdots & 0 \\
+> \vdots   & \vdots   & \vdots   & \ddots & \vdots \\
+> 0        & 0        & 0        & \cdots & \sigma^2
+> \end{pmatrix}
+> $$
+
+
+
+
 
 
 
