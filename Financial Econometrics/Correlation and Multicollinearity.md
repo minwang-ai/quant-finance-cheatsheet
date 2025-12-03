@@ -3,9 +3,9 @@
 * [Table: Collinear Variables](#collinear-variables)
 * [Table: Impact of Multicollinearity in Regression Model](#impact-of-multicollinearity-in-regression-model)
 * [Table: Methods to Address Multicollinearity](#methods-to-address-multicollinearity)
-* [Principal Component Analysis (PCA)]
+    * Principal Component Analysis (PCA)
 * Code
-    *[Code: Correlation](#code-correlation)
+    * [Code: Correlation](#code-correlation)
     * [Code: PCA](#code-pca)
 
 
