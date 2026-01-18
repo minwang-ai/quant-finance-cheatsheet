@@ -1,2 +1,8 @@
-# MFE notes
-My notes and summary for courses of [master of finacial engineering at WorldQuant University](https://www.wqu.edu/mscfe).
+# Quant Finance Knowledge Base
+This repository is a personal knowledge space for quantitative finance. It consolidates cheat sheets, interview prep notes, and practical references across finance, math, and computer science.
+
+## Structure
+- Finance: finance-specific topics.
+- Math: Core mathematical foundations.
+- Computer Science: Programming and systems foundations.
+
