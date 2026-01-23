@@ -6,6 +6,7 @@
 | Operating System (OS) | Software layer **between apps and hardware** to **abstract** complex hardware and **manage** hardware resources (**arbitration**). <br> Elements:  file system, device driver, CPU scheduler etc <br> Visual **metaphor**: **shop manager** (allocates resources, schedules work, enforces rules). |
 | Hardware | - Central Processing Units (CPUs) <br> - Physical Memory <br> - Network Interconnects (Ethernet port/Wifi Card) <br> - Graphic Processing Units (GPU) <br> - Storage Devices (hard Disk, SSDs, Flash drives [USB]) |
 ----
+Figure: OS sits between apps and hardware
 ![OS sits between apps and hardware](figures/os-what-is-os.png)
 
 ---
@@ -46,6 +47,7 @@
 | Mechanisms | - Allocate page in DRAM <br> - map the memory page into a process addres to allow the process access the actual physical memory  <br>- move pages from DRAM to disk accorrding to polices (**swapping**). |
 | Policy | The **Least recently used** (LRU)  (unimportant, likely not useful in future) memory page will be copied in disk <br> The frequently/currently used are more important (we might contineu to use them) so we metain them in memory since it is faster to access memory than disk.|
 ----
+Figure: Example - memory management
 ![OS sits between apps and hardware](figures/os-memory-manage.png)
 
 
@@ -66,7 +68,7 @@
 |**user-kernel transation**| - attempt when forbidden in user mode will cause a trap, application will be interrupted, hardware enforced transfer to OS, then OS decides: allow/terminate process | - set a special bit in CPU = manipulating hardware is permitted; otherwise = forbidden. <br> - OS provide system call interface for applications to invoke: e.g., `open`(file), `send`(network socket),`mmap`(allocate memory). <br> - OS use signals to send notifications to the application  |
 ----
 
-
+Figure: System Call Flow
 ![System Call Flow](figures/os-system-call-flow.png)
 
 **System call flow** explanation:<br> 
@@ -96,7 +98,7 @@ Application must save relevant data at well-defined location.
 | Security | | |
 
 
-System Calls: windows vs linux
+Figure: System Calls: windows vs linux
 ![System Calls: windows vs linux](figures/os-windows-vs-linux-system-calls.png)
 
 ### Different types of OS organization (kernel designs)
@@ -115,11 +117,11 @@ System Calls: windows vs linux
 | Linux | Hardware <br> → Linux kernel <br> → standard libraries (system call interface) <br> →  utilities   <br> → user apps | Kernel has components: I/O, memory management, process management.  <br> → Modular design: Each seperate componnents can be independently modified or replaced.  |
 | macOS (OS X) | - I/O kit for device drivers <br> - kernel extension kit for dynamic loading of kernel components <br> → - Mach microkernel (memory management, thread scheduling, IPC (including RPC) <br> + BSD (Unix interoperability + POSIX API + network I/O) <br> → user | |
 
-#### Linux Architecture
+#### Figure: Linux Architecture
 ![Linux Architecture](figures/os-linux-architecture.png)
 
-#### Linux Kernel
+#### Figure: Linux Kernel
 ![Linux Architecture](figures/os-linux-kernel.png)
 
-#### Mac OS Architecture
+#### Figure: Mac OS Architecture
 ![Mac OS Architecture](figures/os-macos-architecture.png)
