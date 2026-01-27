@@ -20,7 +20,7 @@ An operating system abstraction used to encapsulate all of the **process state**
 |---|---|---|
 | $V_{max}$ |**stack** <br> (e.g., save the state x before jumping to another partion of the code y, after execution of y, restore the state x)| **Dynamically** created state that grows and shrinks as the program executes in a last-in, first-out (LIFO) order.|
 | | **heap** <br>(temporary results, read data from files) | **Dynamically** created state; Seems contiguous but might not, portions of the addresses might not allocated|
-| $V_0$ |text (code), data <br> (the data that is available when process is first initialized)| **static** state |
+| $V_0$ |text (**code**), **data** <br> (the data that is available when process is first initialized)| **static** state |
 ----
 
 Figure: Process  address space, process execution example of using stack
@@ -52,11 +52,11 @@ Figure: Process 1 and Process2 in Physical memory and swap to disk
 For an operating system to manage processes, it must have some idea about what a process is "doing". If the operating system stops a process, it must know exactly what it was doing when it was stopped, so the process can resume its execution with the exact same state.
 
 ### Process Control Block
-the operating system maintains a **process control block (PCB)** data structure to maintain all useful information about **Process Execution State** for **every** single process.
+the operating system maintains a **process control block (PCB)** data structure to maintain all useful information about **Process Execution State** for **every** single **process**.
 
 The PCB is created and initialized when the process is **initially created**. Certain fields are updated when process state changes; other fields change frequenctly.
 
-**Operating system**to collect all of the data about a process - stored within CPU registers - and save it to the **PCB** when the process is **no longer running**.
+**Operating system** collect all of the data about a process - stored within CPU registers - and save it to the **PCB** when the process is **no longer running**.
 
 ----
 | How to maintain the process state | what information | change frequency|
