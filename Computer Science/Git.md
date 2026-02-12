@@ -1,13 +1,13 @@
 # Git Cheat Sheet
 
 
-### work on someone else's code
+## work on someone else's code
 When work on someone else's repo (original repo), push only to our own repo, and pull updates from the original repo.
 
 - origin = your private repo (push here)
 - upstream = original repo (pull only)
 
-One‑time setup:
+### One‑time Setup: 
 ```bash
 # 1) Clone the original repo (example GIOS course project 1)
 git clone https://github.gatech.edu/gios-spr-26/pr1.git
@@ -25,15 +25,34 @@ git remote set-url --push upstream PUSH_DISABLED
 # 5) Verify
 git remote -v
 ```
-#### workflow
+
+### Later Workflow (sync update + develop)
 ```bash
+# Optional: If you have local uncommitted changes before pulling
+git stash -u
+
 # Get updates from original repo when needed
-git pull upstream main
-
-# Work on your code...
-
-# Push your work to your private repo
+git checkout main
+git pull --rebase upstream main
+# Optional: keep your private repo's main in sync too
 git push origin main
+
+# Optional: If you have local uncommitted changes and ran git stash -u before
+git stash pop
+
+# Work on your code
+# Create a new feature branch (Don’t develop directly on main!). Use -b only once for first creation
+git checkout -b my-feature
+
+# Push your feature branch to your private repo
+git push -u origin my-feature
+```
+
+Then next time on same feature branch:
+```bash
+git checkout my-feature
+git pull --rebase
+git push
 ```
 
 
