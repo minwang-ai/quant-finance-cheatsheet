@@ -230,6 +230,3 @@ Example:
 | detect deadlocks and recover| analysis of the wait graph and determine whether any cycles have occurred.| still expensive and sometimes impossible (if input and output are external) due to rollback executation|
 | doing nothing| hope that the system never have deadlocks, and if we are wrong, just reboot. |
 ---
-
-
-
