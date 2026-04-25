@@ -1,0 +1,2293 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal notes for quantitative finance, computer science, math and statistics.">
+      
+      
+      
+        <link rel="canonical" href="https://minwang-ai.github.io/quant-finance-cheatsheet/Quantitive%20Finance/Financial%20Econometrics/Linear%20Regression/">
+      
+      
+        <link rel="prev" href="../Correlation%20and%20Multicollinearity/">
+      
+      
+        <link rel="next" href="../Monte%20Carlo%20Simulation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Linear Regression - Quant Finance Cheatsheet</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#table-of-contents" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Quant Finance Cheatsheet" class="md-header__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quant Finance Cheatsheet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linear Regression
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Quant Finance Cheatsheet" class="md-nav__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Quant Finance Cheatsheet
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quant Finance Cheatsheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Computer%20Science/Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure and Algorithm
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Structure and Algorithm
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Computer%20Science/Data%20Structure%20and%20Algorithm/Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operating System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operating System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Computer%20Science/Operating%20System/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Computer%20Science/Operating%20System/process%20management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Computer%20Science/Operating%20System/threads%20and%20concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Threads and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_4" id="__nav_2_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Socket Programming
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Socket Programming
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Computer%20Science/Operating%20System/Socket%20Programming/socket%20programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2: What is a Socket?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Computer%20Science/Python/IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Computer%20Science/Python/Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CS50P Lecture 0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Computer%20Science/Python/string/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String (str)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Math and Stats
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Math and Stats
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics for Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics for Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/predicates_sets_proof/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Predicates sets proof
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitive Finance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitive Finance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Financial%20Data/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Financial%20Data/table_of_content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Data — Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Econometrics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Econometrics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Correlation%20and%20Multicollinearity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Correlation and Multicollinearity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Regression
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Regression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-the-linear-regression-project-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview of the Linear Regression Project Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ols-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OLS Regression
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OLS Regression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ols-assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OLS Assumptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assess-the-model-fit-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assess the Model fit (Metrics)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extreme-points-and-influence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extreme points and Influence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Monte%20Carlo%20Simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monte Carlo Simulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Variable%20Transformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variable Transformation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../table_of_content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Econometrics — Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Market
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Market
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Financial%20Market/table_of_content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Market — Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_2" id="__nav_4_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cridit Risk and Fnancing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cridit Risk and Fnancing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Financial%20Market/Cridit%20Risk%20and%20Fnancing/BUYING%20AND%20SELLING%20SHORT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Financial%20Market/Cridit%20Risk%20and%20Fnancing/COUNTERPARTIES%20AND%20CREDIT%20RISK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Financial%20Market/Cridit%20Risk%20and%20Fnancing/SAVING%20AND%20BORROWING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitative Trading
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitative Trading
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Quantitative%20Trading/market_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Market Mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Quantitative%20Trading/stock_price/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stock Price
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Quantitative%20Trading/table_of_content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitative Trading — Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview-of-the-linear-regression-project-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview of the Linear Regression Project Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ols-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OLS Regression
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OLS Regression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ols-assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OLS Assumptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assess-the-model-fit-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assess the Model fit (Metrics)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extreme-points-and-influence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extreme points and Influence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Linear Regression</h1>
+
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#overview-of-the-linear-regression-project-setup">Table: Overview of the Linear Regression Project Setup</a></li>
+<li>OLS Regression<ul>
+<li><a href="#ols-regression">Table: OLS Regression</a></li>
+</ul>
+</li>
+<li><a href="#assess-the-model-fit-metrics">Table: Assess the Model fit (Metrics)</a></li>
+<li><a href="#extreme-points-and-influence">Table: Extreme points and Influence</a></li>
+<li><a href="#code">Code</a></li>
+</ul>
+<h2 id="overview-of-the-linear-regression-project-setup">Overview of the Linear Regression Project Setup<a class="headerlink" href="#overview-of-the-linear-regression-project-setup" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Meaning / Examples</th>
+<th>Key Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1.1 Identify potential factors</strong> that impact the stock price and <strong>collect data</strong></td>
+<td>e.g., sales, whole stock market movement trends</td>
+<td>Research economic, market, and company-specific factors, Collect relevant data</td>
+</tr>
+<tr>
+<td><strong>1.2 Quantify relationships</strong> between stock price and selected factors by <strong>building a model</strong></td>
+<td>e.g., linear regression analysis</td>
+<td>select models</td>
+</tr>
+<tr>
+<td><strong>1.3 Predict</strong> future stock price</td>
+<td>e.g., simulate how much the stock price would change given a 0.5% increase, 1% increase, and 2% increase in revenue.</td>
+<td>Convert selected factors into measurable numerical variables and convert the variables into comparable returns or ratios. , e.g., <strong>quarterly excess returns</strong> and <strong>quarterly</strong> sales growth</td>
+</tr>
+<tr>
+<td>2. <strong>Decide Y (dependent) and X (independent) variables</strong></td>
+<td><br> • <strong>Y</strong>: An endogenous variable, also called a dependent variable: whose value is determined by the model. <br> • <strong>X</strong>: An exogenous variable, also called an independent variable: whose value is determined outside of the model or is given to us.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>3. Check relationship between Y (dependent) and X (independent) variables</strong></td>
+<td>use scatter plot; use Pearson Correlation</td>
+<td>For <strong>scatter plot:</strong> <br> • If draw a straight line where most of the points will be around the line (oval shape) <br> =&gt; linear relationship  <br> •  if the straight line drawn is either a horizontal line or a vertical line  <br> =&gt; The exogenous variable is independent of the endogenous variable <br> =&gt; we should drop this exogenous variable from the model.<br> • If find extreme points that are well-separated from the other points., <br> e.g., 1. An outlier is a point that doesn't follow the general trend of the other points. <br> 2. A leverage point has extreme value for exogenous variables. Both types may or may not impact the estimated result of the regression model. <br> =&gt;Try to run one model with them and another model without them.<br> =&gt; Then, compare the two model results to see if these extreme points are crucial to the final model result. <br> For <strong>Pearson Correlation [-1, 1]:</strong>  <br> • If the value of two variables tends to move in the <strong>same direction</strong>, the correlation is <strong>positive</strong>. A correlation towards <strong>$1$</strong> means the two variables have a <strong>perfectly</strong> positive linear relationship, while towards 0 means less and less linear relationship. <br> • If the two variables tend to move in <strong>opposite directions</strong>, the number is <strong>negative</strong>.</td>
+</tr>
+<tr>
+<td><strong>4. build the regression model.</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>5. Assess the Model fit</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>---</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong>
+* Why excess return? 
+    * Finance theory tells us a stock <strong>excess return</strong> is a better variable to analyze than the actual price. The <strong>excess return</strong> is the actual return minus risk-free interest rate (usually Treasury Bill Rates),to explain the part of the return that comes from taking additional risk than deposit it in banks with zero risk.
+* Why quarterly data?
+    * Because daily data is noisy. Quarterly data matches how real economic factors move (Many important financial things only change every 3 months, such as: company earnings, interest rate policy, GDP growth, inflation trends, industry performance). </p>
+<h2 id="ols-regression">OLS Regression<a class="headerlink" href="#ols-regression" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Formula / Definition</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Simple OLS model</strong></td>
+<td>$ Y = \beta_0 + \beta_1 X + \varepsilon $</td>
+<td>Estimate Y using one factor X</td>
+</tr>
+<tr>
+<td><strong>Multiple OLS model</strong></td>
+<td>$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \epsilon $</td>
+<td>Estimate Y using several factors. <br> $\beta$ are called parameters or coefficients. Once the values of the parameters are obtained from the OLS calculation, we call these values estimates.</td>
+</tr>
+<tr>
+<td>---</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="ols-assumptions">OLS Assumptions<a class="headerlink" href="#ols-assumptions" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>OLS Assumption</th>
+<th>Meaning / Mathematical Form</th>
+<th>What Violation Causes</th>
+<th>How to Detect</th>
+<th>How to Fix (Methods)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Linearity</strong> (correct functional form)</td>
+<td>Relationship between X and Y is linear:  $ Y = \beta_0 + \beta_1 X_1 + \dots + \beta_k X_k + \epsilon $</td>
+<td>Model misspecification → unreliable coefficients, standard errors and biased estimates</td>
+<td><br> • Residual plots show curvature <br> • Likelihood ratio (LR) test</td>
+<td>Get the form correct by trial and error <br> • Add polynomial terms  <br> • Transform variables (e.g., log, sqrt, Box-Cox)  <br> • Use nonlinear models</td>
+</tr>
+<tr>
+<td><a href="../Correlation%20and%20Multicollinearity/"><strong>2.No Multicollinearity</strong></a></td>
+<td>X variables are not correlated themselves:  $ X_1 \neq c_1 X_2  + ... $</td>
+<td>coefficients and standard errors of affected variables are not reliable</td>
+<td><br> • High correlation values between X variables <br> • High Variance Inflation Factors(VIF) &gt; 5</td>
+<td><br>  • Drop variables  <br> • principal component analysis (PCA) <br> • factor analysis</td>
+</tr>
+<tr>
+<td><strong>3. Independence of Errors</strong></td>
+<td>Errors are independent:  $ \text{Cov}(\epsilon_i, \epsilon_j) = 0 \; (i \neq j) $</td>
+<td><strong>Autocorrelation</strong> (occur for time series data) → unreliable standard errors</td>
+<td><br> • Durbin-Watson test (specifically for the autocorrelation of the first -order, i.e., t-1) <br> •  Breusch-Godfrey test (generally, beyond first-order)</td>
+<td><br> • Investigate omitted variables <br> • Generalised idfference equation(Cochrane-Orchutt or AR(1) methods) <br>  • Use time-series models</td>
+</tr>
+<tr>
+<td><strong>4. Normality of Errors</strong></td>
+<td>Errors normally distributed:  $\epsilon \sim \mathcal{N}(\mu, \sigma^2)$</td>
+<td>if n is small, unreliable standard errors</td>
+<td><br> • histogram  (not bell shape) <br> •  QQ-plot(deviates from the line)  <br> •  Shapiro-Wilk test  <br> •  Komologorov-Smirnov test  <br> • Anderson-Darling test</td>
+<td><br> • change functional form</td>
+</tr>
+<tr>
+<td><strong>5. Zero Mean of Errors</strong> (omiited variables)</td>
+<td>$E[\epsilon] = 0$ <br> The error term accounts for the variation in the dependent variable that the independent variables do not explain. A non-zero average error indicates that our model systematically underpredicts the observed values and we should add that information to the regression model.</td>
+<td>Model can only be used for predictive purpose (cannot infer causation)</td>
+<td>Residual mean not near zero</td>
+<td>• using instrumental variables</td>
+</tr>
+<tr>
+<td><strong>6. Homoscedasticity (Constant Variance)</strong></td>
+<td>The variances of error terms are constant:  $\text{Var}(Y|X) = \text{Var}(\epsilon|X) = \sigma^2$</td>
+<td>The error terms are not constant (<strong>Heteroscedasticity</strong>) →  coefficients remain unbiased, but standard errors are unreliable</td>
+<td><br> • Residual plot shows one or more fan/ cone/ megaphone shapes (Residuals are either concentrated and spread out for different values of X variable), but sometimes difficult to detect <br>  <strong>tests:</strong> (same rule: <strong>p-value &lt; 0.05</strong>) <br> • <strong>White test</strong> (preferred, any form of heteroscedasticity) <br> •  Breusch-Pagan(BP) test (only linear)</td>
+<td>• <strong>Weighted Least Squares (WLS)</strong>   <br> • White's standard errors</td>
+</tr>
+<tr>
+<td>---</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Footnote</strong>
+* <strong>Residuals</strong> are the differences between measured values of the dependent variables and predicted values of dependent variables from the OLS regression model.
+* <strong>Error Term Distribution and Variance Structure (from OLS Assumptions 4, 5, 6):</strong><br />
+    &gt;<br />
+    &gt; Under the OLS assumptions of <strong>zero-mean errors</strong>, <strong>homoscedasticity</strong>, and <strong>independence of errors</strong>,<br />
+    &gt; the error terms are <strong>IID (independent and identically distributed)</strong>:<br />
+    &gt;<br />
+    &gt; $$ e \sim N(0,\sigma^2) $$
+    &gt;<br />
+    &gt; The regression mean function can be written as:
+    &gt;<br />
+    &gt; $$ E(Y \mid X) = \beta X $$
+    &gt;<br />
+    &gt; And the conditional variance of error term $e$ (equivalently, of $Y$ is constant):
+    &gt;<br />
+    &gt; $$ \operatorname{Var}(Y \mid X) = \operatorname{Var}(e \mid X) = \sigma^2 $$
+    &gt;<br />
+    &gt; Because we have multiple observations, the variance of the error variance is a <strong>covariance matrix</strong>.<br />
+    &gt; * Independence ⇒ all off-diagonal elements are zero.<br />
+    &gt; * Homoscedasticity ⇒ all diagonal elements equal the same constant variance.
+    &gt;<br />
+    &gt; $$ 
+    &gt; \operatorname{Var}(e) =
+    &gt; \begin{pmatrix}
+    &gt; \sigma^2 &amp; 0        &amp; 0        &amp; \cdots &amp; 0 \
+    &gt; 0        &amp; \sigma^2 &amp; 0        &amp; \cdots &amp; 0 \
+    &gt; 0        &amp; 0        &amp; \sigma^2 &amp; \cdots &amp; 0 \
+    &gt; \vdots   &amp; \vdots   &amp; \vdots   &amp; \ddots &amp; \vdots \
+    &gt; 0        &amp; 0        &amp; 0        &amp; \cdots &amp; \sigma^2
+    &gt; \end{pmatrix}
+    &gt; $$</p>
+<h2 id="assess-the-model-fit-metrics">Assess the Model fit (Metrics)<a class="headerlink" href="#assess-the-model-fit-metrics" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Meaning (per notebook)</th>
+<th>Range</th>
+<th>How to Evaluate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>p-value</strong> <br> $Pr(&gt;|t|)$ for each coefficient</td>
+<td>indicate whether each X variable can explain the change of the Y variable</td>
+<td>0 to 1</td>
+<td>The lower, the better <br> • <strong>p &lt; 0.05 → X variable is significant</strong>; <br> • p &gt; 0.05 → transform the X variable, <br> e.g, take the square root or the logarithm of it and draw the scatter plot again</td>
+</tr>
+<tr>
+<td><strong>R-squared (R²)</strong></td>
+<td>indicate model fit: the percent of the variation in Y explained by the variation of all the X variables</td>
+<td>0 to 1</td>
+<td><strong>Higher is better</strong>;  <br> 1 = perfect fit. <br> too low → consider adding a new exogenous variable (X) but not too many, because it might cause the issue of model overfitting</td>
+</tr>
+<tr>
+<td><strong>Adjusted R²</strong></td>
+<td>indicate whether adding new independent variables to the model is worth it.</td>
+<td>0 to 1</td>
+<td>Higher is better; <strong>Adjusted R²</strong> will <strong>increase</strong> if the degree of improvement from adding one exogenous variable is greater than the penalty imposed by one additional exogenous variable to the model. <br> → <strong>best practice:</strong> builds several versions of the regression models and then compares their  <strong>Adjusted R²</strong>  to pick a final model.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="extreme-points-and-influence">Extreme points and Influence<a class="headerlink" href="#extreme-points-and-influence" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Meaning</th>
+<th>How It Affects Regression</th>
+<th>How to identify</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Outlier</strong></td>
+<td>A point with an unusual <strong>Y value</strong> (vertical direction)</td>
+<td>Not all of outliers and leverage points will influence the result of the regression model.</td>
+<td>scatter plot</td>
+</tr>
+<tr>
+<td><strong>Leverage Point</strong></td>
+<td>A point with an unusual or extrame <strong>X value</strong> (horizontal direction)</td>
+<td></td>
+<td>scatter plot</td>
+</tr>
+<tr>
+<td><strong>Influential Point</strong></td>
+<td>An extreme point that can significantly alter the regression result if removed</td>
+<td><strong>Does change</strong> the regression result noticeably</td>
+<td>large bubble in the influence plot: <br> we can use Cook's Distance to identify influence point in the dataset <br> → The higher the Cook's D, the greater the influence. <br> A data point with a Cook's D larger than 1 is considered an influential point.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>python
+
+# Libraries
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
+plt.rcParams[&quot;figure.figsize&quot;] = (12, 9)
+
+
+
+
+# Load the dataset
+data_set = pd.read_csv(&quot;dataset_name.csv&quot;)
+
+
+
+
+# Create scatter plot
+scatt = data_set.plot.scatter(
+    x=&quot;x_variable_index&quot;,
+    y=&quot;x_variable_index&quot;,
+    title=&quot;Scatterplot XXX Stock Excess Return vs X variable Excess Return&quot;,
+)
+scatt.set(xlabel=&quot;... Excess Return&quot;, ylabel=&quot;... Excess Return&quot;)
+plt.show()
+
+
+
+
+# Function to calculate correlation coefficient between two arrays
+def corr(x, y, **kwargs):
+    # Calculate the value
+    coef = np.corrcoef(x, y)[0][1]
+    # Make the label
+    label = r&quot;$\rho$ = &quot; + str(round(coef, 2))
+
+    # Add the label to the plot
+    ax = plt.gca()
+    ax.annotate(label, xy=(0.3, 0.15), size=20, xycoords=ax.transAxes)
+
+
+
+
+# Create the default pairplot
+# (a grid of plots showing every variable against every other variable)
+grid = sns.pairplot(
+    data_set, vars=[&quot;variable_1&quot;, &quot;variable_2&quot;, &quot;variable_3&quot;, &quot;variable_4&quot;, ...], height=3
+)
+
+# Map a scatter plot and Pearson correlation coefficient to the upper triangle
+grid = grid.map_upper(plt.scatter)
+grid = grid.map_upper(corr)
+
+# Map a histogram to the diagonal 
+# (shows the distribution of each variable, not comparisons)
+# grid = grid.map_diag(plt.hist)
+
+# Map a smooth density heatmap plot (showing where data points cluster) and regression line to the lower triangle
+grid = grid.map_lower(sns.kdeplot)
+grid = grid.map_lower(sns.regplot, lowess=True, line_kws={&quot;color&quot;: &quot;red&quot;})
+
+
+
+
+
+
+# OLS Linear regression result 
+result = smf.ols(
+    &quot;endogenous variable ~ exogenous_variable_1 + exogenous_variable_2 + exogenous_variable_3&quot;, data=data_set
+).fit()
+result.summary()
+
+
+# Show Parameters with 6 significant digits
+result.summary2().tables[1]
+
+
+
+
+
+
+
+# Influence plot
+fig = sm.graphics.influence_plot(result, criterion=&quot;cooks&quot;, alpha=0.5)
+fig.tight_layout(pad=1.0)
+
+# Finding most influential points using Cook&#39;s distance 
+influence = result.get_influence()
+inf_sum = influence.summary_frame().sort_values(&quot;cooks_d&quot;, ascending=False)
+inf_sum.head(30)
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

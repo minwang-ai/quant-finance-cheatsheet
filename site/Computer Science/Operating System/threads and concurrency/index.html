@@ -1,0 +1,2544 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal notes for quantitative finance, computer science, math and statistics.">
+      
+      
+      
+        <link rel="canonical" href="https://minwang-ai.github.io/quant-finance-cheatsheet/Computer%20Science/Operating%20System/threads%20and%20concurrency/">
+      
+      
+        <link rel="prev" href="../process%20management/">
+      
+      
+        <link rel="next" href="../Socket%20Programming/socket%20programming/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Threads and concurrency - Quant Finance Cheatsheet</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#threads" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Quant Finance Cheatsheet" class="md-header__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quant Finance Cheatsheet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Threads and concurrency
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Quant Finance Cheatsheet" class="md-nav__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Quant Finance Cheatsheet
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quant Finance Cheatsheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure and Algorithm
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Structure and Algorithm
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Data%20Structure%20and%20Algorithm/Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operating System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operating System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process%20management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Threads and concurrency
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Threads and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Threads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-vs-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process vs. Thread
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Process vs. Thread">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benefits-of-multithreading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefits of Multithreading
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-thread-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Thread Mechanisms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basic Thread Mechanisms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread Creation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Thread Creation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronization-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronization Mechanisms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronization Mechanisms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-we-need-synchronization-mechanisms-issues-of-concurrent-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why we need synchronization mechanisms? issues of concurrent execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readerswriter-problem-using-condition-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Readers/Writer Problem using condition variable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#note-when-writing-multi-threading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Note: When writing multi-threading
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Note: When writing multi-threading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spurious-unnecessary-wake-ups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spurious (Unnecessary) Wake-ups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deadlocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deadlocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3_4" id="__nav_2_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Socket Programming
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Socket Programming
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Socket%20Programming/socket%20programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2: What is a Socket?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CS50P Lecture 0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/string/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String (str)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Math and Stats
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Math and Stats
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics for Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics for Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/predicates_sets_proof/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Predicates sets proof
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitive Finance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitive Finance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Data/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Data/table_of_content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Data — Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Econometrics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Econometrics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Correlation%20and%20Multicollinearity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Correlation and Multicollinearity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Linear%20Regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Regression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Monte%20Carlo%20Simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monte Carlo Simulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Variable%20Transformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variable Transformation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/table_of_content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Econometrics — Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Market
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Market
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/table_of_content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Market — Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_2" id="__nav_4_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cridit Risk and Fnancing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cridit Risk and Fnancing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Fnancing/BUYING%20AND%20SELLING%20SHORT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Fnancing/COUNTERPARTIES%20AND%20CREDIT%20RISK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Fnancing/SAVING%20AND%20BORROWING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitative Trading
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitative Trading
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Quantitative%20Trading/market_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Market Mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Quantitative%20Trading/stock_price/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stock Price
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Quantitative%20Trading/table_of_content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitative Trading — Table of Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Threads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-vs-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process vs. Thread
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Process vs. Thread">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benefits-of-multithreading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefits of Multithreading
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-thread-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Thread Mechanisms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basic Thread Mechanisms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread Creation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Thread Creation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronization-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronization Mechanisms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronization Mechanisms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-we-need-synchronization-mechanisms-issues-of-concurrent-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why we need synchronization mechanisms? issues of concurrent execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readerswriter-problem-using-condition-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Readers/Writer Problem using condition variable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#note-when-writing-multi-threading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Note: When writing multi-threading
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Note: When writing multi-threading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spurious-unnecessary-wake-ups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spurious (Unnecessary) Wake-ups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deadlocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deadlocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Threads and concurrency</h1>
+
+<h2 id="threads">Threads<a class="headerlink" href="#threads" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Threads</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>visual <strong>metaphor</strong></td>
+<td><strong>worker</strong> at a shop <br> - active entity: executing unit of a process <br> - works simultaneously with others threads  <br> - requires coordination - sharing of I/O devices, CPUs, memory</td>
+</tr>
+<tr>
+<td>----</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="process-vs-thread">Process vs. Thread<a class="headerlink" href="#process-vs-thread" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Aspects</th>
+<th>Process</th>
+<th>Threads</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Defination</td>
+<td>A single-thread process is represented by <br> - its <a href="../process%20management/#process-address-space-and-memory-management"><strong>address space</strong></a> (virtual - physical memory mapping) and <br> - its <strong>execation context</strong> (stack pointer, register, program counter etc).</td>
+<td>Threads represent multiple <strong>independent</strong> execution contexts. <br> - <strong>shared info</strong>: They are within the <strong>same virtual address space</strong>, which means they share the virtual to physical address mapping, and the code/data/files.<br> - <strong>Per-thread info</strong> (in a seperate data structure): Threads will potentially execute <strong>different</strong> <strong>instructions</strong> and accessing different portions of the <strong>address space</strong>, operate on different portions of the <strong>input</strong> etc. This means that each thread will have to have its own different <strong>program counter, stack stack, pointer, thread-specific registers</strong>.</td>
+</tr>
+<tr>
+<td>PCB</td>
+<td><br> OS represents  all the information in a <a href="../process%20management/#process-control-block">process control block (PCB)</a>.</td>
+<td>More complex PCB: <br> - shared virtual address mapping, code,data <br> - per-thread executaion context.</td>
+</tr>
+<tr>
+<td>virtual addresss</td>
+<td>seperate</td>
+<td>shared</td>
+</tr>
+<tr>
+<td>execution context</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>context switch</td>
+<td>longer</td>
+<td>shorter</td>
+</tr>
+<tr>
+<td>communication mechanisms</td>
+<td>inter process communication (IPC) (expensive)</td>
+<td>shared variable (cheap)</td>
+</tr>
+<tr>
+<td>cache</td>
+<td>cold</td>
+<td>hot</td>
+</tr>
+<tr>
+<td>----</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Figure: Multi-Threads
+<img alt="Multi-Threads" src="../figures/os-multi-threads.png" /></p>
+<p>Figure: Single thread Process vs. <strong>Multi Thread</strong> Process
+<img alt="Process vs. Thread" src="../figures/os-process-vs-thread.png" /></p>
+<h3 id="benefits-of-multithreading">Benefits of Multithreading<a class="headerlink" href="#benefits-of-multithreading" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>cases</th>
+<th>reasons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in multi-core/multi processor system</td>
+<td>- Each thread executes same code but for different subset of <strong>input</strong> (e.g., a matrix)in <strong>parallel</strong> <strong>concurrently</strong> on a different processor to <strong>speed up</strong> <br> - Each thread executes different portions of program for special <strong>tasks</strong> to set <strong>prioirty</strong> differently and get <strong>performance gain</strong> by <strong>hot cache</strong></td>
+</tr>
+<tr>
+<td>why <strong>multithreading</strong> instead of <strong>multiprocess</strong>?</td>
+<td>- <strong>lower memory requirement</strong>: A <strong>multiprocess</strong> application requires <strong>more memory</strong> =&gt; more swaps from disk (we have to allocate each process a address space, and a executation context) while <br>  a <strong>multi-threaded</strong> application requires <strong>less memory</strong> (sharing address space). <br> - <strong>lower communication overhead</strong>: communicating, passing, synchronizing data among processes (requires <strong>inter process communication IPC</strong>) is more <strong>costly</strong> than <strong>inter thread communication</strong>(<strong>shared variables</strong> in the same process address space)</td>
+</tr>
+<tr>
+<td>even on <strong>Single CPU</strong> or generally when <strong>number of threads &gt; the number of CPUs</strong></td>
+<td>- <strong>Hide latency</strong> associated with I/O operations: If thread has to wait on some event for some time <strong>(t_idle)&gt; two context switche (2*t_ctx_switch)</strong>, then it makes sense to switch to another <strong>thread</strong> to perform other operation and switch back. <br> - <strong>No memory overhead</strong>: Threads <strong>shared address space</strong></td>
+</tr>
+<tr>
+<td>User applications and <strong>OS kernel</strong></td>
+<td>support <strong>multiple execution contexts</strong> to operate concurrently <br> - OS threads could work on behalf of apps <br> - run OS level services like aemons and device drivers.</td>
+</tr>
+<tr>
+<td>---</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Figure: Multi-process requires more <strong>memory (address space)</strong> while multi-threads does not!
+<img alt="Multi-Process" src="../figures/os-multi-process.png" /></p>
+<p>Figure: Multi-threading is benificial even on <strong>Single CPU</strong>
+<img alt="Multi-Process" src="../figures/os-multi-thread-single-CPU.png" /></p>
+<h2 id="basic-thread-mechanisms">Basic Thread Mechanisms<a class="headerlink" href="#basic-thread-mechanisms" title="Permanent link">&para;</a></h2>
+<h3 id="overview">overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>What we need to support threads</th>
+<th>Function</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>thread data structure</td>
+<td>identify threads, keep track resource usage</td>
+<td>represent each thread</td>
+</tr>
+<tr>
+<td>Synchronization Mechanisms</td>
+<td>- create and manage threads <br> - allow threads safely coordinate among each other running concurrently in the same address space</td>
+<td>- don't overwrite each other's inputs or results <br> - allow one thread to wait on results that should be produced by other threads</td>
+</tr>
+<tr>
+<td>---</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="thread-creation">Thread Creation<a class="headerlink" href="#thread-creation" title="Permanent link">&para;</a></h3>
+<h4 id="_1"><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>data structure and mechanisms</th>
+<th>name</th>
+<th>details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>thread data structure</td>
+<td>thread type</td>
+<td>all the info to <strong>represent</strong> a thread, including:  <br> Thread ID, Program counter, Stack pointer, Register values, Stack, Other thread specific attributes (e.g., for thread management)</td>
+</tr>
+<tr>
+<td><strong>create</strong> a thread</td>
+<td>parent thread call <strong>Fork(proc, args)</strong></td>
+<td>two arguments: <br> - proc: the procedure that created thread will start executing <br> - args: arguments for the procedure proc. Note that: It is not the UNIX fork. <br> <br> When one thread (parent thread $T_0$) calls fork, a new thread (child thread $T_1$) is created with a new thread data structure (its fields are initialized such that its program counter pointing to the first instructure of the procedure proc and the arguments will be avilable on the stack of the thread). When the thread finishes, store the results of computation in the shared address space and use mechanisms to notify the parent or other threads.</td>
+</tr>
+<tr>
+<td><strong>terminate</strong> a thread</td>
+<td>parent thread call <strong>Join (child thread ID)</strong></td>
+<td>The parent thread will be <strong>blocked</strong> until the child completes. Join will return to the parent the result of the child's computation. At that point,child thread exits the system and all the resources allocated for child will be freed.</td>
+</tr>
+<tr>
+<td>---</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Figure: Thread creation and termination
+<img alt="thread creation" src="../figures/os-thread-creation.png" /></p>
+<p>Figure: Thread creation example: insert element to a shared link list
+<img alt="thread creation" src="../figures/os-thread-creation-example.png" />
+Note: data race: because we do not know which thread will run at which time, we cannot be certain of the ordering of the elements in the shared list. Perhaps the child thread inserts its element before the parent thread, or perhaps the parent thread inserts first. </p>
+<p>Figure: data race example: overwriting - insert element to a shared link list 
+<img alt="data race" src="../figures/os-thread-data-race-example.png" />
+If multiple threads running concurrently, the operations are randomly interleaved. Only one element will be ultimately successfully linked to the list; the other one will be lost.</p>
+<h3 id="synchronization-mechanisms">Synchronization Mechanisms<a class="headerlink" href="#synchronization-mechanisms" title="Permanent link">&para;</a></h3>
+<h4 id="why-we-need-synchronization-mechanisms-issues-of-concurrent-execution">Why we need synchronization mechanisms? issues of concurrent execution<a class="headerlink" href="#why-we-need-synchronization-mechanisms-issues-of-concurrent-execution" title="Permanent link">&para;</a></h4>
+<p>Figure: Data Race problem on threads because threads share memory address space
+<img alt="data race" src="../figures/os-data-race.png" /></p>
+<table>
+<thead>
+<tr>
+<th>process</th>
+<th>threads</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Each process operate within their own address space. The operating system ensures that no valid mapping and access for any address in address space of a process (e.g., P2) to physcial memory (X) which is already mapped to another process (P1)</td>
+<td>Threads share the same virtual address space and virtual to physical address mappings, which introduces data race problems: one thread can try to read the data while another modifies it, leading to inconsistencies</td>
+</tr>
+<tr>
+<td>---</td>
+<td></td>
+</tr>
+<tr>
+<td>#### Synchronization Mechanisms</td>
+<td></td>
+</tr>
+<tr>
+<td>To avoid the issues of concurrent execution</td>
+<td></td>
+</tr>
+<tr>
+<td>Mechanisms</td>
+<td>Basic Idea</td>
+</tr>
+<tr>
+<td>---</td>
+<td>---</td>
+</tr>
+<tr>
+<td><strong>Mutual  Exclusion</strong> <br> - <strong>mutex</strong> <br> (like a lock)</td>
+<td><strong>Whenever</strong> accessing <strong>shared</strong> data/state among threads: <strong>only one</strong> thread at a time is allowed to access shared data <strong>exclusively</strong> by acquiring a mutex. The other threads (<strong>blocked</strong> threads) will be suspended on the lock operation until the mutex owner <strong>releases</strong> the mutex. <br> Note that there is <strong>no guarantee</strong> the mutex aquire requests from <strong>blocked threads</strong> will be granted <strong>in order</strong>, all of them have chances to get access to mutex.</td>
+</tr>
+<tr>
+<td><strong>Condition Variable</strong> <br> (used with mutex)</td>
+<td>a thread is waiting on other threads's operation with specific condition before processding.</td>
+</tr>
+<tr>
+<td>----</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Figure: mutex example: safe insert - insert element to a shared link list 
+<img alt="mutex example" src="../figures/os-thread-no-data-race-mutex.png" /></p>
+<p>Figure: Condition Variable example: consumer and producer
+<img alt="Condition Variable example" src="../figures/os-thread-condition-variable-example.png" /></p>
+<ul>
+<li>The consumer aquire the mutex, check list is not full, then suspends itself (automatically release the mutex) and waits until the list become full (automatically aquire the mutex).</li>
+<li>The producer sends signal when the list is full.</li>
+</ul>
+<p>Figure: Condition Variable API Wait implementation: 
+<img alt="Condition Variable example" src="../figures/os-thread-condition-var-wait.png" /></p>
+<h4 id="readerswriter-problem-using-condition-variable">Readers/Writer Problem using condition variable<a class="headerlink" href="#readerswriter-problem-using-condition-variable" title="Permanent link">&para;</a></h4>
+<p>At any time, 0 or more readers can access the shared resource; while 0 or 1 writers can access the shared state. The readers and writer cannot access the shared state at the same time. </p>
+<p>We can enumerate the cases, condense our two counters into one proxy variable - <strong>resource_counter</strong>. 
+|cases|state of shared resource encoded by proxy variable <br> <strong>resource_counter</strong> |
+|--|---|
+|if read.counter == 0 and write.counter == 0: can read, can write| <strong>free</strong>: resource.counter = 0 |
+|if read.counter &gt; 0 : can read| <strong>reading</strong>: resource.counter &gt; 0 |
+|if write.counter == 1 : cannot read, cannot write | <strong>writing</strong>: resource.counter = -1 (encoding as a negative number) |</p>
+<hr />
+<p>Figure: <strong>Readers/Writer example implementation</strong>: 
+<img alt="Readers/Writer example" src="../figures/os-thread-reader-writer.png" /></p>
+<table>
+<thead>
+<tr>
+<th>variables</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>resource_counter</td>
+<td>a proxy variable representing the state of the shared resourc. Only one thread (both reader/writer) at a time can update/access the resource counter</td>
+</tr>
+<tr>
+<td>counter_mutex</td>
+<td>a mutex which always need to be aquired whenever we access to resource_counter</td>
+</tr>
+<tr>
+<td>read_phase</td>
+<td>a condition variable signifying that the resource is ready for reading</td>
+</tr>
+<tr>
+<td>write_phase</td>
+<td>a condition variable signifying that the resource is ready for writing</td>
+</tr>
+<tr>
+<td>---</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Readers/Writer with proxy variable implementation   - <strong>Structure</strong></p>
+<p>Benefit: allow more <strong>complex sharing senarios</strong>:
+more than one read tBenefithread or only one write thread to be in the critical section at any time.
+|Steps| Procedures | Details |
+|--|--|--|
+| 1| enter critical section block $\approx$ lock | set resource_counter - the shared resource is accessed (using mutex)|
+| 2| critical section |read/ write shared data (no mutex)|
+| 3|  exit critical section block $\approx$ unlock| reverse resource_counter - free the shared resource and Singal/Broadcast condition variables (using mutex)|</p>
+<hr />
+<p>Figure: <strong>critical section structure</strong> with proxy variable
+<img alt="critical section structure" src="../figures/os-thread-critical-section-structure-with-proxy-var.png" /></p>
+<h4 id="note-when-writing-multi-threading">Note: When writing multi-threading<a class="headerlink" href="#note-when-writing-multi-threading" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>What to do</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Write <strong>comments</strong> about which shared resource/state immediately when <strong>defining the mutex/condition variables</strong></td>
+<td><code>mutex_type m_f1 // mutex for file 1</code></td>
+</tr>
+<tr>
+<td><strong>always</strong> protect access to <strong>same</strong> shared variable/operation by acquiring the <strong>same mutex</strong>.</td>
+<td>use mutex m1 for read and write file 1</td>
+</tr>
+<tr>
+<td>Do not forget to <strong>use lock and unlock</strong>.</td>
+<td></td>
+</tr>
+<tr>
+<td>Make sure that you are signaling or broadcasting on the <strong>correct condition</strong>.</td>
+<td></td>
+</tr>
+<tr>
+<td>Do not use signal when <strong>broadcast</strong> are needed. <br> The opposite is actually okay.</td>
+<td></td>
+</tr>
+<tr>
+<td>Remember that the threads <strong>execution order is not related</strong> to the <strong>order</strong> of <strong>calling signals or broadcasts</strong>. If priority are needed, other strategies must be used.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Spurious Wake-ups</strong> <br> (does not affect correctness but impact <strong>performace</strong>)</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Deadlocks</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="spurious-unnecessary-wake-ups">Spurious (Unnecessary) Wake-ups<a class="headerlink" href="#spurious-unnecessary-wake-ups" title="Permanent link">&para;</a></h5>
+<p>when we wake up threads, but the waken up threads may not be able to proceed.</p>
+<p>Figure: Spruious Wake-up
+<img alt="Spruious Wake-up" src="../figures/os-thread-spurious-wakeup.png" /></p>
+<table>
+<thead>
+<tr>
+<th>writer</th>
+<th>readers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The writer hold the counter_mutex: sending broadcast and signal</td>
+<td>readers are waiting on conditiona variable read_phase's queue</td>
+</tr>
+<tr>
+<td>The writer still holds the counter_mutex: complete the rest of operations before unlock</td>
+<td>readers are waken up and try to reacquire the mutex, but failed, so they are waiting on the counter_mutex's queue (wait again) -&gt; <strong>waste cycles by context switching</strong></td>
+</tr>
+<tr>
+<td>---</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Solution</strong>:
+|senarios| solutions|
+|--|--|
+|when the broadcast/signal are <strong>not depended on proxy variable</strong>| <strong>unlock the mutex before broadcast/signal</strong>|
+|when the broadcast/signal are <strong>not depended</strong> on proxy variable| <strong>no solution</strong> since proxy variable should be accessed within mutex lock construct |</p>
+<hr />
+<p>Figure: Spruious Wake-up with <strong>solution</strong>: unlock the mutex before broadcast/signal
+<img alt="Spruious Wake-up solution" src="../figures/os-thread-spurious-wakeup-solution-ok.png" /></p>
+<p>Figure: Spruious Wake-up: no solution
+<img alt="Spruious Wake-up solution" src="../figures/os-thread-spurious-wakeup-solution-not-ok.png" /></p>
+<h5 id="deadlocks">Deadlocks<a class="headerlink" href="#deadlocks" title="Permanent link">&para;</a></h5>
+<p>occurs when two or more competing threads are waiting on each other to complete, but none of them ever do. </p>
+<p>Metaphor: two stubborn workers: each grab a tool and want another tool but do not want to give up the one they have.</p>
+<p>Figure: deadlock
+<img alt="deadlock" src="../figures/os-thread-deadlock.png" />
+A cycle in the wait graph is necessary and sufficient for a deadlock to occur. The edges are from the thread waiting on a resource to the thread owning a resource.</p>
+<table>
+<thead>
+<tr>
+<th>Thread T1</th>
+<th>Thread T2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aquired mutex for shared resource A</td>
+<td>aquired mutex for shared resource B</td>
+</tr>
+<tr>
+<td>aquired mutex for shared resource B, but failed (since it is held by T2)</td>
+<td>aquired mutex for shared resource A, but failed (since it is held by T1)</td>
+</tr>
+<tr>
+<td>waiting</td>
+<td>waiting</td>
+</tr>
+<tr>
+<td>---</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Solution of deadlock</strong>:
+maintain <strong>same order</strong> of mutexes for each thread (hard to guarantee though)</p>
+<p>Example:
+|T1| T2|
+|--|--|
+|aquired mutex for shared resource A|blocked, waiting|
+|aquired mutex for shared resource B|waiting|
+|release all mutexes | start to acquire mutexes A and then B|</p>
+<hr />
+<p><strong>Deal with deadlock</strong> in real performace critical systems:
+|solution| meaning |cons|
+|--|--|--|
+|prevent deadlocks| Each time to acquire a mutex: check if that operation will cause a cycle in the graph: delay the operation or change code to first release some resource and afterward perform lock request | very expensive|
+| detect deadlocks and recover| analysis of the wait graph and determine whether any cycles have occurred.| still expensive and sometimes impossible (if input and output are external) due to rollback executation|
+| doing nothing| hope that the system never have deadlocks, and if we are wrong, just reboot. |</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

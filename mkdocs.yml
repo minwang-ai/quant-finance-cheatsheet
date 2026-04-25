@@ -1,0 +1,24 @@
+site_name: Quant Finance Cheatsheet
+site_description: Personal notes for quantitative finance, computer science, math and statistics.
+site_url: https://minwang-ai.github.io/quant-finance-cheatsheet/
+repo_name: minwang-ai/quant-finance-cheatsheet
+repo_url: https://github.com/minwang-ai/quant-finance-cheatsheet
+
+docs_dir: docs
+site_dir: site
+use_directory_urls: true
+
+# Do not define `nav` so MkDocs auto-builds navigation from the docs folder.
+theme:
+  name: material
+  language: en
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences

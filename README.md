@@ -1,4 +1,4 @@
-# Quant Finance Knowledge Base
+# Quant Finance Knowledge Base and cheat sheets
 This repository is a personal knowledge space for quantitative finance. It consolidates cheat sheets, interview prep notes, and practical references across finance, math, and computer science.
 
 ## Structure
