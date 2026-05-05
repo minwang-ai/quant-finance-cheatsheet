@@ -9,11 +9,11 @@
 
 ## Output Formatting (f-strings)
 
-| Feature | Meaning | Syntax | 
-| :--- | :--- |  :--- | 
+| Feature | Meaning | Syntax | Examples |
+| :--- | :--- |  :--- | :--- | 
 | **Interpolation** | Injects variables into strings. |`f"other_text, {variable_name}"` |
 | **Thousands** | Formats large number variable `num` with commas (e.g., 1,000,000). | `f"{num:,}"`  |
-| **Precision** | rounds the output variable `num` to the nearest `n` decimal points. Here `n` is a number. |`f"{num:.nf}"`  |
+| **Precision** | rounds the output variable `num` to the nearest `n` decimal points. Here `n` is a number. |`f"{num:.nf}"`  | `print(f"{num:.2f}")`|
 ---
 
 ## [String build-in methods](https://docs.python.org/3/library/stdtypes.html#string-methods)

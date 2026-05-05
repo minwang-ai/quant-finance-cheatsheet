@@ -20,7 +20,7 @@ Treats the next character as a literal (e.g., `\"` for quotes `"`).
 | Concept | Description | Notes |
 | :--- | :--- | :--- |
 | **Bugs** | Natural **normal** mistakes or problems in code to be solved. | **Error messages** can often inform you of your mistakes and provide clues on how to fix them. However, there will be many times when the interpreter is not this helpful. |
-| **Variables** | **Containers** for storing values within your program in the computer memory. |**Avoid hard coding**! Use variables to store the values to use them later|
+| **Variables** | **Containers** for **storing** values within your program in the computer memory. |**Avoid hard coding**! Use variables to store the values to use them later|
 | **Assignment `=`** | Assign (copy) the value on the **right** to the variable on the **left**. |
 | **Comments** | Developer notes are used to track **intentions** for a block of code and write **todo list (pseudo code)** to break a bigger program down into small tasks and structure your code | - single line: `#` or  <br> - multiple lines: Three Double quotes `""" comments """` |
 | **Readability** and **simplicity**| Prioritize simple code and use comments to clarify logic. | Do not nest too much with multiple parentheses `((()))` |
