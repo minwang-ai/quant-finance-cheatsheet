@@ -1,85 +1,62 @@
-# CS50P Lecture 0
+# CS50P Lecture 0 Introduction
 
 ## Environment & Workflow
 
-### CLI Command
+### Command line interface (CLI)
 | CLI Command | When to use | Example | Note |
 | :--- | :--- | :--- |:--- |
-| `code` |  Create or open a Python file in VS Code to start coding |`code file_name.py`|
-| `python`| Run a Python script.  | `python file_name.py`| Python is not only a language but also a interpreter software, which will interpret the text and translate it into the zeros and ones that the computer can understand.  |
-| **Interactive Mode** | Type `python` alone to run live code (rarely used in this course). |`python` |
+| `code` |  Create or open a file in VS Code to start coding |`code file_name.py`| `.py` means Python file|
+| `python`| Run a Python script.  | `python file_name.py`| Python is not only a **language** but also a **interpreter** software, which will interpret the text and translate it into the zeros and ones that the computer can understand.  |
+| enter **Interactive Mode** | Type `python` alone to run live code in terminal. |`python` | (rarely used in this course)|
 | **Up-arrow key**  | recall recent terminal commands. | |
+| **tab**| auto-complete current command|
 ---
 
-## Terminology 
-### Core Programming Concepts
+## Escape Character - backslash \ 
+Treats the next character as a literal (e.g., `\"` for quotes `"`).
+
+
+## Core Programming Concepts
 | Concept | Description | Notes |
 | :--- | :--- | :--- |
-| **Bugs** | Natural normal mistakes or problems in code to be solved. | Error messages can often inform you of your mistakes and provide clues on how to fix them. However, there will be many times when the interpreter is not this helpful. |
-| **Variables** | Containers for storing values within your program in the computer memory. |**Avoid hard coding**! Use variables to store the values and return the values to use it later|
-| **Assignment `=`** | Assigns the value on the right to the variable on the left. |
-| **Comments** | Developer notes used to track intentions for a block of code and write todo list (pseudo code) to break a bigger program down into small tasks | - single line: `#` or  <br> - multiple lines: Three Double quotes `""" comments """` |
-| **Scope** | A variable only exists within the context (block) where it is defined. | we can only use the variables there |
-| **Readability** | Prioritize simple code and use comments to clarify logic. |, |
+| **Bugs** | Natural **normal** mistakes or problems in code to be solved. | **Error messages** can often inform you of your mistakes and provide clues on how to fix them. However, there will be many times when the interpreter is not this helpful. |
+| **Variables** | **Containers** for storing values within your program in the computer memory. |**Avoid hard coding**! Use variables to store the values to use them later|
+| **Assignment `=`** | Assign (copy) the value on the **right** to the variable on the **left**. |
+| **Comments** | Developer notes are used to track **intentions** for a block of code and write **todo list (pseudo code)** to break a bigger program down into small tasks and structure your code | - single line: `#` or  <br> - multiple lines: Three Double quotes `""" comments """` |
+| **Readability** and **simplicity**| Prioritize simple code and use comments to clarify logic. | Do not nest too much with multiple parentheses `((()))` |
+| **Consistency**| use a consistent coding style | We can use either double quotes `" "`  or single quotes `' '` as long as it is consistent |
 ----
 
-### Function Terminology 
+## Function Terminology 
 | Term | Definition | Notes |
 | :--- | :--- | :--- |
 | **Function** | verbs or actions that let we do something that the computer or computer language already know how to perform | Functions takes arguments. |
-| **Arguments** | The actual input values passed to a function to influence its behavior. |
-| **Parameters** | Placeholders in the function definition determining what it can take. | Parameters and arguments are the **same** thing, but using different terms in different places |
-| **Return Value** | A value "passed back" from a function to the rest of the program. |,, |
-| **Nesting** | Running functions on functions; the inner one executes first. |,, |
+| **Arguments** | The actual input values passed to a function to influence its behavior. |  Parameters and arguments are the **same** thing, but using different terms in different places. |
+| **Parameters** | Placeholders in the function definition determining what it can take. | - Positional parameters: passing with orders <br> - Named parameters: optional, e.g., `sep`, `end`.   |
+| **Return Value** | A value "passed back" from a function when function ends | we can use it directly or store it in a variable to use it later. |
+| **Nesting functions** | Running functions inside of other functions. The inner one executes first, so the return value of the inner function becomes the argument of outer function. | e.g. `x = int(input("What's x? "))`|
+| **Chain methods** | Combine methods for readability and simplicity | e.g., `name.strip().title()` | 
+| **Scope** | A variable only exists within the context (block) where it is defined. | we can only use the variables there |
+---
 
-## String Methods (`str`)
-| Method / Syntax | Application | Source |
-| :--- | :--- | :--- |
-| `input("prompt")` | Prompts the user; always returns input as a string. |,,, |
-| **Concatenation (+)** | Joins two strings together. |,,, |
-| **Multiple Args (,)** | Passes separate values; `print()` automatically inserts a space. |,, |
-| `.strip()` | Removes all whitespace from the left and right sides of a string. |,,, |
-| `.title()` | Capitalizes the first letter of every word (Title Case). |,, |
-| `.split()` | Splits a string into multiple variables based on a separator. |, |
-| **Chaining** | Combine methods for efficiency: `name.strip().title()`. |,, |
-| **Escape (\)** | Treats the next character as a literal (e.g., `\"` for quotes). |,, |
 
-## Numbers and Operators
-| Category | Items | Source |
-| :--- | :--- | :--- |
-| **Data Types** | `int` (integers/whole numbers), `float` (decimal/real numbers). |,,,,, |
-| **Basic Operators** | `+`, `-`, `*`, `/`, `%` (modulo), `**` (exponent). |,, |
-| **Type Casting** | `int(variable)` or `float(variable)` to change data types. |,, |
-| **Math Functions** | `round(n, [digits])` rounds; `pow(n, e)` raises to power. |,,,,, |
+## Define Custom Functions (Keyword `def`)
+To avoid repeat writing similar codes
 
-## Output Formatting (f-strings)
-| Feature | Syntax Example | Source |
-| :--- | :--- | :--- |
-| **Line Ending** | `print(..., end="")` overwrites the default `\n`. |,,, |
-| **Separator** | `print(..., sep=":")` overwrites the default space. |, |
-| **Interpolation** | `f"hello, {variable_name}"` - injects variables into strings. |,,, |
-| **Thousands** | `f"{z:,}"` formats number with commas (e.g., 1,000). |,, |
-| **Precision** | `f"{z:.2f}"` rounds the output to two decimal places. |,, |
-
-## Custom Functions (`def`)
-| Element | Description | Source |
-| :--- | :--- | :--- |
-| **Keyword** | `def` is used to define your own special function. |,, |
-| **Indentation** | Python uses whitespace to define blocks within a function. |,, |
-| **Defaults** | Parameters can have default values: `def hello(to="world"):`. |,, |
-| **Main Pattern** | Define a `main()` function and call it at the bottom of the script. |,,, |
-
+### Tamplate
 ```python
+# Define main function on the top
 def main():
-    x = int(input("What's x? "))
-    print("x squared is", square(x))
+    
+# Define other helper functions after main()
+def method_name(parameter_1 = default_value_1, ... , parameter_n = default_value_n):
+    """ comments and documentation """
+    # uses indentation (tab) to define blocks within a function
+    # indented code
+    return return_object
 
-def square(n):
-    return n * n
-
+# Call main() function at the bottom
 main()
 ```
-*(Source:)*
 
 
-I have converted the previous list-based sections into detailed tables as requested, drawing directly from the lecture notes to ensure all key concepts like string methods, CLI commands, and function anatomy are clearly categorized and cited. I also included the recommended `main()` function structure as a reference code block.

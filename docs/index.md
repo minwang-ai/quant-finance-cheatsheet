@@ -4,7 +4,7 @@ Welcome to the notes repository.
 
 Notes and cheat sheets for:
 - Computer Science
-- Mathematics and Statistics
 - Quantitive Finance
+- Mathematics and Statistics
 
 
