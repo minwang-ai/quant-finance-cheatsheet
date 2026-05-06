@@ -11,9 +11,9 @@
 
 | Feature | Meaning | Syntax | Examples |
 | :--- | :--- |  :--- | :--- | 
-| **Interpolation** | Injects variables into strings. |`f"other_text, {variable_name}"` |
-| **Thousands** | Formats large number variable `num` with commas (e.g., 1,000,000). | `f"{num:,}"`  |
-| **Precision** | rounds the output variable `num` to the nearest `n` decimal points. Here `n` is a number. |`f"{num:.nf}"`  | `print(f"{num:.2f}")`|
+| **Interpolation** | **Injects variables** into strings. |`f"other_text, {variable_name}"` |
+| **Thousands** | Formats **large number** variable `num` with commas (e.g., 1,000,000). | `f"{num:,}"` | `print(f"{num:,}")`  |
+| **Precision** | **rounds** the output variable `num` to the **nearest `n` decimal points**. Here `n` is a number. |`f"{num:.nf}"`  | `print(f"{num:.2f}")`|
 ---
 
 ## [String build-in methods](https://docs.python.org/3/library/stdtypes.html#string-methods)
@@ -21,16 +21,16 @@
 | Method | Purpose | Syntax | Parameters | Return Value | Complexities | Example |
 |---|---|---|---|---|---|---|
 | `len()` | Returns the length of the string. | `len(str)` | `str`: The input string. | Returns an integer representing the number of characters in the string. |  |
-| `strip()` | **Stripes oﬀ** (Removes) any **leading** and **trailing** whitespace (or specified **characters**). | `str.strip([chars])` | `chars` (optional): specified characters to remove. | Returns a new string with characters removed from both ends. | | `str_variable_name = str_variable_name.strip()` |
+| `strip()` | **Stripes oﬀ** (Removes) any **leading** and **trailing** whitespace (or **specified characters**). | `str.strip([chars])` | `chars` (optional): specified characters to remove. | Returns a new string with characters removed from both ends. | | `str_variable_name = str_variable_name.strip()` |
 | `lstrip()` | Removes leading (**left**) whitespace or specified characters. Note: not remove characters in between | `str.lstrip([chars])` | Same as `strip()`. | Returns a new string with leading characters removed. |  |
-| `rstrip()` | Removes trailing (**right**) whitespace or specified characters. Note: not remove characters in between | `str.rstrip([chars])` | Same as `strip()`. | Returns a new string with trailing characters removed. |  |
+| `rstrip()` | Removes trailing (**right**) whitespace or specified characters. <br> Note: not remove characters in between | `str.rstrip([chars])` | Same as `strip()`. | Returns a new string with trailing characters removed. |  |
 | `capitalize()` | **Capitalizes** the **first** character of the **string**. | `str.capitalize()` | None | Returns a new string with only the first letter capitalized. |  | `str_variable_name = str_variable_name.capitalize()` |
 | `title()` | Capitalizes the first letter of **each word**. | `str.title()` | None | Returns a new string with each word's first letter capitalized. |  | `str_variable_name = str_variable_name.title()` |
 | `lower()` | Converts all characters in a string to lowercase. | `str.lower()` | None | Returns a new string with all lowercase characters. |  |
 | `upper()` | Converts all characters in a string to uppercase. | `str.upper()` | None | Returns a new string with all uppercase characters. |  |
 | `split()` | Splits a string into **a list of substrings** based on a specified **delimiter**. Any two adjacent delimiter will generate an empty string. | `str.split(sep, maxsplit)` | - `sep` (optional): separator delimiter - string or char, such as `','`. Default: **whitespace**. <br><br> -`maxsplit` (optional): Maximum number of splits. Default: `-1` means **no limit**. | Returns a list of substrings. | Time: `O(n)`, Space: `O(n)` | `str_variable_name_1, str_variable_name_2, ... str_variable_name_n = str_variable_name.split()`|
 | `join()` | Joins elements of an iterable into a single string with a specified delimiter placed between each element. | `sep.join(iterable)` | `sep`: separator delimiter.<br>`iterable`: A sequence of strings (e.g., list, tuple, dict etc) to join together. When using it with a dict, it will only join the keys, not the values. | Returns a concatenated string. | Time: `O(n)`, Space: `O(n)` |
-| `replace()` | Return a copy of the string with all occurrences of an old substring replaced by a new substring; case-sensitive (it treats uppercase and lowercase characters as distinct). | `str.replace(old, new, count=-1)` | `old`: Substring to replace.<br>`new`: Replacement string.<br>`count` (optional): Specifies the maximum number of replacements to perform. If `count` is not specified or `-1`, then all occurrences are replaced. | Returns a new string with replacements applied. |  |
+| `replace()` | Return a copy of the string with all occurrences of an **old substring** **replaced** by a **new substring**; <br><br> case-sensitive (it treats uppercase and lowercase characters as distinct). | `str.replace(old, new, count=-1)` |- `old`: Substring to replace.<br> -`new`: Replacement string.<br> -`count` (optional): If `count` is given, only the first count occurrences are replaced. If `count` is not specified or `-1`, then **all occurrences** are replaced. | Returns a new string with replacements applied. | |`str_content = str_content.replace(":)", "🙂")`|
 | `find()` | Returns the lowest index of the first occurrence of a substring. | `str.find(sub, start, end)` | `sub`: Substring to search. `start`, `end` (optional): Index range to search. | Returns index if found, `-1` if not found. |  |
 | `index()` | Similar to `find()`, but raises an error if not found. | `str.index(sub, start, end)` | Same as `find()`. | Returns index if found; raises `ValueError` if not found. |  |
 | `startswith()` | Checks if a string starts with a specified prefix. | `str.startswith(prefix, start, end)` | `prefix`: Prefix to check. `start`, `end` (optional): Index range to check. | Returns `True` if it starts with prefix, otherwise `False`. |  |

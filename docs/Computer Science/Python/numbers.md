@@ -3,7 +3,8 @@
 | Category | Items | Examples |
 | :--- | :--- | :--- | 
 | **Data Types** | `int` (integers), <br> `float` (decimal/real numbers), <br> `complex(a,b)` (complex number a+bi). |
-| **Type Casting** | convert data types  |e.g., after getting input from command line use `int(variable)` or `float(variable)` to convert data types from string to numbers. |
+| **Type Casting** | **convert data types**  |e.g., after getting input from command line via `input()`, remember to use `int(variable)` or `float(variable)` to convert data types **from string to numbers**. |
+| **Readable Big Numbers** | use **underscores** `_` as the seperator | `n = 100_000_000`|
 ---
 
 
