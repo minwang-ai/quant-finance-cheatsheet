@@ -17,7 +17,7 @@
 | `*` | **Multiplies** two numbers. | `x * y` | `x`, `y`: numeric values | Product of `x` and `y` | Time: `O(1)`<br>Space: `O(1)` | `4 * 3 -> 12` |
 | `/` | **Divides** the first number by the second. Always returns a float in Python 3. | `x / y` | `x`, `y`: numeric values, `y != 0` | Quotient as `float` | Time: `O(1)`<br>Space: `O(1)` | `5 / 2 -> 2.5` |
 | `//` | Performs **floor division**. | `x // y` | `x`, `y`: numeric values, `y != 0` | Floor of the division result | Time: `O(1)`<br>Space: `O(1)` | `5 // 2 -> 2`<br>`-5 // 2 -> -3` |
-| `%` | Returns the **remainder** of division. | `x % y` | `x`, `y`: numeric values, `y != 0` | Remainder of `x` divided by `y` | Time: `O(1)`<br>Space: `O(1)` | `5 % 2 -> 1` |
+| `%` | **Modulo**: check if two numbers divide  evenly or have a **remainder**. It is essential for determining **Parity** (whether a number is even or odd) | `x % y` | `x`, `y`: numeric values, `y != 0` | Remainder of `x` divided by `y` | Time: `O(1)`<br>Space: `O(1)` | `5 % 2 -> 1` <br><br> - even: `n % 2 == 0` <br> - odd: `n % 2 != 0`|
 | `**` | **Exponent**: Raises the first number to the power of the second. | `x ** y` | `x`: base value<br>`y`: exponent | `x` raised to the power `y` | Depends on operand size | `2 ** 3 -> 8` |
 ---
 

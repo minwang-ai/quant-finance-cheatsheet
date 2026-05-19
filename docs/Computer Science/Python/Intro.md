@@ -1,4 +1,4 @@
-# CS50P Lecture 0 Introduction
+# CS50P Lecture 0: Introduction
 
 ## Environment & Workflow
 
@@ -73,7 +73,8 @@ def method_name(parameter_1 = default_value_1, ... , parameter_n = default_value
     return return_object
 
 # Call main() function at the bottom
-main()
+if __name__ == "__main__":
+    main()
 ```
 
 
