@@ -1,9 +1,10 @@
 # String (`str`)
 
 ## String Operators
-| Syntax | Application | 
-| :--- | :--- | 
-| **Concatenation (+)** | chain strings together. |
+| Syntax | Application | Example |
+| :--- | :--- | :--- | 
+| **Concatenation (+)** | chain strings together. | ` str1 + str2` |
+| **multiplicaton (*)** | repeat strings n times | ` print(str_variable * n)` |
 ---
 
 
