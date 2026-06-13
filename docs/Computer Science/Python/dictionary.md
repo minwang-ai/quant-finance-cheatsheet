@@ -1,7 +1,7 @@
 # [Dictionary](https://docs.python.org/3/tutorial/datastructures.html#dictionaries)
 
 ## Characteristics & Definition
-data structure that allows us to **associate keys with  values**.  
+data structure that allows us to store associated info - **associate keys with  values**.  
 
 
 | Feature | Description |
@@ -32,8 +32,19 @@ accessing **keys** (not via position index)
 
 | Action | Syntax / Example | Detail |
 | :--- | :--- | :--- |
-| **Access** | `dict[key]` | Retrieves the value for the key |
+| **Access** | - `dict[key]` <br> - `dict.get(key, default_value)` | Retrieves the value for the key. <br> - `dict[key]` might get key error if key is not existing <br> - **`dict.get()`** (preferred) method **won't get key error**   |
 | **Reassign** | `dict[key] = new_value` | changing values by accessing **keys** (not via position index) and resigning a new value |
-| adding new value |`dict[new_key] = new_value`  | resigning a value to a new key|
+| **adding new key and new value** |`dict[new_key] = new_value`  | resigning a value to a new key|
 ---
 
+## Dictionary Comprehension 
+(similar to List comprehension)
+a concise way to **create a new dictionary from other lists**, optionally combine **map and filter operation** together.
+```python
+my_dict = [key_expression : value_expression for item in iterable if filter_condition]
+```
+* The `if` clause (optional) is for a filter operation.
+* The `key_expression` and ` value_expressionis`  are for mapping operation.
+* e.g., `
+counts = {word : words.count(word) for word in words}
+`
