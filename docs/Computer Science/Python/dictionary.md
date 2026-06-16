@@ -32,7 +32,7 @@ accessing **keys** (not via position index)
 
 | Action | Syntax / Example | Detail |
 | :--- | :--- | :--- |
-| **Access** | - `dict[key]` <br> - `dict.get(key, default_value)` | Retrieves the value for the key. <br> - `dict[key]` might get key error if key is not existing <br> - **`dict.get()`** (preferred) method **won't get key error**   |
+| **Access Value** | - `dict[key]` <br> - `dict.get(key, default_value)` | Retrieves the value for the key. <br> - `dict[key]` might get key error if key is not existing <br> - **`dict.get()`** (preferred) method **won't get key error**   |
 | **Reassign** | `dict[key] = new_value` | changing values by accessing **keys** (not via position index) and resigning a new value |
 | **adding new key and new value** |`dict[new_key] = new_value`  | resigning a value to a new key|
 ---
