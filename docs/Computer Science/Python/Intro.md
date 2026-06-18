@@ -51,7 +51,7 @@ Treats the next character as a literal (e.g., `\"` for quotes `"`).
 | **Function** | verbs or actions that let we do something that the computer or computer language already know how to perform | Functions takes intput (arguments/ parameters) as input and produce output (return value). |
 | **Arguments** | The actual input values passed to a function to influence its behavior. |  Parameters and arguments are the **same** thing, but using different terms in different places. |
 | **Parameters** (input) | Placeholders in the function definition determining what it can take. | - Positional parameters: passing with orders <br> - Named parameters: optional, e.g., `sep`, `end`.   |
-| **Return Value** (output)| A value "passed back" from a function when function ends | we can use it directly or store it in a variable to use it later in the program. |
+| **Return Value** (output)| A value "passed back" from a function when function ends | - we can use it directly or store it in a variable to use it later in the program. <br> - If we use `break` to break out of a loop and then immediately return a value, we can use `return` directly to combine these two operation - break then return. |
 | **Nesting functions** | Running functions inside of other functions. The inner one executes first, so the return value of the inner function becomes the argument of outer function. | e.g. `x = int(input("What's x? "))`|
 | **Chain methods** | Combine methods for readability and simplicity | e.g., `name.strip().title()` | 
 | **Scope** | A variable only exists within the context (block) where it is defined. | we can only use the variables there |
