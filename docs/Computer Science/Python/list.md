@@ -60,7 +60,6 @@ my_list = [transformer_expression for item in iterable if filter_condition]
 | **`.remove()`** | Removes the **first occurrence** of a specific value. | `list.remove(x)` | `x`: Value to find | `None` | $O(n)$ | `l.remove("Draco")` |
 | **`.pop()`** | **Removes and returns item at index** (default is **last**). | `list.pop([i])` | `i`: (Optional) Index | The removed item | $O(1)$ (end), $O(n)$ (index) | `last = l.pop()` |
 | **`.clear()`** | **Removes all items** from the list. | `list.clear()` | None | `None` | $O(n)$ | `l.clear() # results in []` |
-| **`.sort()`** | Sorts the list in-place (ascending by default). | `list.sort()` | `key`, `reverse` (optional) | `None` | $O(n \log n)$ | `l.sort(reverse=True)` |
 | **`.reverse()`** | Reverses the elements of the list **in-place**. | `list.reverse()` | None | `None` | $O(n)$ | `l.reverse()` |
 | **`.index()`** | Returns index of the first item matching the value. | `list.index(x)` | `x`: Value | `int` | $O(n)$ | `pos = l.index("Harry")` |
 | **`.count()`** | Returns the number of times a value appears. | `list.count(x)` | `x`: Value | `int` | $O(n)$ | `num = l.count("Gryffindor")` |
@@ -69,7 +68,3 @@ my_list = [transformer_expression for item in iterable if filter_condition]
 
 
 
-## List-Related Global Functions
-| Function | Purpose | Syntax | Return Value | Difference from Methods |
-| :--- | :--- | :--- | :--- | :--- |
-| **`sorted()`** | Returns a new sorted list from any iterable. | `sorted(list)` | New `list` | Unlike `.sort()`, it does **not** modify the original list. |

@@ -17,7 +17,13 @@ These keywords allow you to `try` to run some code `except` if something goes wr
 | **`try`** | Try to execute a block of code that might cause errors. | If the whole block of code executes without any run-time errors, just run the code after the `try-except` block (e.g., `else` block if it exists).| testing out code before something goes wrong| - Only include the **fewest lines of code** possible that are **likely to fail** (because the error will be **catched immediately** and then the program **skip the rest of the `try`  block** and **jump to `except` block**) <br> - combine with **while loo**p** when handling **incorrect user input**: ask for input again.  |
 | **`except`** | Defines the code to run to handle the error if a specific error occurs in the `try` block. | | Prevents the program from crashing by allowing a defined response to errors. | - It is a **bad practice to catch all runtime error in one except** using `except Exception:` <br> - **Better** practice: figure out what **kind of errors** could happen and handle them **seperately** explicitly. |
 | **`else`** | Defines code to run **if no exceptions** were raised in the `try` block. || For logic that depends on the successful execution of the `try` block. |
-| [**`pass`**](https://docs.python.org/3/tutorial/controlflow.html#pass-statements) | Silently ignores an exception. | The program will catch the error but take no action | In some cases, we want to be very clear to the user what error is being produced; other times, we might decide to simply ask the user for input again. |
+---
+
+
+| Keyword | Purpose | Behavior |
+| :--- | :--- | :--- | 
+| [**`pass`**](https://docs.python.org/3/tutorial/controlflow.html#pass-statements)| Silently **ignores** an exception. Acts as a **null placeholder**. The program will catch the error but take no action  | Execution continues to **the next line of code** immediately following the current block. |
+| **`continue`** | **Interrupts** the current loop iteration. | Jumps directly **back to the top of the loop** (the `while True` line) and starts a new cycle|
 ---
 
 ### Syntax template - try-except block
@@ -46,24 +52,36 @@ print("continuing")
 ```
 
 ### Example Implementation
-The `get_int` Function demonstrates the "Pythonic" way to ensure a user provides a valid integer without crashing the program.
+The `get_int` Function demonstrates the "Pythonic" way to ensure a user provides a **valid input** integer without crashing the program.
 
 ```python
 def main():
     # Pass the prompt as an argument for flexibility
-    x = get_int("What's x? ")
-    print(f"x is {x}")
+    percentage = get_valid_fraction("Fraction: ")
+    print(f"Fuel level: {percentage:.0%}")
 
-def get_int(prompt):
+def get_valid_fraction(prompt):
     while True:
+        fraction = input(prompt)
         try:
-            # If this succeeds, the value is returned immediately, exiting the loop
-            return int(input(prompt))
-        except ValueError:
-            # If the user enters a string, pass silently and loop again
-            pass
+            # Attempt parsing and conversion
+            x_str, y_str = fraction.split("/") 
+            percentage = int(x_str) / int(y_str)
+        except (ValueError, ZeroDivisionError): 
+            # Handle non-integers or division by zero by re-prompting
+            continue
+        except EOFError:
+            # Move to a new line and exit when user hits Control-D
+            print()
+            break
+        else:   # If the user enters a input in correct format, further validate it here
+            if 0 <= percentage <= 1:
+                return percentage
+            # Otherwise, re-prompting again for invalid logic
+            continue
 
-main()
+if __name__ == "__main__":
+    main()
 ```
 
 ## Common Error Type 
@@ -74,9 +92,11 @@ For example, an ArithmeticError exception will catch itself and all FloatingPoin
 
 | Exception | Meaning | Common Scenario |
 | :--- | :--- | :--- |
-| **`ValueError`** | A function receives an argument of the right type but inappropriate value. | Attempting to convert a string (like "cat") into an integer: `int("cat")`. |
+| **`ValueError`** | A function receives an argument of the right type but inappropriate value. | Using `int()` on a string that isn't a **numeric integer**, e.g., `int("1.5")`, `int("three")`, `int("cat")`. |
 | **`NameError`** | Attempting to use a variable that has not been defined. | Accessing `x` after the line `x = int(input())` failed and skipped assignment. |
-| **`KeyError`**||
+|**`ZeroDivisionError`**|The second argument of a division or modulo operation is zero| Calculating percentage `x/y` when the denominator `y` is 0|
+| **`KeyError`**| Attempting to access a dictionary key that does not exist| access dictionary using `dict[key]` instead of `.get()`|
+|[**`EOFError`**](https://docs.python.org/3/library/exceptions.html#EOFError)|"End of File" error, occurs when the user inputs Control-D| Used as a standard way for a user to signal they are finished with input|
 | **`FileNotFoundError`**||
 ---
 

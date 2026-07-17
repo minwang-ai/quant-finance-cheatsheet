@@ -9,12 +9,21 @@
 
 
 ## Output Formatting (f-strings)
+`f"{value:format}"`
+| Parts | Meaning|
+| :--- | :--- |
+| value | The variable or expression we want to print.|
+| colon : | The separator that tells Python everything after this is a formatting instruction.|
+|format| Special codes that tell Python how to display that value.|
+---
 
+### f-strings Patterns Cheat Sheet
 | Feature | Meaning | Syntax | Examples |
 | :--- | :--- |  :--- | :--- | 
 | **Interpolation** | **Injects variables** into strings. |`f"other_text, {variable_name}"` |
-| **Thousands** | Formats **large number** variable `num` with commas (e.g., 1,000,000). | `f"{num:,}"` | `print(f"{num:,}")`  |
-| **Precision** | **rounds** the output variable `num` to the **nearest `n` decimal points**. Here `n` is a number. |`f"{num:.nf}"`  | `print(f"{num:.2f}")`|
+| **Thousands** | Formats **large number** variable `num` with commas `,` | `f"{num:,}"` | `print(f"{num:,}")` <br> 1000000 -> 1,000,000 |
+| **Precision** | **rounds** the output variable `num` to the **nearest `n` decimal points**. Here `n` is a number and it could not be `0`. |`f"{num:.nf}"` | `print(f"{num:.2f}")` <br> 3.1415926 -> 3.14 |
+|**Percentage**| automatically convert float output variable `num` to percentage, add `%`sign and keep the **nearest `n` decimal points**.  | `f"{num:.n%}"`  | `f"{num:.0%}"`<br> 0.75 -> "75%" | 
 ---
 
 ## Slicing
@@ -75,7 +84,6 @@ slicing **create new lists** -> space O(n)
 | `.rjust()` | Right-aligns a string, padding with spaces or specified characters. | `str.rjust(width, fillchar)` | Same as `.ljust()`. | Returns a right-aligned string. |  |
 | `.center()` | Centers a string, padding with spaces or specified characters. | `str.center(width, fillchar)` | Same as `ljust()`. | Returns a centered string. |  |
 | `.zfill()` | Pads the string with zeros on the left. | `str.zfill(width)` | `width`: Total width. | Returns a zero-padded string. |  |
-| `sorted()` | Returns a sorted list of characters from the string. | `sorted(str)` | `str`: The input string. | Returns a sorted list of characters. |  |
 | `.format()` | Formats a string by converting the argument as a formatted string. | `str.format(args...)` | `args...`: Values to format into the string. | Returns a formatted string. |  |
 | `.removeprefix()` | Removes a specific prefix from the string (Python 3.9+). | `str.removeprefix(prefix)` | `prefix`: The prefix to remove. | Returns a new string without the prefix. |  |
 | `.removesuffix()` | Removes a specific suffix from the string (Python 3.9+). | `str.removesuffix(suffix)` | `suffix`: The suffix to remove. | Returns a new string without the suffix. |  |
