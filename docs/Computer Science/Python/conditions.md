@@ -14,7 +14,7 @@ Conditionals can use operators to compare the left-hand term to the right-hand t
 | `>=` | Greater than or equal to | `x >= y` | |
 | `<=` | Less than or equal to | `x <= y` | |
 | `==` | **Equals**| `x == y` | - Double `==` compares values <br>- single `=` assigns a value. |
-| `!=` | **Not equal to** | `x != y` | Returns `True` if values are different. |
+| `!=` | **Not equal to** | `x != y` | Return `True` if values are different. |
 
 ## Control Flow: if, elif, and else
 Control flow determines which path the program takes based on the evaluation of conditions.
@@ -56,7 +56,7 @@ Python offers unique, "Pythonic" ways to write more readable and concise code.
 | :--- | :--- | :--- |
 | **Chained Comparison** | Chaining operators like in mathematics. | `if 90 <= score <= 100:` |
 | **simplify if statement** | `True if condition else False`| `return True if n % 2 == 0 else False`|
-| **Boolean Return** | **Directly** returning the result of a comparison. | `return n % 2 == 0` (returns `True` or `False`). |
+| **Boolean Return** | **Directly** returning the result of a comparison. | `return n % 2 == 0` (Return `True` or `False`). |
 ---
 
 ## Match Statements

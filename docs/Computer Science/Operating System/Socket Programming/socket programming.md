@@ -268,7 +268,7 @@ hints.ai_family = AF_UNSPEC;     // don't care IPv4 or IPv6
 hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
 hints.ai_flags = AI_PASSIVE;     // fill in my IP for me
 
-// 2. Error handling: If there’s an error (getaddrinfo() returns non-zero), we can print it out using the function gai_strerror()
+// 2. Error handling: If there’s an error (getaddrinfo() Return non-zero), we can print it out using the function gai_strerror()
 if ((status = getaddrinfo(NULL, "3490", &hints, &res)) != 0) {
     fprintf(stderr, "gai error: %s\n", gai_strerror(status));
     exit(1);
@@ -461,7 +461,7 @@ listen();
 - Call `bind()` before `listen()` so that the server  is running on a specific port and then clients know which port to connect to.
 
 ## Section 5.6: `accept()` — “Thank you for calling port 3490.”
-`accept()` pulls one pending client connection from the listen queue and returns a **new socket descriptor** for that connection.
+`accept()` pulls one pending client connection from the listen queue and Return a **new socket descriptor** for that connection.
 
 - The **original** `sockfd` (listening socket) keeps **listening** for new client connections.
 - The **returned `new_fd`** is the socket ready to **`send()` / `recv()`** with this specific client.
@@ -641,7 +641,7 @@ if (getpeername(sockfd, (struct sockaddr *)&their_addr, &len) == -1) {
 ```
 
 ## Section 5.11: `gethostname()` — Who am I?
-`gethostname()` returns the host name of the machine running your program.
+`gethostname()` Return the host name of the machine running your program.
 - The name can then be passed to `getaddrinfo()` to determine  the IP address of your local machine
 
 ```c

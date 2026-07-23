@@ -78,7 +78,6 @@ Requires: `from collections import defaultdict, Counter`
 | **`defaultdict()`** | Create dict with default factory for missing keys. | `defaultdict(factory)` | `factory` (e.g., `int`) | `defaultdict` object | $O(1)$ | `d = defaultdict(int)` |
 | **`Counter()`** | Count hashable elements in an iterable. | `Counter(iterable)` | `iterable` or `mapping` | `Counter` object | $O(n)$ | `c = Counter(list)` |
 | **`most_common()`** | Return k most frequent elements. | `c.most_common(k)` | `k` (optional) | List of `(elem, count)` | $O(n \log k)$ | `c.most_common(1)` |
-
 ***
 
 

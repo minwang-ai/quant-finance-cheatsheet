@@ -18,9 +18,9 @@ Python list uses **0-based indexing**, meaning the first item is at position 0.
 
 | Action  | Detail | Syntax  |
 | :--- | :--- | :--- |
-| **Access**  | Retrieves the value at the $i$-th position | `list[i]` |
-| **Reassign** | Changes a value by accessing value via its position index and assigning a new value. |  `list[i] = new_value` | 
-| **Join** | Performs a `+` operation to combine two lists into one. | `list1 + list2` | 
+| **Access**  | Retrieve the value at the $i$-th position | `list[i]` |
+| **Reassign** | Change a value by accessing value via its position index and assigning a new value. |  `list[i] = new_value` | 
+| **Join** | Perform a `+` operation to combine two lists into one. | `list1 + list2` | 
 ---
 
 
@@ -29,9 +29,9 @@ These tools work on multiple data types, including **strings, lists, and more**.
 
 | Tool | Purpose | Syntax | Parameters | Return Value | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`len()`** | Returns the number of items/characters in an object. | `len(obj)` | An iterable (list, string, etc.) | `int` | Essential for dynamic loops like `range(len(list))`. |
-| **`+` operator** | Concatenates two sequences of the same type. | `s1 + s2` | Two sequences (2 lists or 2 strings) | New sequence | Creates a **new** object; does not modify the originals in-place. |
-| **`*` operator** | Repeats a sequence a specified number of times. | `s * n` | A sequence and an `int` | New sequence |  |
+| **`len()`** | Return the number of items/characters in an object. | `len(obj)` | An iterable (list, string, etc.) | `int` | Essential for dynamic loops like `range(len(list))`. |
+| **`+` operator** | Concatenate two sequences of the same type. | `s1 + s2` | Two sequences (2 lists or 2 strings) | New sequence | Creates a **new** object; does not modify the originals in-place. |
+| **`*` operator** | Repeat a sequence a specified number of times. | `s * n` | A sequence and an `int` | New sequence |  |
 ---
 
 
@@ -54,15 +54,14 @@ my_list = [transformer_expression for item in iterable if filter_condition]
 
 | Method | Purpose | Syntax | Parameters | Return Value | Complexity | Example |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`.append()`** | Adds **a single item** to the end of the list. | `list.append(x)` | `x`: Any object | `None` | $O(1)$ | `l.append("Harry")` |
-| **`.extend()`** | **Unpacks an iterable** and **adds its items to the end**. | `list.extend(iter)` | `iter`: Another list/tuple | `None` | $O(k)$ | `l.extend(["Ron", "Ginny"])` |
-| **`.insert()`** | Inserts an item at a **specific index**. | `list.insert(i, x)` | `i`: Index, `x`: Item | `None` | $O(n)$ | `l.insert(0, "Hermione")` |
-| **`.remove()`** | Removes the **first occurrence** of a specific value. | `list.remove(x)` | `x`: Value to find | `None` | $O(n)$ | `l.remove("Draco")` |
-| **`.pop()`** | **Removes and returns item at index** (default is **last**). | `list.pop([i])` | `i`: (Optional) Index | The removed item | $O(1)$ (end), $O(n)$ (index) | `last = l.pop()` |
-| **`.clear()`** | **Removes all items** from the list. | `list.clear()` | None | `None` | $O(n)$ | `l.clear() # results in []` |
+| **`.append()`** | Add **a single item** to the end of the list. | `list.append(x)` | `x`: Any object | `None` | $O(1)$ | `l.append("Harry")` |
+| **`.extend()`** | **Unpack an iterable** and **adds its items to the end**. | `list.extend(iter)` | `iter`: Another list/tuple | `None` | $O(k)$ | `l.extend(["Ron", "Ginny"])` |
+| **`.insert()`** | Insert an item at a **specific index**. | `list.insert(i, x)` | `i`: Index, `x`: Item | `None` | $O(n)$ | `l.insert(0, "Hermione")` |
+| **`.remove()`** | Remove the **first occurrence** of a specific value. | `list.remove(x)` | `x`: Value to find | `None` | $O(n)$ | `l.remove("Draco")` |
+| **`.pop()`** | **Remove and Return item at index** (default is **last**). | `list.pop([i])` | `i`: (Optional) Index | The removed item | $O(1)$ (end), $O(n)$ (index) | `last = l.pop()` |
+| **`.clear()`** | **Remove all items** from the list. | `list.clear()` | None | `None` | $O(n)$ | `l.clear() # results in []` |
 | **`.reverse()`** | Reverses the elements of the list **in-place**. | `list.reverse()` | None | `None` | $O(n)$ | `l.reverse()` |
-| **`.index()`** | Returns index of the first item matching the value. | `list.index(x)` | `x`: Value | `int` | $O(n)$ | `pos = l.index("Harry")` |
-| **`.count()`** | Returns the number of times a value appears. | `list.count(x)` | `x`: Value | `int` | $O(n)$ | `num = l.count("Gryffindor")` |
+| **`.count()`** | Return the number of times a value appears. | `list.count(x)` | `x`: Value | `int` | $O(n)$ | `num = l.count("Gryffindor")` |
 ---
 
 
