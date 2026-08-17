@@ -40,7 +40,7 @@ Treats the next character as a literal (e.g., `\"` for quotes `"`).
 | **Variables** | **Containers** for **storing** values within your program in the computer memory. |**Avoid hard coding**! Use variables to store the values to use them later|
 | **Assignment `=`** | Assign (copy) the value on the **right** to the variable on the **left**. |
 | **Comments** | Developer notes are used to track **intentions** for a block of code and write **todo list (pseudo code)** to break a bigger program down into small tasks and structure your code | - single line: `#` or  <br> - multiple lines: Three Double quotes `""" comments """` |
-| **Readability** and **simplicity**| Prioritize simple code and use comments to clarify logic. | Do not nest too much with multiple parentheses `((()))` |
+| **Readability** and **simplicity**| prioritize readability over brevity.  use comments to clarify logic. | Do not nest too much with multiple parentheses `((()))` |
 | **Consistency**| use a consistent coding style | We can use either double quotes `" "`  or single quotes `' '` as long as it is consistent |
 | **naming** | **snake_case** (words are separated by underscores `_`, with all letters in lowercase. )|
 ----

@@ -27,31 +27,6 @@
 | **Padding** | **Pad or fill** a string with the specified **padding character** `pad_char` to a specific **total width** `total_width`:| - Center the string and **pad both sides using `^`:** <br>`f"{str:{pad_char}^total_width}"` <br> - Padding from the **right**  using `<`:<br> `f"{str:{pad_char}<total_width}"` <br> - Padding from the" **left**  using `>`:<br> `f"{str:{pad_char}>total_width}"` - **zero-padding** for **numbers**: `f"{num:0total_width}"` | - `f"{str:{pad_char}^{width}}"` string "GFG" pad with character "-" becomes "----GFG-----" <br> - zero-padding: `f"{num:02}"`  "9" becomes "09"|
 ---
 
-## Slicing
-
-| Syntax | Meaning | Note | 
-| :--- | :--- | :--- |
-| `str[start: stop: step]` | - `:` separate start, stop, and step <br> - Inclusive Start, Exclusive Stop, i.e., [start, stop) |  - optional: Omitting start means "from beginning" <br> - optional: Omitting stop means "to end" |
-| **Negative indices** means **count from the end** | * -1 means last element <br> * -2 means last 2nd element |
-| `step` | determine selection intervals | **Negative step reverses order** |
----
-
-### Slicing cheat sheet
-
-| Operation | Syntax | Meaning | Example (`"Python"`) | Output | Complexities |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Basic Slicing** | `data[start:stop]` | Extract elements from `start` to `stop-1`. | `"Python"[1:4]` | `"yth"` | $O(k)$ |
-| **Omitting start** | `data[:stop]` | start from the beginning up to `stop-1`. | `"Python"[:4]` | `"Pyth"` | $O(k)$ |
-| **Omitting stop** | `data[start:]` | From `start` to the end. | `"Python"[2:]` | `"thon"` | $O(k)$ |
-| **Using step** | `data[start:stop:step]` | Extract with step intervals. | `Python"[::2]` | `"Pto"` | $O(k)$ |
-| **Full Slice** | `data[:]` | Return the entire sequence. | `"Python"[:]` | `"Python"` | $O(n)$ |
-| **Negative Indexing** | `data[-start:-stop]` | Count from the end (-1 is the last element). | `"Python"[-5:-2]` | `"yth"` | $O(k)$ |
-| **Reverse a Sequence** | `data[::-1]` | Reverse the sequence. | `Python"[::-1]` | `"nohtyP"` | $O(n)$ |
-| **Skipping Elements** | `data[::k]` | Select every k-th element. | `"Python"[::3]` | `"Ph"` | $O(n/k)$ |
-| **Negative Step** | `data[start:stop: -step]` | Pick elements in reverse order. | `"Python"[4:1:-1]` | **`"oht"`** | $O(k)$ |
----
-**Note**: 
-slicing **create new lists** -> space O(n)
 
 ## [String build-in methods](https://docs.python.org/3/library/stdtypes.html#string-methods)
 
