@@ -16,13 +16,22 @@ Note:
 
 ## Built-in Modules
 
-### [`random`](https://docs.python.org/3/library/random.html) & [`statistics`](https://docs.python.org/3/library/statistics.html)
+### [`random`](https://docs.python.org/3/library/random.html) 
 
 | Method | Purpose | Syntax | Parameters | Return Value | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`random.choice()`** | Pick a **random element** from a sequence. | `random.choice(seq)` | `seq` (list/tuple/string) | A single random element | Use case: "Heads/Tails" logic. |
+| **`random.seed()`** | By setting a **fixed** seed value, **randomness becomes reproducible**, which is essential for debugging, testing and scientific experiments. | `random.seed(a=None, version=2)` | - `a` (Optional): it's the seed value (integer, float, str, bytes or bytearray). If None, the system time is used.<br> - `version`(Optional): defaults value is 2, using a more advanced seeding algorithm. version=1 uses an older method. | None | **Important** for reproductivity |
+| **`random.choice()`** | Choose **a** random element from a sequence. | `random.choice(seq)` | `seq` (list/tuple/string) | A single random element | Use case: "Heads/Tails" logic. |
+| **`random.choices()`** | Choose **multiple** random elements from a sequence (sampling **with replacement**, meaning each time only choose one and put it back). | `random.choice(seq, k)` | -`seq` (list/tuple/string) <br> - `k`: the number of items to randomly choose <br> - `weights`: (optional) a list of weights in percentage (add up to **100**) for each item in the sequence | A list of random elements |  |
+| **`random.samples()`** | Choose **multiple** random elements from a sequence (sampling **without replacement**, meaning choose one shuffling the remaining and choose again without putting the chose one back). | `random.sample(seq, k)` | -`seq` (list/tuple/string) <br> - `k`: the number of items to randomly choose | A list of random elements |  |
 | **`random.randint()`** | Generate a **random integer** between two values inclusive. | `random.randint(start, end)` | - `start`, `end`: **inclusive** range [`start`, `end`] | `int` |  |
+| **`random.randrange()`** | Generate a **random integer** within a specified range.  | `random.randrange(start, stop, step)` | - `start` (optional): The starting number of the range. Default is 0. <br> - `stop` (required): The upper limit (**exclusive**) for the generated number <br> - `step` (optional): The step size. Default is 1 and cannot be zero (raises `ValueError`).| `int` | - Even or odd Numbers <br> - Dice roll - <br> Random selection from a list: random index |
 | **`random.shuffle()`** | **Reorder** a **list** randomly **in-place**. | `random.shuffle(x)` | `x` (a list) | `None` Modifies the original list |
+---
+
+### [`statistics`](https://docs.python.org/3/library/statistics.html)
+| Method | Purpose | Syntax | Parameters | Return Value | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- |
 | **`statistics.mean()`** | Calculate the arithmetic mean (average). | `statistics.mean(data)` | `data` (list of numbers) | `float` |  |
 ---
 
@@ -47,33 +56,71 @@ The `sys` is a module that allows us to take user input from the command line wh
 
 Third-party packages (installed via package manager `pip install package_name`) allow us to interact with external data and functionalities. [PyPI](https://pypi.org/) is a repository or directory of all available third-party packages currently  available.
 
-**APIs** (application program interfaces) refer to **third-party services** that we can write code to connect to **download data**.
-`requests` is a package that allows our program to make internet request using python code behave as a web browser. We can constructe URL by reading any API documentation.
+**APIs** (application program interfaces) refer to **third-party services** that we can write code to connect to **download and access data**.
+`requests` is a package that allows our program to make internet request using python code behave as a web browser. We can **constructe URL** by reading the API **documentation** we request.
 
 The format in the downloaded text file is called **JSON** (javascript object notation) , a **language agnostic text-based** format that is used to exchange text-based data between applications. Python has a built-in `json` library that can help us interpret the  data received.
 
 | Method | Purpose | Syntax | Parameter | Return Value | 
 | :--- | :--- | :--- | :--- | :--- | 
-| **`requests.get()`** | **Download** data from a URL and store it into response object, like typing url in a web browser and enter. | `Response = requests.get(url)` | url: in string format | `Response` object | 
-| **`response.json()`** | Converts that JSON response into a Python dictionary so that we can extract specific information | `response.json()`| | `dict` or `list` | Converts JSON text into a format Python can use. |
+| **`requests.get()`** | **Download data** from a URL and store it into response object, like typing url in a web browser and enter. | `response = requests.get(url)` | url: The https url to the API in string format. Check the documentation of the API.| `Response` object | 
+| **`response.json()`** | Converts that **JSON** response into a Python **dictionary** so that we can extract specific information | `content = response.json()`| | `dict` or `list` | Converts JSON text into a format Python can use. |
 | **`json.dumps()`** | Format JSON data for **nice printing**. | `json.dumps(obj, indent=2)` | - obj <br> - `indent`: Indentation making nested data more readable.| `str` |  |
 ---
 
+**Best practice**: using **try-except block** for requests:
 
-## Making Your Own Libraries  
-Use the following structure to **prevents the `main()` function from executing** if we `import` any function into another project. 
-
-**Pattern: The Main Guard**
+**get.py**
 ```python
+import requests
+
+def get_item(query):
+    payload = {'key1': 'value1', 'key2': ['value2', 'value3']}
+    try:
+        response = requests.get(
+            "https_url",
+            params = payload
+        )
+        response.raise_for_status()  # will raise an HTTPError if the HTTP request returned an unsuccessful status code.
+    except requests.RequestException:
+        print("Couldnt complete request!")
+        return []
+    
+    content = response.json()
+    return [item["key"] for item in content["data"]]
+```
+
+**main.py**
+```python
+from package.module import functions
+
+def main():
+    item = input("Item: ")
+    items = get_item(query=item)
+    for item in items:
+        # access data
+
+if __name__ == "__main__": 
+    main()
+```
+
+
+## Making Your Own Modules and Packages
+Create a **folder** for the **Package**: 
+- `__init__.py`: An **empty file**, just helps Python realize this folder is a package including multiple modules.
+- `module.py` files: about functionalities
+
+**module.py**
+```python
+import package
+
 def main():
     # Code to run only when executing this file directly
-    ...
 
 def my_function():
     # Reusable library function
-    ...
 
-if __name__ == "__main__":  # special variable __name__ is automatically set to be "__main__" when we run the python file from the command line
+if __name__ == "__main__":  # special variable __name__ is automatically set to be "__main__" when we run the python file from the command line to prevent the following `main()` function from executing if we `import` any function into another project. 
     main()
 ```
 

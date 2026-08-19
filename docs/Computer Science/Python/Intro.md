@@ -79,3 +79,32 @@ if __name__ == "__main__":
 ```
 
 
+## Style - [PEP 8](https://peps.python.org/pep-0008/)
+**PEP 8** is the official **Python Enhancement Proposal** that codifies **standards** for how Python code should look. 
+### Core Principles
+| Principle | Description |
+| :--- | :--- |
+| **Readability** | The overarching premise of PEP 8: "**Readability counts**". |
+| **Consistency** | Consistency is vital within a project, and most important within a single module or function. |
+---
+
+### PEP 8 Formatting Standards
+| Feature | Rule / Guideline |
+| :--- | :--- |
+| **Indentation** | Use **four spaces** per indentation level. |
+| **Tabs vs. Spaces** | Use **spaces** instead of tabs (VS Code can be configured to convert tabs to spaces). |
+| **Line Length** | **Avoid long lines** that require horizontal scrolling; keep code within the reasonable **maximum length**. |
+| **Blank Lines** | Use blank lines between blocks of code and comments to avoid a "wall of text". |
+| **Imports** | Place `import` and `from` statements at the top of the file following specific prescribed patterns. |
+| **Whitespace** | Use general whitespace to make logical blocks easier to understand. |
+---
+
+### Automated Style Tools
+Programs that analyze or reformat your code are called **linters** or **formatters**.
+
+| Tool | Type | Purpose | How to use|
+| :--- | :--- | :--- |:--- |
+| **`pylint`** | Linter | **Statically analyzes** code to find mistakes or style inconsistencies; can be "noisy" and **overwhelming** for beginners. |
+| **`pycodestyle`**| Formatter | automatically reformats code to match style guidelines. |
+| **`black`** (recommended)| Formatter | A highly **opinionated** formatter that **makes stylistic decisions** for us so we can focus on solving problems. |`black file.py` |
+---

@@ -96,8 +96,10 @@ For example, an ArithmeticError exception will catch itself and all FloatingPoin
 | **`NameError`** | Attempting to use a variable that has not been defined. | Accessing `x` after the line `x = int(input())` failed and skipped assignment. |
 |**`ZeroDivisionError`**|The second argument of a division or modulo operation is zero| Calculating percentage `x/y` when the denominator `y` is 0|
 | **`KeyError`**| Attempting to access a dictionary key that does not exist| access dictionary using `dict[key]` instead of `.get()`|
-|[**`EOFError`**](https://docs.python.org/3/library/exceptions.html#EOFError)|"End of File" error, occurs when the user inputs Control-D| Used as a standard way for a user to signal they are finished with input|
-| **`FileNotFoundError`**||
+|[**`EOFError`**](https://docs.python.org/3/library/exceptions.html#EOFError)|"End of File" error, occurs when the user inputs **Control-D**| Used as a standard way for a user to signal they are finished with input|
+| **`FileNotFoundError`**|Raised when a file or directory is requested but does not exist. | Attempting to open or read a file that is not in the current directory. |
+| **`IndexError`** | Occurs when attempting to access an index that is outside the bounds of a list. | Accessing list index but index is **out of range**, e.g.,`sys.argv[1]` when the user forgot to provide a **command-line argument**. |
+| **`requests.RequestException`** | The base class for all exceptions raised by the `requests` library. | A "catch-all" to prevent a crash if an **API query** fails due to network or connection issues. |
 ---
 
 ## When to Use Exception
