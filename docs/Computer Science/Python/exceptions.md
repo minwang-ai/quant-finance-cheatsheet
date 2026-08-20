@@ -100,6 +100,7 @@ For example, an ArithmeticError exception will catch itself and all FloatingPoin
 | **`FileNotFoundError`**|Raised when a file or directory is requested but does not exist. | Attempting to open or read a file that is not in the current directory. |
 | **`IndexError`** | Occurs when attempting to access an index that is outside the bounds of a list. | Accessing list index but index is **out of range**, e.g.,`sys.argv[1]` when the user forgot to provide a **command-line argument**. |
 | **`requests.RequestException`** | The base class for all exceptions raised by the `requests` library. | A "catch-all" to prevent a crash if an **API query** fails due to network or connection issues. |
+| **`AssertionError`**| Raised when an `assert` statement's boolean condition evaluates to `False`. | Raised during unit testing when checking if a function's returned value is not equal to its expectations |
 ---
 
 ## When to Use Exception
