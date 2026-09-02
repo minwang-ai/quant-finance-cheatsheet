@@ -45,6 +45,7 @@ The `sys` is a module that allows us to take user input from the command line wh
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **`sys.argv`** <br> stands for **arg**ument **v**ector | Access **a list of all the arguments** that user typed at the command line as inputs to the program when running python script to influence the behavior of the program. | `sys.argv[i]` | **`i` (index)**: An integer representing the position of the argument in the list. | `str` | - `sys.argv[0]` is always the python **file_name.py** <br> -  `sys.argv[1]` is the **first user input**. Using **slicing** `sys.argv[1:]` to skip the file name. <br><br> - Use **conditions**, e.g., `if len(sys.argv) == 2` to avoid **IndexError** (list index out of range) when accessing `sys.argv` <br><br> - Use **quote** for string `"str"` to pass a string as one argument |
 | **`sys.exit()`** | **Exit** the whole program **earlier**  and optionally print an error message if an error arises. | `sys.exit(msg)` | **`msg` (string)** (optional): A message displayed to the user when the program terminates. |  | Used to stop a program gracefully if the user provides incorrect inputs. |
+| **[`os.path.splitext()`](https://docs.python.org/3/library/os.path.html#os.path.splitext)** | Splits a file path into its root name and its **file extension**. | `root, ext = os.path.splitext(path)` | **`path`**: A string representing the filename or file path. | A **tuple of two strings** `(root, ext)`. | *Example: `"photo.png"` returns `("photo", ".png")`.* |
 ---
  
 

@@ -9,6 +9,8 @@
 
 
 ## Output Formatting (f-strings)
+prefixing a string with `f`, expressions inside {} are evaluated at runtime, making it simple to embed variable values and expressions directly within string literals. 
+
 `f"{value:format}"`
 | Parts | Meaning|
 | :--- | :--- |
@@ -20,7 +22,7 @@
 ### f-strings Patterns Cheat Sheet
 | Feature | Meaning | Syntax | Examples |
 | :--- | :--- |  :--- | :--- | 
-| **Interpolation** | **Inject variables** into strings. |`f"other_text, {variable_name}"` |
+| **Interpolation** | **Inject variables** into strings. |`f"other_text, {variable_name or expression}"` |
 | **Thousands** | Formate **large number** variable `num` with commas `,` | `f"{num:,}"` | `print(f"{num:,}")` <br> 1000000 -> 1,000,000 |
 | **Precision** | **round** the output variable `num` to the **nearest `n` decimal points**. Here `n` is a number and it could not be `0`. |`f"{num:.nf}"` | `print(f"{num:.2f}")` <br> 3.1415926 -> 3.14 |
 |**Percentage**| automatically convert float output variable `num` to percentage, add `%`sign and keep the **nearest `n` decimal points**.  | `f"{num:.n%}"`  | `f"{num:.0%}"`<br> 0.75 -> "75%" | 
@@ -51,7 +53,7 @@
 | **`.isupper()`** | Check if **all** cased **characters** in the string are **uppercase**.  | `str.isupper()` | None | `bool`: Return True if all cased characters in the string are uppercase and there is **at least one cased character**, `False` otherwise. | $O(n)$ | `"BANANA".isupper()` True <br> `' '.isupper()` False|
 | **`.islower()`** | Check if all cased characters in the string are **lowercase**. | `str.islower()` | None | `bool`: Return True if all cased characters in the string are lowercase and there is **at least one cased character**, `False` otherwise. | $O(n)$ | `"hello".islower()` True |
 | `.isspace()` | Check if the string contains only whitespace characters. | `str.isspace()` | None | `bool`: Return `True` if all characters are whitespace, otherwise `False`.  | $O(n)$ | `"   ".isspace()` |
-| **`.isdigit()`** | Check if **all** characters are **digits**. | `str.isdigit()` | None | Return `True` if all characters are digits, otherwise `False`. |  |
+| **`.isdigit()`** | Check if **all** characters are numeric **digits (0-9)** . | `str.isdigit()` | None | Return `True` if all characters are digits, otherwise `False`. |  |
 | **`.isalpha()`** | Check if **all character**s** in the string are **letters (English (`A-Z`, `a-z`)**, also including Unicode letters for other languages). | `str.isalpha()` | None | Return `True` if every character in the string is a letter; `False` if the string contains any numbers, spaces, or special characters. | Time: `O(n)`, Space: `O(1)` |
 | **`.isalnum()`** | Check if **all** characters are alphanumeric **(letters or digits)**. | `str.isalnum()` | None | Return `True` if all characters are alphanumeric, otherwise `False`. |  |
 | `.swapcase()` | Swaps case for all characters. | `str.swapcase()` | None | Return a new string with uppercase converted to lowercase and vice versa. |  |

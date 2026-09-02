@@ -1,5 +1,5 @@
 # CS50P Lecture 5: Unit Tests
-Best practice: write a little extra code to test the code we wrote  
+Best practice: write a little extra code to test the code we wrote, testing individual units or functions.  
 
 
 ## Manual Testing vs Unit Testing
@@ -44,6 +44,11 @@ Based on the results of the test, we can go correct our code.
 | **Testing Exceptions** | Express we expect a specific error to be **raised** when running the block. | `import pytest` <br> `def test_function():`<br>`with pytest.raises(ErrorType):` <br> `# code that should raise the exception` |Requires `import pytest` at the top of the testing file. |
 ---
 
+| Function | Purpose | Syntax | Parameters | Return Value | Common Scenario |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| [**`pytest.approx()`**](https://docs.pytest.org/en/stable/reference/reference.html#pytest-approx) | Compare **floating-point numbers** safely with approximated value by allowing a small margin of error (**tolerance**) to bypass binary precision limitations. | `pytest.approx(expected, abs=None)` | - **expected**: The number (or list/dictionary of numbers) you expect. <br> - **abs** (Optional): Absolute tolerance (maximum allowed difference). *Set this tolerance based on specifications first; do not expand it just to force a failing test to pass.* | An **approximation wrapper object** that handles the margin of error calculations during comparisons. | Testing **float** calculations where minor rounding issues occur |
+---
+
 ### Example: Testing Returns and Exceptions
 ```python
 import pytest
@@ -61,17 +66,23 @@ def test_negative():
 def test_zero():
     assert square(0) == 0
 
-# Asserting that an exception is expected to be raised when passing non-numbers
-def test_str():
+def test_float():
+    assert square(0.231) == pytest.approx(0.0536, abs = 1e-5)
+
+# Asserting that an exception is expected to be raised when passing wrong arguments
+def test_error():
     with pytest.raises(TypeError):
         square("cat")   # code that should raise the exception
 ```
 
----
+
+
+
+
 
 ## Designing Code for Testability
 
-To unit test a function effectively, the function **should return a value** rather than just having side effects, e.g., printing to the console.
+To unit test a function effectively, the function **should return a value** rather than just having side effects, e.g., printing to the console. Only `main()` should call print.
 
 
 

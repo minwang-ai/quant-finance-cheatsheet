@@ -30,7 +30,7 @@ These tools work on multiple data types, including **strings, lists, and more**.
 | Tool | Purpose | Syntax | Parameters | Return Value | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **`len()`** | Return the number of items/characters in an object. | `len(obj)` | An iterable (list, string, etc.) | `int` | Essential for dynamic loops like `range(len(list))`. |
-| **`+` operator** | Concatenate two sequences of the same type. | `s1 + s2` | Two sequences (2 lists or 2 strings) | New sequence | Creates a **new** object; does not modify the originals in-place. |
+| **`+` operator** | **Concatenate** two sequences of the same type. | `s1 + s2` | Two sequences (2 lists or 2 strings) | New sequence | Creates a **new** object; does not modify the originals in-place. |
 | **`*` operator** | Repeat a sequence a specified number of times. | `s * n` | A sequence and an `int` | New sequence |  |
 ---
 
