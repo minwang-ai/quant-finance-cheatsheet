@@ -11,6 +11,7 @@ data structure that allows us to store associated info - **associate keys with  
 | **Key** is **unique**| cannot have two same keys |
 | **Element Types** | keys and values can contain elements of same types and even **different types** (e.g., strings, integers) |
 | **Creation Syntax** | enclosed by curly braces `{}` with key-value pairs `key: value` separated by commas `,`|
+| **When to Use Dictionary** | - When we want to return multiple values, we can pack them into a dictionary <br> - When the value should be able to be changed  <br> - When we store more fields, it is easier to index via keys instead of indices. |
 ---
 
 - If value == **`None`** : Indicates no data is assigned to that key. 

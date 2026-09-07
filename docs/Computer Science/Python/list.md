@@ -8,9 +8,10 @@ Lists are a data type used to store a collection of items in a specific order.
 | Feature | Description |
 | :--- | :--- |
 | **Sequence** |  **finite, ordered, mutable** sequence of elements   |
-| **Mutable (changeable)** | We can modify, add, or remove items after creation  |
+| **Mutable (changeable)** | We can **modify, add, or remove items** after creation  |
 | **Element Types** | List can contain elements of same types and even **different types** (e.g., strings, integers, or even dictionaries, lists.) |
 | **Creation Syntax** | enclosed by square brackets `[]` with elements separated by commas `list = [elem_1, elem_2, ..., elem_n]`. |
+| **When to Use List** | - When we want to return multiple values, we can pack them into a list <br> - When the value should be able to be changed |
 ---
 
 ## Accessing & Modifying Elements

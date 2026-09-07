@@ -117,14 +117,15 @@ For example, an ArithmeticError exception will catch itself and all FloatingPoin
 
 
 ## Use `raise` to manually trigger an error
+There is a whole suite of exceptions that already exist and we can also create our **own error types**.
 
 | Keyword | When to Use | Behavior | Syntax | Example |
 | :--- | :--- | :--- | :--- |:--- |
-| **`raise`** | **Alter** programmers and users when something is **wrong** or they use it in an incorrect way.| Manually triggers a specific exception. | `raise SpecificErrorType("ErrorMessage")` | `raise ValueError("Invalid age")` |
+| **`raise`** | **Alter programmers and users** when something is **wrong** or they use it in an incorrect way.| Manually triggers a specific exception. | `raise SpecificErrorType("ErrorMessage")` | `raise ValueError("Invalid age")` |
 ---
 
 ### Why use `raise`?
-*   **Enforce Logic**: Python doesn't mind if an age is `-5`, but your program should. 
+*   **Enforce Our Own Logic**: Python doesn't mind if an age is `-5`, but your program should. 
 *   **Better Debugging**: It provides specific error messages that help you find bugs faster.
 
 ### Example Implementation

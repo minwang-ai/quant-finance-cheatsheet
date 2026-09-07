@@ -41,7 +41,7 @@ Treats the next character as a literal (e.g., `\"` for quotes `"`).
 | **Assignment `=`** | Assign (copy) the value on the **right** to the variable on the **left**. |
 | **Comments** | Developer notes are used to track **intentions** for a block of code and write **todo list (pseudo code)** to break a bigger program down into small tasks and structure your code | - single line: `#` or  <br> - multiple lines: Three Double quotes `""" comments """` |
 | **Readability** and **simplicity**| prioritize readability over brevity.  use comments to clarify logic. | Do not nest too much with multiple parentheses `((()))` |
-| **Consistency**| use a consistent coding style | We can use either double quotes `" "`  or single quotes `' '` as long as it is consistent. Sometimes though it is necessary to alterante, if we are already using double quotes for outer layer, to avoid confusion, use single quotes for inner layer.|
+| **Consistency**| use a consistent coding style | We can use either double quotes `" "`  or single quotes `' '` as long as it is consistent. Sometimes though it is necessary to alterante, if we are already **using double quotes for outer layer**, to avoid confusion and syntax errors, use **single quotes for inner layer**.|
 | **naming** | **snake_case** (words are separated by underscores `_`, with all letters in lowercase. )|
 ----
 
