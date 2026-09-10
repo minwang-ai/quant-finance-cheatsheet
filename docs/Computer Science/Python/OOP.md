@@ -27,7 +27,7 @@ class ClassName(object_type):
      class_variable = value
 
      def __init__(self,argument_1, argument_2 = default_value,...): 
-          self.attribute_1 = argument_1   # Note: no leading underscore (`_attribute`) in __init__ to make sure even this assignment goes through the setter 
+          self.attribute_1 = argument_1   # Note: no leading underscore (`_attribute`) in __init__ to make sure even this assignment goes through the setter. Without _, we are calling the getter and setter methods, not the actual attribute.  
           self.attribute_2 = argument_2   
 
      def __str__(self): 
@@ -82,7 +82,7 @@ To validate or restrict attributes before it is assigned to any values and avoid
 
 | Decorator | Purpose | Syntax | Associated Parameter | Note |
 | :--- | :--- | :--- | :--- | :--- |
-| **`@property`** | Defines a **getter** function to **safely** retrieve an attribute. <br><br> Note: The `@property` (getter) **must** be defined before the `@<property>.setter`. | `@property`<br>`def attribute(self):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`return self._attribute` | **`self`** | Intercepts attempts to read an attribute. `@property` only and **Omitting the `@<property>.setter`** decorator creates a **read-only** property. <br><br>Note the **leading underscore (`_attribute`)**, which flags to programmers that this variable **should not be modified directly**. Python does not have the **private/public** like C++, make sure **not** to touch the attributes with any **leading underscore (`_attribute`)** outside the getters and setters|
+| **`@property`** | Defines a **getter** function to **safely** retrieve an attribute. <br><br> Note: The `@property` (getter) **must** be defined before the `@<property>.setter`. | `@property`<br>`def attribute(self):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`return self._attribute` | **`self`** | Intercepts attempts to read an attribute. `@property` only and **Omitting the `@<property>.setter`** decorator creates a **read-only** property. <br><br>Note the **leading underscore (`_attribute`)**, which flags to programmers that this variable **should not be modified directly**. Python does not have the **private/public** like C++, make sure **not** to touch the attributes with any **leading underscore (`_attribute`)** outside the class.|
 | **`@<attribute>.setter`** | Defines a **setter** function to validate data before it is saved.   | `@attribute.setter`<br>`def attribute(self, argument):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`if attribute not in [...]:`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`raise ValueError()`<br>&nbsp;&nbsp;&nbsp;&nbsp;`self._attribute = argument` | - **`self`** <br>- **`argument`**: The new value being assigned. | It will be called **automatically** whenver we **access the attribute via `.attribute`** |
 | **`@classmethod`** | The function defined inside the class to add functionality to the **class itself as a whole**, not to each individual instance of that class. It does **not** have access to the object itself **`self`** but the class itself **`cls`** | `@classmethod`<br>`def class_method_name(cls, arguments):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`return cls(variables) # create an object of current class` | **`cls`**: Refers to the **class** itself, **replacing** the standard instance **`self`**. | Can be **called directly on the capitalized class name** (e.g., `ClassName.class_method_name()`) **without** instantiating an object first. |
 |**`@staticmethod`** |
