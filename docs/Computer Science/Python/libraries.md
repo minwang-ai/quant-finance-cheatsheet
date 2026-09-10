@@ -35,6 +35,27 @@ Note:
 | **`statistics.mean()`** | Calculate the arithmetic mean (average). | `statistics.mean(data)` | `data` (list of numbers) | `float` |  |
 ---
 
+### `datetime`
+
+
+#### [`date`](https://docs.python.org/3/library/datetime.html#date-objects)
+
+`from datetime import date`
+| Method / Class / Attribute | Purpose | Syntax | Parameters  | Return Value |
+| :--- | :--- | :--- | :--- | :--- |
+| **`date`** *(Class)* | create a calendar **date** (year, month, day) in the Gregorian calendar. | `d = date(year, month, day)` | - **`year`**: Integer (e.g., `2024`).<br>- **`month`**: Integer (`1`–`12`).<br>- **`day`**: Integer (`1`–`31`). | An instance of a **`date` object**. |
+| **[`date.today()`](https://docs.python.org/3/library/datetime.html#datetime.date.today)** | Retrieves the current local calendar date. | `today_date = date.today()` | None. | a **`date` object** representing today. |
+| **`date.fromisoformat()`** | Parses an ISO 8601 formatted date string (`YYYY-MM-DD`). | `d = date.fromisoformat(date_str)` | **`date_str`**: String in `YYYY-MM-DD` format. | A **`date` object** if valid; automatically; raises a **`ValueError`** if invalid. |
+---
+
+### [timedelta objects](https://docs.python.org/3/library/datetime.html#timedelta-objects)
+`from datetime import timedelta`
+| Method / Class / Attribute | Purpose | Syntax | Parameters  | Return Value |
+| :--- | :--- | :--- | :--- | :--- |
+| **Date Subtraction (`-`)** | Computes the difference between two `date` objects (operator overloading via `__sub__`). | `delta = date2 - date1` | - **`date2`**: End date object.<br>- **`date1`**: Starting date object. | a **`timedelta` object** representing the duration between the two dates, which itself comes with several (read-only) "instance attributes" |
+| **`timedelta()`** | Constructs a **custom time interval** for relative date calculations/testing. | `delta = timedelta(days=365)` | **`days`**: Integer representing duration in days. | A **`timedelta` object**. |
+| **`timedelta.days`** *(Attribute)* | Accesses the total number of days stored in a `timedelta` object. | `num_days = delta.days` | None (read-only attribute). | An **integer** representing the total days difference. |
+---
 
 
 ##  Command-Line Arguments: [`sys`](https://docs.python.org/3/library/sys.html)
@@ -104,7 +125,51 @@ def main():
 if __name__ == "__main__": 
     main()
 ```
+### Third-Party Library
 
+### `inflect` Module
+for **generating natural language plurals, ordinals, and converting numbers to words**.
+
+`import inflect`
+
+| Method | Purpose | Syntax | Parameters  | Return Value  |
+| :--- | :--- | :--- | :--- | :--- |
+| **`inflect.engine()`** | The important first step: creates an instance of the **inflect engine** to perform text generation. |`p = inflect.engine()` | None. | An **`inflect.engine` object**. |
+| **`p.number_to_words()`** | Converts **numeric integers into English words**. | `words = p.number_to_words(number, andword="")` | - **`number`**: Number to convert.<br>- **`andword`** *(Optional)*: String to join tens/hundreds (set to `""` to **remove "and"**). | A **string** containing the number spelled out in words (in **lowercase**). |
+---
+
+### PDF Generation (`fpdf2`) 
+
+The `FPDF` class is the primary engine for creating and exporting PDF documents.
+
+The canvas uses a standard 2D millimeter-based coordinate system 
+- Origin $(0,0)$: Located at the **top-left corner** of the PDF page
+- $X$-Axis (Horizontal): Measures distance from the left edge ($0\text{ mm}$) to the right edge ($210\text{ mm}$).
+- $Y$-Axis (Vertical): Measures distance from the top edge ($0\text{ mm}$) down to the bottom edge ($297\text{ mm}$).
+- **Internal Cursor**: fpdf2 maintains an internal drawing cursor $(x, y)$ that tracks where the next text or image will be placed automatically unless we override it.
+
+
+| Method / Constructor | Purpose | Syntax Example | Parameters / Options | Return Value / Behavior |
+| :--- | :--- | :--- | :--- | :--- |
+| **`FPDF()` Constructor** | Instantiates a new PDF document object with page dimensions and units. | `pdf = FPDF(orientation="P", unit="mm", format="A4")` | - **`orientation`**: `"P"` (Portrait) or `"L"` (Landscape) or `"Letter"`, `Legal`. <br>- **`unit`**: Measure unit (`"mm"`, `"cm"`, `"pt"`, `"in"`).<br>- **`format`**: Standard page sizes (`"A4"` = 210x297mm). | Returns a new **`FPDF` instance**. |
+| **`pdf.add_page()`** | Adds a **new blank page** to the PDF document. <br><br> The origin is at the **upper-left corner** and the current position is by default placed at 1 cm from the borders; the margins can be changed with `set_margins`. | `pdf.add_page()` | None. | Appends a page |
+| **`pdf.set_font()`** | Before we can print text, it is **mandatory**, otherwise the document would be invalid.  | `pdf.set_font("helvetica", style="B", size=30)` | - **`family`**: Built-in fonts (`"helvetica"`, `"times"`, `"courier"`, `Symbol` and `ZapfDingbats`).<br>- **`style`**: `""` (Regular), `"B"` (Bold), `"I"` (Italic), `"U"` (Underline).<br>- **`size`**: Font size in points (`pt`). | Updates active document font settings. |
+| **`pdf.set_text_color()`** | Sets the **foreground text color** using RGB or grayscale values. | `pdf.set_text_color(255, 255, 255)` | - **RGB**: Three integers (`0`–`255`) for Red, Green, Blue (e.g., **`255, 255, 255` for white**).<br>- **Grayscale**: Single integer (`0`–`255`). | Changes active text color. |
+| **`pdf.cell()`** | Renders a **rectangular block** of text at the current cursor position. | `pdf.cell(w=0, h=10, text="string text", new_x= , new_y="NEXT", align="C")` | - **`w`**: Cell width (`0` stretches cell **across entire printable width**).<br>- **`h`**: Cell height in mm (negative height moves cursor upward). <br> - **`new_x`**: New current position in x after the call. <br>- **`new_y`**: Set to `"NEXT"` to automatically advance cursor to next line. - <br> center (bool): center the cell horizontally on the page. <br>- **`align`**: `"C"` (Center), `"L"` (Left), `"R"` (Right), `"X:`(center around current x position)| Draws text cell on the page. |
+| **`pdf.image()`** | Embeds an image (PNG/JPEG) onto the page. | `pdf.image("image.png", x="C", y=, w=width)` | - **`name`**: Path to image file.<br>- **`x`**: Horizontal coordinate or `"C"` (Center horizontally).<br>- **`y`**: Vertical coordinate in mm (omitting `y` uses current cursor position).<br>- **`w`**: Target width in mm (height `h` **scales automatically**). | Renders image on the PDF canvas. |
+| **`pdf.set_y()`** | Sets the vertical position of the **cursor** explicitly. | `pdf.set_y(140)` | **`y`**: Absolute vertical position in mm (positive value measured from top edge; negative value measured from bottom). | Moves active drawing cursor vertically. |
+| **`pdf.epw`** *(Property)* | Gets the **Effective Page Width** (total width minus left and right margins). | `w = pdf.epw` | None (read-only property). | Returns float representing printable width in mm. |
+| **`pdf.output()`** | Compiles and writes the PDF data to a file on **disk**. | `pdf.output("file_name.pdf")` | **`name`**: Destination filename or file path string. | Saves the generated PDF file to disk. |
+---
+
+#### Object-Oriented Subclassing with `FPDF`
+
+| Concept | Syntax | Purpose |
+| :--- | :--- | :--- |
+| **Subclassing `FPDF`** | `class NewClass(FPDF):` | Extends the base `FPDF` class to encapsulate **custom PDF layouts and header** behaviors. |
+| **Parent Initialization (`super()`)** | `super().__init__(orientation="P", unit="mm", format="A4")` | Invokes the constructor of the parent `FPDF` class to ensure full initialization. |
+| **Method Overriding (`header`)** | `def header(self):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`self.set_font("helvetica", "B", 30)`<br>&nbsp;&nbsp;&nbsp;&nbsp;`self.cell(0, 10, "Title", align="C")` | Overrides `FPDF`'s built-in empty `header()` method to automatically print a header on every new page. |
+---
 
 ## Making Your Own Modules and Packages
 Create a **folder** for the **Package**: 

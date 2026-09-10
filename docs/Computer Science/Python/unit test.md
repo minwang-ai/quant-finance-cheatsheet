@@ -40,7 +40,7 @@ Based on the results of the test, we can go correct our code.
 | :--- | :--- | :--- | :--- |
 | **Installation** |  Installs the `pytest` package from PyPI. |`pip install pytest` | Run once in your terminal. |
 | **Run Single File**  | Runs all functions prefixed with `test_` in the specified test file.|`pytest test_filname.py` | Displays a summary of **passes (green dots .)** and **failures (red `F`)** with the **red `E`** providing hints about the **errors** detailed traceback. |
-| **Dividing Tests** | Break original functions into **smaller bite-sized functions** and write separate `test_function()`. Divide one `test_function()` into different **groups** of tests   | `def test_function_groupname():` <br>`assert function(input) == true_value` | `pytest` runs **every** test function; a failure in one won't stop others from running so that **more errors are being displayed** allowing us to further explore the bugs.  |
+| **Dividing Tests** | Break each original function into **smaller bite-sized functions** and write separate `test_function()`. Divide one `test_function()` into different **groups** of tests   | `def test_function_groupname():` <br>`assert function(input) == true_value` | `pytest` runs **every** test function; a failure in one won't stop others from running so that **more errors are being displayed** allowing us to further explore the bugs.  |
 | **Testing Exceptions** | Express we expect a specific error to be **raised** when running the block. | `import pytest` <br> `def test_function():`<br>`with pytest.raises(ErrorType):` <br> `# code that should raise the exception` |Requires `import pytest` at the top of the testing file. |
 ---
 

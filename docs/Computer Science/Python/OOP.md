@@ -13,17 +13,19 @@ The most important feature: **methods** associated with the objects can **access
 
 | Concept | Purpose | Syntax| Details  | Behavior / Effect |
 | :--- | :--- | :--- | :--- | :--- |
-| **[Class](https://docs.python.org/3/tutorial/classes.html)** | Acts as a custom blueprint or "mold" to invent our own data type for a real world entity and give it a name. | `class ClassName:`<br>&nbsp;&nbsp;&nbsp;&nbsp;`...` | **Class name** should be **Capitalized** by convention. The `...` is a placeholder indicating the code will be finished later. | Defines the attributes and behaviors that objects of this type will have. |
+| **[Class](https://docs.python.org/3/tutorial/classes.html)** | Acts as a custom blueprint or template to invent our own data type for a real world entity and give it a name. | `class ClassName:`<br>&nbsp;&nbsp;&nbsp;&nbsp;`...` | **Class name** should be **Capitalized** by convention. The `...` is a placeholder indicating the code will be finished later. | Defines the attributes and behaviors that objects of this type will have. |
 | **Objects / Instances** | Individual, concrete creation built using a class blueprint. An object is an instance of the class.| `instance = ClassName()` | Created using the class constructor syntax. | Inherits all structure and methods defined in the class. |
 | **Attributes (instance variables)**| Variables stored inside an object or class and operate on **each instance**. | Within def: <br>`self.attribute = value` <br> <br> Outside def:<br>`instance.attribute = value` | **Accessed and set** using **dot notation**. | Standardizes the data that belongs to an instance. We can make it **inmutable or mutable**. |
 | **Instance Methods** | Functions defined inside a class that dictates how **each instance** behave. |  Within def: <br> `self.method()`<br><br> Outside def:<br>`instance.method()` | Must take **`self`** as its first parameter to refer to the current object. | Allows objects to perform **custom actions** and **manipulate their own data**. |
-| **Class variables**| **Shared variables** for the **entire class** or **all the instances of the class**, exist within class itself. | Within def: <br> `class ClassName:`<br>&nbsp;&nbsp;&nbsp;&nbsp;`variable = value` | |
+| **Class variables**| **Shared variables** for the **entire class** or across **all the instances of the class**, exist within class itself. | Within def: <br> `class ClassName:`<br>&nbsp;&nbsp;&nbsp;&nbsp;`class_variable = value` | |
 ---
 
 ### Class Definition Template
 encapsulate all the functionality of a class within the class definition. 
 ```python
 class ClassName(object_type):
+     class_variable = value
+
      def __init__(self,argument_1, argument_2 = default_value,...): 
           self.attribute_1 = argument_1   # Note: no leading underscore (`_attribute`) in __init__ to make sure even this assignment goes through the setter 
           self.attribute_2 = argument_2   
@@ -36,7 +38,8 @@ class ClassName(object_type):
           attribute_2 = self.attribute_2 + other.attribute_2
           return ClassName(attribute_1, attribute_2)
 
-     # getter and setter (similar for all the attributes) 
+     # getter and setter (similar for all the attributes)
+     #  The `@property` (getter) must be defined before the `@<property>.setter`. 
      @property
      def attribute_1(self):
           return self._attribute_1
@@ -48,10 +51,11 @@ class ClassName(object_type):
           self._attribute_=1 = attribute_1
 
     @classmethod
-    def get(cls):
+    def get(cls, arguments):
         variable_1 = input("string prompt: ")
         variable_2 = input("string prompt: ")
-        return cls(variable_1, variable_2)
+        # create an new instance of the class
+        return cls(variable_1, variable_2) 
 
 def main():
     instance_name = ClassName.get()
@@ -78,11 +82,19 @@ To validate or restrict attributes before it is assigned to any values and avoid
 
 | Decorator | Purpose | Syntax | Associated Parameter | Note |
 | :--- | :--- | :--- | :--- | :--- |
-| **`@property`** | Defines a **getter** function to **safely** retrieve an attribute. | `@property`<br>`def attribute(self):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`return self._attribute` | **`self`** | Intercepts attempts to read an attribute. <br><br>Note the **leading underscore (`_attribute`)**, which flags to programmers that this variable **should not be modified directly**. Python does not have the **private/public** like C++, make sure **not** to touch the attributes with any **leading underscore (`_attribute`)** outside the getters and setters|
+| **`@property`** | Defines a **getter** function to **safely** retrieve an attribute. <br><br> Note: The `@property` (getter) **must** be defined before the `@<property>.setter`. | `@property`<br>`def attribute(self):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`return self._attribute` | **`self`** | Intercepts attempts to read an attribute. `@property` only and **Omitting the `@<property>.setter`** decorator creates a **read-only** property. <br><br>Note the **leading underscore (`_attribute`)**, which flags to programmers that this variable **should not be modified directly**. Python does not have the **private/public** like C++, make sure **not** to touch the attributes with any **leading underscore (`_attribute`)** outside the getters and setters|
 | **`@<attribute>.setter`** | Defines a **setter** function to validate data before it is saved.   | `@attribute.setter`<br>`def attribute(self, argument):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`if attribute not in [...]:`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`raise ValueError()`<br>&nbsp;&nbsp;&nbsp;&nbsp;`self._attribute = argument` | - **`self`** <br>- **`argument`**: The new value being assigned. | It will be called **automatically** whenver we **access the attribute via `.attribute`** |
-| **`@classmethod`** | The function defined inside the class to add functionality to a **class itself as a whole**, not to instances of that class. It does **not** have access to the object itself **`self`** but the class itself **`cls`** | `@classmethod`<br>`def class_method_name(cls, arguments):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`return cls(variables) # create an object of current class` | **`cls`**: Refers to the **class** itself, **replacing** the standard instance **`self`**. | Can be **called directly on the capitalized class name** (e.g., `ClassName.class_method_name()`) **without** instantiating an object first. |
+| **`@classmethod`** | The function defined inside the class to add functionality to the **class itself as a whole**, not to each individual instance of that class. It does **not** have access to the object itself **`self`** but the class itself **`cls`** | `@classmethod`<br>`def class_method_name(cls, arguments):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`return cls(variables) # create an object of current class` | **`cls`**: Refers to the **class** itself, **replacing** the standard instance **`self`**. | Can be **called directly on the capitalized class name** (e.g., `ClassName.class_method_name()`) **without** instantiating an object first. |
 |**`@staticmethod`** |
 ---
+
+### Built-In Type Checking (`isinstance`)
+
+| Method | Purpose | Syntax | Parameters  | Return Value|
+| :--- | :--- | :--- | :--- | :--- |
+| **`isinstance()`** | Checks whether an object is an instance of a specified class or data type (or tuple of types). | `if not isinstance(object, classinfo):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`raise ValueError("")` | - **`object`**: The variable/instance to inspect.<br>- **`classinfo`**: A type (e.g., `int`, `str`, any class) or tuple of types (e.g., `(int, float)`). | Returns **`True`** if the object matches the specified class/type; returns **`False`** otherwise. |
+---
+
 
 ## Advanced Features
 ### Inheritance
