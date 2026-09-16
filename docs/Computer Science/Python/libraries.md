@@ -58,8 +58,9 @@ Note:
 ---
 
 
-##  Command-Line Arguments: [`sys`](https://docs.python.org/3/library/sys.html)
+##  Command-Line Arguments: [`sys`](https://docs.python.org/3/library/sys.html) & [`argparse`](https://docs.python.org/3/library/argparse.html)
 
+### `sys`
 The `sys` is a module that allows us to take user input from the command line when we automate running Python scripts quickly.
 
 | Variable | Purpose | Syntax | Parameters (as input) | Return Value | Example/Notes |
@@ -69,10 +70,25 @@ The `sys` is a module that allows us to take user input from the command line wh
 | **[`os.path.splitext()`](https://docs.python.org/3/library/os.path.html#os.path.splitext)** | Splits a file path into its root name and its **file extension**. | `root, ext = os.path.splitext(path)` | **`path`**: A string representing the filename or file path. | A **tuple of two strings** `(root, ext)`. | *Example: `"photo.png"` returns `("photo", ".png")`.* |
 ---
  
+### `argparse` 
+`argparse` stands for **argument parser**, a library that handles all the parsing of complicated strings of command-line arguments. 
+To parse something means to read it, pick it apart to analyze it.
+```python 
+import argparse
 
+parser = argparse.ArgumentParser(description = "description about the program")
+parser.add_argument("-n", default = default_value, help="descrption about this argument", type = argument_data_type)
+args = parser.parse_args() 
 
+# access args.n
+```
 
-
+| Component | Purpose | Syntax| Behavior  | 
+| :--- | :--- | :--- | :--- | 
+| **`ArgumentParser`** | Creates a parser object to handle command-line flags and parameters. | `import argparse`<br >`parser = argparse.ArgumentParser(description="...")` | **Replaces** complex manual **`sys.argv`** parsing logic. | 
+| **`add_argument()`** | Add command line arguments that we should expect from the user  | `parser.add_argument("-n", default= ... , help="...", type= ...` | We can **specifies expected flag name, types, default values**, and help text. |
+ | **`parse_args()`** | Parses terminal arguments and returns them as **object attributes**. | `args = parser.parse_args()`<br>`args.attribute` | Automatically generates `-h` `--help` documentation about how to use the program for users. | 
+---
 
 ## Packages & APIs: [`requests`](https://docs.python-requests.org/) & [`json`](https://docs.python.org/3/library/json.html)
 

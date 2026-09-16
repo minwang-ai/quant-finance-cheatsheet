@@ -36,18 +36,7 @@ These tools work on multiple data types, including **strings, lists, and more**.
 ---
 
 
-## List comprehension
-a concise way to **create new lists from other lists**, optionally combine **map and filter operation** together.
-```python
-my_list = [transformer_expression for item in iterable if filter_condition]
-```
-* The `if` clause (optional) is for a filter operation.
-* The `transformer_expression` is for mapping operation.
 
-| When to use |	Code syntax |
-| :--- | :--- |
-| init 2D matrix (m rows and n columns) |	`[[default_value] * n for _ in range(m)`]
----
 
 
 ## [List build-in methods](https://docs.python.org/3/tutorial/datastructures.html#more-on-lists)

@@ -36,17 +36,18 @@ for value in sequence:
 ```
 
 
-- If you also need the **index values** while iterating, use `enumerate()`
+- If you also need the **index** besides values while iterating, use **`enumerate()`**
 ```python
 for index, value in enumerate(sequence):
-    Indented_statement
+    # access both current index and value
 ```
 
 Note:
+- Yields `(index, item)` tuples during iteration. 
 - for loop will only iterate through all the keys of dictionary,  use `dict[key]`  to find its value.
 ```python
 for key in dict:
-    Indented_statement
+    # Indented_statement
         if condition:
             break/continue/return
 ```

@@ -1,6 +1,6 @@
 # String (`str`)
 
-## String Operators
+## String Operator Overloading
 | Syntax | Application | Example |
 | :--- | :--- | :--- | 
 | **Concatenation (+)** | chain strings together. | ` str1 + str2` |

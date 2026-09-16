@@ -38,17 +38,7 @@ accessing **keys** (not via position index)
 | **adding new key and new value** |`dict[new_key] = new_value`  | resigning a value to a new key|
 ---
 
-## Dictionary Comprehension 
-(similar to List comprehension)
-a concise way to **create a new dictionary from other lists**, optionally combine **map and filter operation** together.
-```python
-my_dict = [key_expression : value_expression for item in iterable if filter_condition]
-```
-* The `if` clause (optional) is for a filter operation.
-* The `key_expression` and ` value_expressionis`  are for mapping operation.
-* e.g., `
-counts = {word : words.count(word) for word in words}
-`
+
 
 
 
