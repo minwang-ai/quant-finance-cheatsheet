@@ -24,13 +24,13 @@ construct new propositions by combining existing ones via boolean operations.
 
 | Term | Denotation | Definition to be True | Example |
 |---|---|--|--|
-| **A and B** | $A ∧ B$ | both A and B are true
-| **A or B** |  $A ∨ B$ | at least one of A or B is true <br> (Note: this is inclusive or, meaning it’s also fine for A and B to both be true.)
-| **not A** | $\bar{A}$,  $¬A$ | A is false |
-| **A XOR B** | | one or another, but **no both, no neither** <br> (exclusive OR)|
+| **A and B** | $A \land B$ | both A and B are true
+| **A or B** |  $A \lor B$ | at least one of A or B is true <br> (Note: this is inclusive or, meaning it’s also fine for A and B to both be true.)
+| **not A** | $\bar{A}$,  $\lnot A$ | A is false |
+| **A XOR B** | $ \oplus $ | one or another, but **no both, no neither** <br> (exclusive OR)| We are friends ($A$). <br>We are strangers ($B$).|
 | **A NAND B** | | one or another, neither, but **not And**
-| **A implies B** |  $A → B$ or $A ⇒ B$|if A then B (obeying a rule). <br> It is **equivalent** to its contrapositive, `(not B) implies (not A)` but not equivalent to its converse `B implies A`.  <br> Note:<br> - **No causal** relationship (A causes B). <br> -  **no time involved** (A happened, which later caused B to happen)|  "On wednesdays we wear pink", aka, "if wednesday" then "wear pink", aka, "wednesday implies pink". Now if A==F implies B==T being true makes sense: on thursday, wearing pink doesn’t violate the rule. If we are not wearing pink, it is better not be Wednesday.|
-| **A iff B**| | if and only if. A and B are **both true or both false**. It’s equivalent to `(A implies B) and (B implies A)`|
+| **A implies B** |  $A → B$ or $A \implies B$|if A then B (obeying a rule). <br> It is **equivalent** to its **contrapositive**, `(not B) implies (not A)` but not equivalent to its converse `B implies A`.  <br> Note:<br> - **No causal** relationship (A causes B). <br> -  **no time involved** (A happened, which later caused B to happen) <br> - **Implication Equivalence** $P \implies Q \equiv \neg P \lor Q$ <br> - The only way to violate implication (make it false): $A$ happened, but $B$ didn't. If the condition never happened, so the implication wasn't violated. |  If I smoke ($A$), then I will get lung cancer ($B$). <br> If I never smoke. I don't get cancer. The implication is not violated. |
+| **A iff B**| $A \iff B $| if and only if. It means A and B are **both true or both false** at the same time, meaning they are expressing the **same condition**. It’s equivalent to `(A implies B) and (B implies A)`|
 ---
 
 #### Truth Tables
