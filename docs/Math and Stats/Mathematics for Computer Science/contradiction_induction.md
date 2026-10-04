@@ -1,4 +1,4 @@
-#  6.1200J Lecture 02: Contradiction and Induction 
+ 
 
 
 ## Logical Deduction  
