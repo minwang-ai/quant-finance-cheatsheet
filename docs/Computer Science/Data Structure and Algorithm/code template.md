@@ -1,10 +1,72 @@
-# Data Structure
-## Linked List
+# Code Template - Data Structure
+[TOC]
+# Array & String
+## Two Pointers
+Having two **integer variables** that both move along an **iterable**, each representing an **index** of the array or string, usually named something like `i` and `j`, or `left` and `right`.
+### Two pointers - case 1: one input, opposite ends -> squeeze
+*Figure: **Two Pointers** - Case 1*
+![Two Pointers - Case 1](figures/two-pointers-case1.jpg)
+| Aspect | Details |
+|:---|:---|
+| **Idea**| Start the pointers at the **first and last indices** and **move** them **towards each other** until they **meet**.|
+| **When to use** | **reverse** array/string **in place** (e.g., check palindrome - after reversing, stay the same)|
+| **Complexity** | - Time: $\color{blue}O(n)$ if we can keep the work **inside each iteration** at $O(1)$<br> because the pointers start $n$ away from each other and move at least one step closer in every iteration -> we will never have more than $O(n)$ **iterations** <br> - Space: $\color{blue}O(1)$ because we only use two integer variables. |
+---
+Python
+```python
+def fn(arr):
+    arr = list(s) # Optional: convert to list if input is a string (inmutable)
+    ans = INIT
+    
+    # Step 1. init two pointers: point to first and last element 
+    left = 0     
+    right = len(arr) - 1   
+
+    # Step 2. loop: at each iteration, move two pointers towards each other, until they meet or cross (== or >)
+    while left < right:  # Time: O(n)
+        # do some logic here， depending on the problem
+        
+        # move two pointers closer: choose one of the three options   
+        if CONDITION:  
+            left += 1    # Option 1. increment the left pointer
+        if CONDITION:
+            right -= 1   # Option 2. decrement the right pointer
+        if CONDITION:
+            # do some logic here depending on the problem
+            left += 1   # Option 3. move both pointers at the same time
+            right -= 1
+    
+    return ans
+    return ''.join(arr)   # Optional: convert back to string if input and output are string
+```
+C++
+```cpp
+int fn(vector<int>& arr) {
+    int left = 0;
+    int right = static_cast<int>(arr.size()) - 1; // convert to int because std::vector::size() returns an unsigned integer type std::size_t, if arr is empty, std::size_t cannot represent -1 and will leads to a super big number
+
+    int ans = 0;
+
+    while (left < right) {
+        // do some logic here with left and right pointers, depending on the problem
+        if (CONDITION) {
+            left++;
+        } 
+        if (CONDITION) {
+            right--;
+        }
+    }
+
+    return ans;
+}
+```
+
+# Linked List
 Tips:
 It's important to build an intuition behind how to correctly **re-assign pointers**. The best way is to see the process visually through **examples**. 
-### Singly-Linked List
+## Singly-Linked List
 
-#### Definition - Singly-Linked List - Use Raw Pointer
+### Definition - Singly-Linked List - Use Raw Pointer
 Python
 ```python
 class ListNode:
@@ -70,7 +132,7 @@ int main() {
     // In practice, we need to delete these nodes using `delete` to avoid memory leaks.
 }
 ```
-#### Definition - Singly-Linked List - Use Modern C++ Smart Pointer
+### Definition - Singly-Linked List - Use Modern C++ Smart Pointer
 ```cpp
 #include <memory>
 
@@ -92,7 +154,7 @@ int main() {
     // No need for manual delete, smart pointers handle it automatically
 }
 ```
-#### Add/Delete Node - Singly-Linked List
+### Add/Delete Node - Singly-Linked List
 At first, obtain the **reference** to the **previous node** `prev` (the node at position $i - 1$) by iterating from the head.
 Typically we do these operations **on the fly**, when iterating through the list (these functions are just demonstration). 
 
@@ -125,10 +187,10 @@ void deleteNode(ListNode* prevNode) {
 }
 ```
 
-### Traverse the Linked List 
+## Traverse the Linked List 
 Example: 
 get the sum of all values from an integer linked list.
-#### Traverse - Iterative
+### Traverse - Iterative
 Using **dummy pointers** `curr` **without losing** a reference to the **head**.
 
 
@@ -157,7 +219,7 @@ int getSum(ListNode* head) {
     return ans;
 }
 ```
-#### Traverse - Recursive
+### Traverse - Recursive
 Python
 ```python 
 def get_sum(curr):
@@ -178,11 +240,11 @@ int getSum(ListNode* curr) {
 ```
 
 
-### Doubly linked list
+## Doubly linked list
 *Figure: **Doubly linked list** - similar to singly linked list, but each node also contains a pointer to the **previous** node `prev`, and it allows iteration in **both directions**.*
 ![Doubly linked list](figures/doubly-linked-list.png)
 
-#### Definition - Doubly linked list
+### Definition - Doubly linked list
 Python
 ```python
 class ListNode:
@@ -204,7 +266,7 @@ struct ListNode {
 };
 ```
 
-#### Add/Delete Node - Doubly-Linked List
+### Add/Delete Node - Doubly-Linked List
 With a doubly linked list, we only need a reference to the **current node** at $i$, because we can simply reference the `prev` pointer of that node to get the node at $i - 1$, and `next` pointer of that node to get the node at $i + 1$,
 
 Extra work: **update** the **`prev`** pointers
@@ -255,8 +317,8 @@ void deleteNode(ListNode* currNode) {
     nextNode->prev = prevNode;
 }
 ```
-#### Add/Delete First/Last node using sentinel nodes(`head`, `tail`) - Doubly-Linked lists 
-To easily add and remove at the end or tail of the linked list
+### Add/Delete First/Last node using sentinel nodes(`head`, `tail`) - Doubly-Linked lists 
+To easily add and remove at the end or tail of the linked list. No need to judge the edge cases if `head` or `tail` `== nullptr`
 
 
 *Figure: **Doubly Linked List** - with **sentinel nodes**(`head`, `tail`). Even when there are no nodes in a linked list, you still keep a head and tail. The real head node of the linked list is **`head.next`** and the real tail node is **`tail.prev`**. The sentinel nodes themselves are not part of linked list.*
@@ -349,7 +411,7 @@ head->next = tail;
 tail->prev = head;
 ```
 
-### Reversing a singly-linked list 
+## Reversing a singly-linked list 
 a typical **problem** or an **intermediate step**
 
 Python

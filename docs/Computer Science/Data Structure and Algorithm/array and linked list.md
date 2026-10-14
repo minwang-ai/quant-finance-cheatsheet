@@ -45,20 +45,20 @@
 |**Check Length**|$\color{blue}O(1)$|
 | **Read/Set an element** | 👍 **Fast random access** `arr[i]` in **$\color{blue}O(1)$** <br><br>because elements (or pointers to elements) are contiguous so the location can be calculated: <br>`array[i] = memory[address(array) + i]` | 👍 **Fast random access** `arr[i]` in $\color{blue}O(1)$ <br> <br>(same as static array). | - 👎 **No random access** via direct indexing: to get the $i$-th element, **must traverse** from the head or tail in $\color{blue}O(n)$. <br><br> - 👍 **Fast access at head:** in $\color{blue}O(1)$ because we already have a pointer to the first node (head node). <br><br> - 👍 **Fast access at tail:** in $\color{blue}O(1)$ if we have a pointer to the tail node. |
 | **Traverse Sequence** (iterate all values) | $\color{blue}O(n)$ | | $\color{blue}O(n)$ by reassiging `curr_node.next`|
-| **Insertion / deletion** | - 👎 **Slow insert** at **random** $i$-th index in $\color{blue}O(n)$ if the length < allocated capacity because it requires **shifting** each element afterwards 1 position to the right, then insert. <br><br> - 👎 **Insert** at **end** <br> *case 1. in $\color{blue}O(1)$ if the length < allocated capacity <br> *case 2. in $\color{blue}O(n)$ if length = allocated capacity because it **cannot expand** in place and must **reallocate** a new array and **copy**s all values. <br>- **Delete** from **end** in **$\color{blue}O(1)$**: set `arr[n-1] = default`.<br><br> - 👎 Delete at front or at random **i-th** index in $\color{blue}O(n)$: shift each element afterwards 1 position to the left. | - 👍 **Insert** at **end** is **amortized $\color{blue}O(1)$** (the average time taken per operation over a sequence of operations).<br><br> - 👎 **Insert** at **random** $i-th$ index in $\color{blue}O(n)$ requires **shifting** each element. |  <br> - 👍 **Fast insert/delete at head:** in $\color{blue}O(1)$ because we have `head` pointer and can simply **manipulate nodes** by **relinking pointers**. <br><br> - 👍 **Fast insert at tail** in $\color{blue}O(1)$ if we have `tail` pointer (without traversing). <br><br> - 👍 **Fast delete at tail** in $\color{blue}O(1)$ if we have `tail` pointer and `node.prev` pointer (Doubly linked list). <br><br> - 👎 **Slow insert/delete** at random $i$-th **middle** node in $\color{blue}O(n)$ because we need to loop over items to find the reference to that node; if we already have reference to that specific node, then it becomes $\color{blue}O(1)$  |
-| **Implementation Examples** | - C++ `std::array<int, N>` | - C++ `std::vector<T>`<br>- Python built-in `list []` | - C++ `std::list`, `std::forward_list`<br>- Custom linked-list classes in Python or other languages. |
+| **Insert / delete** | - 👎 **Slow insert** at **random** $i$-th index in $\color{blue}O(n)$ if the length < allocated capacity because it requires **shifting** each element afterwards 1 position to the right, then insert. <br><br> - 👎 **Insert** at **end** <br> *case 1. in $\color{blue}O(1)$ if the length < allocated capacity <br> *case 2. in $\color{blue}O(n)$ if length = allocated capacity because it **cannot expand** in place and must **reallocate** a new array and **copy**s all values. <br>- **Delete** from **end** in **$\color{blue}O(1)$**: set `arr[n-1] = default`.<br><br> - 👎 Delete at front or at random **i-th** index in $\color{blue}O(n)$: shift each element afterwards 1 position to the left. | - 👍 **Insert** at **end** is **amortized $\color{blue}O(1)$** (the average time taken per operation over a sequence of operations).<br><br> - 👎 **Insert**/**Delete** at **random** $i-th$ index in $\color{blue}O(n)$ requires **shifting** each element. <br><br> - 👍 **Delete** at the **end** in $\color{blue}O(1)$ |  <br> - 👍 **Fast insert/delete at head:** in $\color{blue}O(1)$ because we have `head` pointer and can simply **manipulate nodes** by **relinking pointers**. <br><br> - 👍 **Fast insert at tail** in $\color{blue}O(1)$ if we have `tail` pointer (without traversing). <br><br> - 👍 **Fast delete at tail** in $\color{blue}O(1)$ if we have `tail` pointer and `node.prev` pointer (Doubly linked list). <br><br> - 👎 **Slow insert/delete** at random $i$-th **middle** node in $\color{blue}O(n)$ because we need to loop over items to find the reference to that node; if we already have reference to that specific node, then it becomes $\color{blue}O(1)$  |
+| **Implementation Examples** | - C++ `std::array<int, N>` | - C++ `std::vector<T>` (Must specify data type)<br>- Python built-in `list` `[]` (no need to specify data type and can contain multiple types at once) | - C++ `std::list`, `std::forward_list`<br>- Custom linked-list classes in Python or other languages. |
 | **When to use** | - When size is **known** in advance and **won’t change**.<br>- Need fast **random access**. <br> - Do **not** need any **dynamic** operations | - Need **fast random access** <br> - Need **frequent appends at the end**, but still need growth beyond the initial size. | - Frequent insertions and deletions at the **head or tail node**.<br>- Do **not** need fast **random** access. |
 ---
 
 
 ### Static Array
-Memory addresses are apart with element size:
+Memory addresses are apart with element size. 
 
 Example:
-*Figure: **Array** of Integers (a 32-bit int = 4 bytes)*
+*Figure: **Array** of Integers (a 32-bit int = 4 bytes, where 1 byte = 8 bits)*
 ![Array of Integers](figures/array-integers.png)
 
-*Figure: **Array** of Characters (a character = 1 byte)*
+*Figure: **Array** of Characters (a character = 1 byte, where 1 byte = 8 bits)*
 ![Array of Characters](figures/array-characters.png)
 
 If there are elements after index $i$, have to **shift** all the elements after index $i$:
@@ -94,3 +94,26 @@ If there are elements after index $i$, have to **shift** all the elements after 
 *Table: **Big O*** summary 
 ![linked list](figures/table-bigO-summary.png)
 * $_{(a)}$ means amortized
+
+
+## String
+
+### String - Python vs C++
+| Feature / Operation | Python `str` | C++ `std::string` |
+|---|---|---|
+| **Mutability** | **Immutable**<br> (can read by indexing, but **cannot modify in place**) | **Mutable** (can **modify in place**, e.g., `s[i] = 'd'`) |
+| Memory layout | Implementation-dependent | Contiguous character storage |
+| **Read** | $\color{blue}O(1)$ |
+| **Traversal** | $\color{blue}O(n)$   |
+| **Get length** |  $\color{blue}O(1)$ |
+| Slicing / Substring | O(k) to create a substring of length k | O(k) to create a substring of length k |
+| Concatenation (`s1 + s2`) | O(n + m) | O(n + m) in the general case |
+| Append one character | O(n) to create a new string | Amortized O(1); worst-case O(n) |
+| **Set** at **random position** $i$ |$\color{blue}O(n)$ to create a new string | $\color{blue}O(1)$ in place|
+| **Insert / delete**| at **random** position/at **end** $\color{blue}O(n)$ because have to **create a new string** |
+| Search for a **character** | $\color{blue}O(n)$ |
+| Search for a substring | O(n) typical for single-character search; substring search depends on algorithm | O(n) typical; substring search depends on algorithm |
+| Compare two strings | O(min(n, m)) worst-case when a difference is found late or strings share a long prefix; O(n) if equal length n | O(min(n, m)) worst-case when a difference is found late or strings share a long prefix; O(n) if equal length n |
+| Bounds checking | `s[i]` raises `IndexError` if out of range | `s[i]` does not guarantee bounds checking; `s.at(i)` checks and throws `std::out_of_range` |
+| When to use | Text processing; safe sharing because strings cannot be modified in place | Text processing when in-place modification and mutable character sequences are useful |
+---
