@@ -39,6 +39,8 @@ def fn(arr):
     return ans
     return ''.join(arr)   # Optional: convert back to string if input and output are string
 ```
+<details>
+<summary>C++</summary>
 C++
 ```cpp
 int fn(vector<int>& arr) {
@@ -60,6 +62,7 @@ int fn(vector<int>& arr) {
     return ans;
 }
 ```
+</details>
 
 # Linked List
 Tips:
