@@ -1,3 +1,5 @@
+[TOC]
+
 ## What is a process
 
 a process is an instance of an executing program, sometimes use terms "task" or "job" interchangeably with a "process"
@@ -6,7 +8,6 @@ a process is an instance of an executing program, sometimes use terms "task" or 
 |---|:---:|--|
 |stored on disk/flash memory/cloud, not executing <br> (static) |Once an application is launched| loaded into memory and starts executing <br> (active)|
 ||If the same program <br> (e.g., text editor) is launched more than once |multiple processes will be created, they will have different state (e.g. read document_A; type in a empty new document_B ).|
----
 
 
 
@@ -24,6 +25,7 @@ An operating system abstraction used to encapsulate all of the **process state**
 ----
 
 Figure: Process  address space, process execution example of using stack
+
 ![Process execution](figures/os-process_execution.png)
 
 
@@ -44,6 +46,7 @@ whenever the process tries to access x this page table mapping is referenced and
 When we do not have enough physical memory to store all the process state, the operating system must maintain information regarding processs address space to dynamically **decide** which portion of which process's address space will be present in **physical memory** and which portion will be **swapped temporarily to disk**, which will be brought in whenever needed.
 
 Figure: Process 1 and Process2 in Physical memory and swap to disk
+
 ![Process execution](figures/os-process-physical-memory-disk-swap.png)
 
 
@@ -72,8 +75,8 @@ The PCB is created and initialized when the process is **initially created**. Ce
 |CPU scheduling info| e.g., how much time this particular process had executed in a CPU, how much time it should allocate in the future (depends on process priority) |
 |**stack pointer**| The top of the stack (helpful to pop out the top elements of the stack) |
 |...| |
----
 Figure: Program Counter
+
 ![ Program Counter](figures/os-program-counter.png)
 
 ### Context Switch - How is  Process Control Block (PCB) Used?
@@ -103,6 +106,7 @@ Example: Context Switch of two Processes P1 and P2
 ## Process Life Cycle: 
 ### Process State
 Figure: Process Life Cycle
+
 ![Process Life Cycle](figures/os-process-lifecycle.png)
 
 |State| Defination| When to enter the state|
@@ -112,7 +116,6 @@ Figure: Process Life Cycle
 |**running**| | When the scheduler schedules the process on the CPU|
 |**waiting**|| When a running process needs to perform some longer I/O operation (e.g., reading data from disk) or wait on an event (e.g., timer, input from a keyboard)|
 |**terminated**| | When a running process exit: <br> - finish all the operations in the program <br> - encounters some error |
----
 
 ### Process Creation
 In operating systems, a process can create one or more child processes. The creating process is the **parent** and the created process is the **child** of that parent, share a tree-like hierarchy.
@@ -121,22 +124,24 @@ In operating systems, a process can create one or more child processes. The crea
 |---|--|
 |**fork**|the operating system will **copy** the parent **PCB** into the child PCB. Both parent and child processes will execute at the same point, the instruction immediately after the fork (have same PCB including program counter).|
 |**exec**|the operating system will take a PCB (created via fork), but will not leave the values to match the parents' value. Instead OS will **replace child image and load a new program**. The child's PCB will now point to values that describe this new program. The program counter of the child will now point to the **first instruction** of the new program. 1. call fork to create the initial process 2. call exec to replace the child's image (created in the fork) with the image of the new program.  |
----
 Example:
 Figure: Process Creation Tree
+
 ![Process Creation Tree](figures/os-process-creation-tree.png)
+
 Once the initial boot process is done and OS is loaded, it will create some initial processes. When a user log into a system, a user shell process is created. When user type commands, (e.g., ls, emacs), then new processes get spawned from the shell parent process. 
 |OS |the parent of all processes| When to start |
 |---|---|--|
 |UNIX-based OS |init | starts after system boots.|
 |Android|zygote| launch every new app processes|
----
  
 
 ## Process Scheduling
 ### Role of the CPU Scheduler
 Figure: CPU Scheduler
+
 ![CPU Scheduler Tree](figures/os-cpu-scheduler.png)
+
 For the CPU to start executing a process, the process must be ready first. There might be many processes that are in the ready state waiting in the ready queue. 
 
 **CPU scheduler** is an operating system component that manages how processes use the CPU resources. It determines **which ready process** will be dispatched to the CPU to start running, and **how long** that process should run for.
@@ -164,6 +169,7 @@ Example:
 If processing time is equal to the CPU schedueler time $T_p = t_{sched}$, then CPU efficiency = 50%, only 50% CPU time spent on useful work.
 
 Figure: CPU effiency 50%
+
 ![CPU effiency 50%](figures/os-process-length.png)
 
 When designing a CPU scheduler, we have to make important design decisions:
@@ -179,8 +185,8 @@ When designing a CPU scheduler, we have to make important design decisions:
 |running on CPU but time slice expired||
 |create a new process via fork| child process executes|
 |wait for an interrupt| interrupt occcurs|
----
 Figure: A few ways that processes enter the ready queue.
+
 ![ready queue](figures/os-ready-queue.png)
 
 
@@ -206,8 +212,11 @@ Inter process communication mechanisms (IPCs)
 ----
 
 Figure: Message Passing IPC channel between processes.
+
 ![Message Passing IPC](figures/os-message-ipc.png)
+
 Figure: Shared Memory IPC does not have the extra channel but provides direct communication.
+
 ![Shared Memory IPC](figures/os-shared-memory-ipc.png)
 
 

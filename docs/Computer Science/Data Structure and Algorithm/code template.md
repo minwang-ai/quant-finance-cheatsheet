@@ -4,15 +4,22 @@
 ## Two Pointers
 Having two **integer variables** that both move along an **iterable**, each representing an **index** of the array or string, usually named something like `i` and `j`, or `left` and `right`.
 ### Two pointers - case 1: one input, opposite ends -> squeeze
-*Figure: **Two Pointers** - Case 1*
+Figure: **Two Pointers** - Case 1
+
 ![Two Pointers - Case 1](figures/two-pointers-case1.jpg)
+
+
 | Aspect | Details |
 |:---|:---|
 | **Idea**| Start the pointers at the **first and last indices** and **move** them **towards each other** until they **meet**.|
 | **When to use** | **reverse** array/string **in place** (e.g., check palindrome - after reversing, stay the same)|
 | **Complexity** | - Time: $\color{blue}O(n)$ if we can keep the work **inside each iteration** at $O(1)$<br> because the pointers start $n$ away from each other and move at least one step closer in every iteration -> we will never have more than $O(n)$ **iterations** <br> - Space: $\color{blue}O(1)$ because we only use two integer variables. |
----
-Python
+
+
+
+<details>
+<summary>Python</summary>
+
 ```python
 def fn(arr):
     arr = list(s) # Optional: convert to list if input is a string (inmutable)
@@ -39,9 +46,11 @@ def fn(arr):
     return ans
     return ''.join(arr)   # Optional: convert back to string if input and output are string
 ```
+</details>
+
 <details>
 <summary>C++</summary>
-C++
+
 ```cpp
 int fn(vector<int>& arr) {
     int left = 0;
@@ -64,13 +73,17 @@ int fn(vector<int>& arr) {
 ```
 </details>
 
+
 # Linked List
 Tips:
 It's important to build an intuition behind how to correctly **re-assign pointers**. The best way is to see the process visually through **examples**. 
 ## Singly-Linked List
 
 ### Definition - Singly-Linked List - Use Raw Pointer
-Python
+
+<details>
+<summary>Python</summary>
+
 ```python
 class ListNode:
     def __init__(self, val):        # O(1)
@@ -109,7 +122,13 @@ head = one
 one.next = two
 two.next = three
 ```
-C++
+</details>
+
+
+
+<details>
+<summary>C++</summary>
+
 ```cpp
 struct ListNode {
       int val;
@@ -135,7 +154,12 @@ int main() {
     // In practice, we need to delete these nodes using `delete` to avoid memory leaks.
 }
 ```
+</details>
+
 ### Definition - Singly-Linked List - Use Modern C++ Smart Pointer
+<details>
+<summary>C++</summary>
+
 ```cpp
 #include <memory>
 
@@ -157,17 +181,24 @@ int main() {
     // No need for manual delete, smart pointers handle it automatically
 }
 ```
+</details>
+
 ### Add/Delete Node - Singly-Linked List
 At first, obtain the **reference** to the **previous node** `prev` (the node at position $i - 1$) by iterating from the head.
 Typically we do these operations **on the fly**, when iterating through the list (these functions are just demonstration). 
 
-*Figure: **Singly Linked List** - **insert** at **random** position: `node_to_add.next`  points to `preNode.next`, then change `preNode.next` points to `node_to_add`*
+Figure: **Singly Linked List** - **insert** at **random** position: `node_to_add.next`  points to `preNode.next`, then change `preNode.next` points to `node_to_add`
+
 ![linked list Insert](figures/singly-linked-list-insert-random.png)
 
-*Figure: **Singly Linked List** - **Delete** at **random** position: change `preNode.next` pointer to `preNode.next.next`*
+Figure: **Singly Linked List** - **Delete** at **random** position: change `preNode.next` pointer to `preNode.next.next`
+
 ![linked list Insert](figures/singly-linked-list-delete-random.png)
 
-Python
+
+<details>
+<summary>Python</summary>
+
 ```python
 # Obtain the reference by iterating from the head - time: O(n)
 def add_node(prev_node, node_to_add):   # Time: O(1)
@@ -177,7 +208,12 @@ def add_node(prev_node, node_to_add):   # Time: O(1)
 def delete_node(prev_node):
     prev_node.next = prev_node.next.next
 ```
-C++
+</details>
+
+
+<details>
+<summary>C++</summary>
+
 ```cpp
 // Obtain the reference by iterating from the head - time: O(n)
 void addNode(ListNode* prevNode, ListNode* nodeToAdd) {
@@ -189,6 +225,8 @@ void deleteNode(ListNode* prevNode) {
     prevNode->next = prevNode->next->next;
 }
 ```
+</details>
+
 
 ## Traverse the Linked List 
 Example: 
@@ -197,7 +235,11 @@ get the sum of all values from an integer linked list.
 Using **dummy pointers** `curr` **without losing** a reference to the **head**.
 
 
-Python
+
+
+<details>
+<summary>Python</summary>
+
 ```python 
 def get_sum(head):
     # ans = 0
@@ -209,7 +251,13 @@ def get_sum(head):
 
     return ans
 ```
-C++
+</details>
+
+
+
+<details>
+<summary>C++</summary>
+
 ```cpp
 int getSum(ListNode* head) {
     //int ans = 0;
@@ -222,8 +270,14 @@ int getSum(ListNode* head) {
     return ans;
 }
 ```
+</details>
+
 ### Traverse - Recursive
-Python
+
+
+<details>
+<summary>Python</summary>
+
 ```python 
 def get_sum(curr):
     if not curr:
@@ -231,7 +285,12 @@ def get_sum(curr):
     
     return curr.val + get_sum(curr.next)
 ```
-C++
+</details>
+
+
+<details>
+<summary>C++</summary>
+
 ```cpp
 int getSum(ListNode* curr) {
     if (curr == nullptr) {
@@ -241,14 +300,20 @@ int getSum(ListNode* curr) {
     return curr->val + getSum(curr->next);
 }
 ```
+</details>
+
 
 
 ## Doubly linked list
-*Figure: **Doubly linked list** - similar to singly linked list, but each node also contains a pointer to the **previous** node `prev`, and it allows iteration in **both directions**.*
+Figure: **Doubly linked list** - similar to singly linked list, but each node also contains a pointer to the **previous** node `prev`, and it allows iteration in **both directions**.
+
 ![Doubly linked list](figures/doubly-linked-list.png)
 
 ### Definition - Doubly linked list
-Python
+
+<details>
+<summary>Python</summary>
+
 ```python
 class ListNode:
     def __init__(self, val):
@@ -256,7 +321,13 @@ class ListNode:
         self.next = None
         self.prev = None
 ```
-C++
+</details>
+
+
+
+<details>
+<summary>C++</summary>
+
 ```cpp
 struct ListNode {
     int val;
@@ -268,6 +339,8 @@ struct ListNode {
     ListNode(int val, ListNode* next, ListNode* prev) : val(val), next(next), prev(prev) {}
 };
 ```
+</details>
+
 
 ### Add/Delete Node - Doubly-Linked List
 With a doubly linked list, we only need a reference to the **current node** at $i$, because we can simply reference the `prev` pointer of that node to get the node at $i - 1$, and `next` pointer of that node to get the node at $i + 1$,
@@ -275,9 +348,15 @@ With a doubly linked list, we only need a reference to the **current node** at $
 Extra work: **update** the **`prev`** pointers
 
 
-*Figure: **Doubly Linked List** - **insert** at **random** position: `node_to_add.next` points to `curr_node`, `node_to_add.prev` points to `prev_node`, `prev_node.next` points to `curr_node`, `curr_node.prev` points to `curr_node`*
+Figure: **Doubly Linked List** - **insert** at **random** position: `node_to_add.next` points to `curr_node`, `node_to_add.prev` points to `prev_node`, `prev_node.next` points to `curr_node`, `curr_node.prev` points to `curr_node`
+
 ![linked list Insert](figures/doubly-linked-list-insert-random.png)
-Python
+
+
+
+<details>
+<summary>Python</summary>
+
 ```python
 def add_node(curr_node, node_to_add):
     # get prev node reference
@@ -288,7 +367,12 @@ def add_node(curr_node, node_to_add):
     prev_node.next = node_to_add
     curr_node.prev = node_to_add
 ```
-C++
+</details>
+
+
+<details>
+<summary>C++</summary>
+
 ```cpp
 void addNode(ListNode* currNode, ListNode* nodeToAdd) {
     ListNode* prevNode = currNode->prev;
@@ -298,9 +382,16 @@ void addNode(ListNode* currNode, ListNode* nodeToAdd) {
     currNode->prev = nodeToAdd;
 }
 ```
-*Figure: **Doubly Linked List** - **delete** at **random** position: `prev_node_next`  points to `next_node`, then change `next_node.prev` points to `prev_node`*
+</details>
+
+
+Figure: **Doubly Linked List** - **delete** at **random** position: `prev_node_next`  points to `next_node`, then change `next_node.prev` points to `prev_node`
+
 ![Doubly linked list Delete](figures/doubly-linked-list-delete-random.png)
 
+
+<details>
+<summary>Python</summary>
 
 ```python
 def delete_node(curr_node):
@@ -311,7 +402,12 @@ def delete_node(curr_node):
     prev_node.next = next_node
     next_node.prev = prev_node
 ```
-C++
+</details>
+
+
+<details>
+<summary>C++</summary>
+
 ```cpp
 void deleteNode(ListNode* currNode) {
     ListNode* prevNode = currNode->prev;
@@ -320,21 +416,29 @@ void deleteNode(ListNode* currNode) {
     nextNode->prev = prevNode;
 }
 ```
+</details>
+
 ### Add/Delete First/Last node using sentinel nodes(`head`, `tail`) - Doubly-Linked lists 
 To easily add and remove at the end or tail of the linked list. No need to judge the edge cases if `head` or `tail` `== nullptr`
 
 
-*Figure: **Doubly Linked List** - with **sentinel nodes**(`head`, `tail`). Even when there are no nodes in a linked list, you still keep a head and tail. The real head node of the linked list is **`head.next`** and the real tail node is **`tail.prev`**. The sentinel nodes themselves are not part of linked list.*
+Figure: **Doubly Linked List** - with **sentinel nodes**(`head`, `tail`). Even when there are no nodes in a linked list, you still keep a head and tail. The real head node of the linked list is **`head.next`** and the real tail node is **`tail.prev`**. The sentinel nodes themselves are not part of linked list.
+
 ![Doubly linked list with sentinel](figures/doubly-linked-list-w-sentinel-nodes.png)
 
-*Figure: **Doubly Linked List** - with **sentinel nodes**(`head`, `tail`). **insert** at start/end*
+Figure: **Doubly Linked List** - with **sentinel nodes**(`head`, `tail`). **insert** at start/end
+
 ![Doubly linked list with sentinel insert](figures/doubly-linked-list-w-sentinel-nodes-insert-start-end.png)
 
-*Figure: **Doubly Linked List** - with **sentinel nodes**(`head`, `tail`). **delete** at start/end*
+Figure: **Doubly Linked List** - with **sentinel nodes**(`head`, `tail`). **delete** at start/end
+
 ![Doubly linked list with sentinel delete](figures/doubly-linked-list-w-sentinel-nodes-delete-start-end.png)
 
 
-Python
+
+<details>
+<summary>Python</summary>
+
 ```python
 def add_to_start(node_to_add):
     node_to_add.prev = head
@@ -372,7 +476,12 @@ tail = ListNode(None)
 head.next = tail
 tail.prev = head
 ```
-C++
+</details>
+
+
+<details>
+<summary>C++</summary>
+
 ```cpp
 void addToStart(ListNode* nodeToAdd) {
     nodeToAdd->prev = head;
@@ -413,11 +522,16 @@ ListNode* tail = new ListNode(-1);
 head->next = tail;
 tail->prev = head;
 ```
+</details>
+
 
 ## Reversing a singly-linked list 
 a typical **problem** or an **intermediate step**
 
-Python
+
+<details>
+<summary>Python</summary>
+
 ```python
 def reverse_list(head):
     prev = None               # to track the previous node
@@ -431,5 +545,6 @@ def reverse_list(head):
         
     return prev               # After the final iteration, prev points to the original tail, which is the new head
 ``` 
+</details>
 
 

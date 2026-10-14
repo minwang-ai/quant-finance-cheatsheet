@@ -1,17 +1,19 @@
  
 
 
+[TOC]
+
 ## Logical Deduction  
 An inference rule is a rule for **combining** true propositions to **form** other true  propositions.  
 We can quickly **verify** an inference rule using **truth table**.
 
 |Rule| Meaning| 
 |:--:|:--:|
-|$((P \implies Q) \space \text{AND} \space P) \implies Q $ | If $P$ implies $Q$, and $P$ is true, then $Q$ must be true.|
+|$((P \implies Q) \space \text{AND} \space P) \implies Q$ | If $P$ implies $Q$, and $P$ is true, then $Q$ must be true.|
 |$((P \implies Q) \space \text{AND} \space \text{NOT}\space Q)  \implies \text{NOT} \space P$| If $P$ would imply $Q$, but $Q$ is false, then $P$ must be false.|
 |$((P  \implies Q) \space\text{AND}\space (Q  \implies R))  \implies (P  \implies R)$| If $P$ would imply $Q$, and $Q$ would imply $R$, then $P$ must implie $R$.|
-|$((\text{NOT} \space P)  \implies \text{FALSE})  \implies P $|If assume Not $P$ leads to a contradiction, then $P$ must be true.
----
+|$((\text{NOT} \space P)  \implies \text{FALSE})  \implies P$|If assume Not $P$ leads to a contradiction, then $P$ must be true.|
+
 Example:
 $P \implies Q$: If it rains, the ground gets wet. 
 
@@ -45,7 +47,6 @@ A common proof-writing **mistake** is to dive into **how** to prove something, w
 |**Universal** over natural number by regular **Induction** | $\forall n \geq 0. P(n)$| Check **base case** $P(0)$ then for $\forall n \in \mathbb{N}, n\geq 0$ **show** $P(n) \implies P(n+1)$| - Let $P(n)$ be the **predicate** [make it concret $P(n)$:= ...]  We prove $\forall n \in \mathbb{N}. P(n)$, by induction on $n$. (*see note below*) <br>- **Base case**, must show $P(0)$ is true: Left hand side (LHS) is [value], right hand side (RHS) is [value], so ...  <br> - **Inductive** step: Let $\forall n \in \mathbb{N}$, and assume $P(n)$ is true; we must show $P(n + 1)$. |
 |**Universal** over natural number by **Strong Induction** | $\forall n \geq 0. P(n)$| 1. **Split** the problem into a few **parts** (size < n) <br> 2. Check **base case** $P(0)$ <br> 3. **Recursively** solve these **smaller** problems $P(i)$ (where $i < n$) by using strong induction. <br> 4. **Combine** the solutions. | - Let $P(n)$ be the **predicate** [make it concret $P(n)$:= ...]  We prove $\forall n \in \mathbb{N}. P(n)$, by strong induction on $n$.  <br>- **Base case**, must show $P(0)$ is true. <br>- **Inductive** step: Let $\forall i < n, i \in \mathbb{N}$, and assume $P(i)$ is true; we must show $P(n)$ is true. |
 |Prove by **Exhaust All Possible Cases**|$P$ is true| Come up a **proposition** $C$, which makes the following a tautology (**always true**)<br> $C1 \lor C2 \lor ... \lor Ck$. |  Proof by cases:  <br> - Case 1: **Assume $C_1$ is true**. Then P is true because [reasons]. <br> - Case 2: **Assume  $C_2$ is true**. Then P is true because [reasons]. <br> ... <br> - Case k: **Assume  $C_k$ is true**. Then P is true because [reasons]. <br> ...<br><br> These k cases are **exhaustive** (i.e., $C1 \lor C2 \lor ... \lor Ck$ is a tautology) because [reasons]  |
----
  
 ## Proof by Induction  
 Induction is probably the most common and most powerful proof technique in computer  science.
@@ -63,7 +64,6 @@ Induction is probably the most common and most powerful proof technique in compu
 |$P(n) \implies P(n)$|$P(n+1)$|
 |**Summary:**|
 |$P(0) \space \text{AND}\space  \forall n \in \mathbb{N}, n\geq 0, [P(n) \implies P(n+1)]$ |$\forall n \geq 0. P(n)$|
----
 
 ### Use Induction Axiom to prove
  Let $P(n)$ be a predicate (**Induction Hypothesis**), defned for $n \in \mathbb{N}$. If $P(0)$ and $\forall n \geq 0.[P(n) \implies P(n+1)]$, then $\forall n \geq 0. P(n)$
@@ -75,7 +75,8 @@ Often (but not always!) this $P(n)$ will be the predicate we initially set out t
 $P(n)$ is the predicate "it is possible to use non-overlapping L-trominoes to cover  a $2^n$ by $2^n$ square grid, except for **one of the center-most** squares".  
 $Q(n)$ is the stronger hypothesis "it is possible to use non-overlapping L-trominoes to cover  a $2^n$ by $2^n$ square” except for **any** one square".  
 
-*Figure: Example of strengthen the inductive hypothesis: Algorithm divide and conquer - Cut the grid into divide and conquerfour quadrants and put a L-trominoes in the middle.*
+Figure: Example of strengthen the inductive hypothesis: Algorithm divide and conquer - Cut the grid into divide and conquerfour quadrants and put a L-trominoes in the middle.
+
 ![L-trominoes ](figures/L-trominoes.png)
 
 ### Strong Induction
@@ -88,9 +89,9 @@ Then it holds that  $\forall n \in \mathbb{N}, P(n)$
 **Note**:
 Strong induction is in fact completely  **equivalent to** regular induction, and the strong induction theorem can easily be **proven** from the Axiom of Induction by using the regular induction Axioms for the new induction hypothesis $IH(n)$. 
 
-*Figure: **Strong Induction Intuition** - not only assume $P(0)$ but also **assume all the $P(i)$ is true**, where $i \in  \mathbb{N}, i < n$*
-![Strong Induction ](figures/strong_induction.png)
+Figure: **Strong Induction Intuition** - not only assume $P(0)$ but also **assume all the $P(i)$ is true**, where $i \in  \mathbb{N}, i < n$
 
+![Strong Induction ](figures/strong_induction.png)
 
 
 

@@ -1,3 +1,5 @@
+[TOC]
+
 # CS50P Lecture 1: Conditionals
 Conditions allows us to ask questions and take different paths depending on the answers to those questions.
 <br> Conditions are **Boolean** values (`True` or `False` from evaluating a **function call (return value)** or a **boolean expression**)  which is used to decide whether or not to execute code in one path over another. 
@@ -24,7 +26,6 @@ Control flow determines which path the program takes based on the evaluation of 
 | `if` | Starts a conditional block. | Always evaluated.  |
 | `elif` | **"Else if"** making the conditions **mutually exclusive** - checked only if preceding `if`/`elif` were `False`. | Increases efficiency by avoiding unnecessary checks when preceding `if`/`elif` were `True`. |
 | `else` | A "catch-all" default outcome for any case not met by `if` or `elif`. | No need to evaluate the last case |
----
 ### Template
 ```python
 if condition_1:
@@ -46,7 +47,6 @@ Used to combine multiple comparisons into a single statement.,
 | `or` | `True` if **at least one** condition is true. | `if x < y or x > y:` |
 | `and` | `True` only if **all** conditions are true. | `if score >= 90 and score <= 100:` <br> Note: Python allow us to **chain together** the operators and conditions in a  way quite uncommon to other programming languages: <br>  `if 90 <= score <= 100:` |
 |`not` | negate the boolean expression after the keyword `not`| `if not (players == "multiplayer or players == "single-player")`
----
 
 
 ### Pythonic Patterns
@@ -57,7 +57,6 @@ Python offers unique, "Pythonic" ways to write more readable and concise code.
 | **Chained Comparison** | Chaining operators like in mathematics. | `if 90 <= score <= 100:` |
 | **simplify if statement** | `True if condition else False`| `return True if n % 2 == 0 else False`|
 | **Boolean Return** | **Directly** returning the result of a comparison. | `return n % 2 == 0` (Return `True` or `False`). |
----
 
 ## Match Statements
 An alternative to `if/elif/else` for matching a variable against specific values, i.e., compares the value following the `match` keyword with each of the values following the `case` keyword. In the event a match is found, the  respective indented code section is executed, and the program stops the matching.  
@@ -68,7 +67,6 @@ An alternative to `if/elif/else` for matching a variable against specific values
 | **Case** | `case value:` | Code to run if the variable equals a specific value. |
 | vertical bar `\|` | `case value_1 \| value_2:` | like `or` keyword: allows matching multiple values. |
 | `_` | `case _:` | like `else` keywrod: catch-all default case. |
----
 
 ### Tamplate
 ```python

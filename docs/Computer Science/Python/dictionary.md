@@ -1,3 +1,5 @@
+[TOC]
+
 # [Dictionary](https://docs.python.org/3/tutorial/datastructures.html#dictionaries)
 
 ## Characteristics & Definition
@@ -12,7 +14,6 @@ data structure that allows us to store associated info - **associate keys with  
 | **Element Types** | keys and values can contain elements of same types and even **different types** (e.g., strings, integers) |
 | **Creation Syntax** | enclosed by curly braces `{}` with key-value pairs `key: value` separated by commas `,`|
 | **When to Use Dictionary** | - When we want to return multiple values, we can pack them into a dictionary <br> - When the value should be able to be changed  <br> - When we store more fields, it is easier to index via keys instead of indices. |
----
 
 - If value == **`None`** : Indicates no data is assigned to that key. 
 - Clean formatting:
@@ -36,7 +37,6 @@ accessing **keys** (not via position index)
 | **Access Value** | - `dict[key]` <br> - `dict.get(key, default_value)` | Retrieves the value for the key. <br> - `dict[key]` might get key error if key is not existing <br> - **`dict.get()`** (preferred) method **won't get key error**   |
 | **Reassign** | `dict[key] = new_value` | changing values by accessing **keys** (not via position index) and resigning a new value |
 | **adding new key and new value** |`dict[new_key] = new_value`  | resigning a value to a new key|
----
 
 
 
@@ -59,7 +59,6 @@ accessing **keys** (not via position index)
 | **`clear()`** | Remove all items from the dictionary. | `d.clear()` | None | `None` | $O(1)$ | `d.clear()` |
 | **`copy()`** | Create a shallow copy of the dictionary. | `d.copy()` | None | New `dict` | $O(n)$ | `new_d = d.copy()` |
 
-***
 
 ### Specialized Collections (`collections` module)
 Requires: `from collections import defaultdict, Counter`
@@ -69,8 +68,6 @@ Requires: `from collections import defaultdict, Counter`
 | **`defaultdict()`** | Create dict with default factory for missing keys. | `defaultdict(factory)` | `factory` (e.g., `int`) | `defaultdict` object | $O(1)$ | `d = defaultdict(int)` |
 | **`Counter()`** | Count hashable elements in an iterable. | `Counter(iterable)` | `iterable` or `mapping` | `Counter` object | $O(n)$ | `c = Counter(list)` |
 | **`most_common()`** | Return k most frequent elements. | `c.most_common(k)` | `k` (optional) | List of `(elem, count)` | $O(n \log k)$ | `c.most_common(1)` |
-***
-
 
 
 

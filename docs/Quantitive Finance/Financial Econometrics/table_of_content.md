@@ -1,3 +1,5 @@
+[TOC]
+
 # Financial Econometrics — Table of Contents
 
 ## Notes

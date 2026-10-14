@@ -1,3 +1,5 @@
+[TOC]
+
 # Financial Data — Table of Contents
 
 ## Notes

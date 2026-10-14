@@ -1,3 +1,5 @@
+[TOC]
+
 # CS50P Lecture 9: Et Cetera
 
 ## Functional Programming
@@ -13,7 +15,6 @@ taken a list and produced another list from it that contains either a subset of 
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **[`map()`](https://docs.python.org/3/library/functions.html#map)** (**not preferred**) | Applies a specified **function** to **every element** across a sequence. | `map(transform_function, iterable)` | - **`transform_function`**: The function to apply to each element to transform each element to a new element.<br> - **`iterable`**: One or more iterable objects (list, tuple, etc.) whose elements will be processed. | A **`map` iterator** containing the transformed items. | `words = ["this", "is", "cs50"]`<br>`uppercased = map(str.upper, words)` |
 | **[`filter()`](https://docs.python.org/3/library/functions.html#filter)**(**not preferred**)  | Extracts a **subset** of a sequence for which a conditional function returns `True`. | `filter(filter_function, iterable)` | - **`filter_function`**: A function or `lambda` expression returning **boolean `True`/`False`** for each item.<br> - **`iterable`**: The target sequence to filter. | A **`filter` iterator** containing only the matching items. | `students = [{"name": "Harry", "house": "Gryffindor"}, ...]`<br>`gryffindors = filter(lambda s: s["house"] == "Gryffindor", students)`  |
----
 Note that:
 - Only **pass the function name without ()**, because we do not call the functions there; the functions will be called for each items later.
 - Return a **iterator** -> we need to **cast** it to **list** , e.g., `list(map())` or `list(filter())`
@@ -30,7 +31,6 @@ my_list = [transform_expression for item in iterable if filter_condition]
 | When to use |	Code syntax |
 | :--- | :--- |
 | init 2D matrix (m rows and n columns) |	`[[default_value] * n for _ in range(m)`]
----
 
 ### Dictionary Comprehension 
 (similar to List comprehension)
@@ -68,7 +68,6 @@ To create the next successive, we can simply call `next()` on the generator ob
 | **When to use** | Standard tasks where the data fits in memory and can be computed and returned all at once. | Dealing with very large collections of data that we cannot store in memory all at once (which leads to program hanging or crush). |
 | **Functionalities** | Return a value and exiting the this function. | Pause the process, save its state for next time, [optionally do other things] and continue|
 | **Biggest difference** | `return` keyword: return **all at once**| `yield` keyword: <br> return **one item  at a time** while the  `for ` loop keeps working. <br> (return an [**iterator**](https://docs.python.org/3/howto/functional.html#iterators) so we can use for loop to **iterate over** the generated value one at a time) |
----
 
 
 ### Flattened Generator Expression 
@@ -78,7 +77,6 @@ To create the next successive, we can simply call `next()` on the generator ob
 | **What It Is** | A generator expression that **iterates through nested 2D structures** (e.g., **list of lists** for grid, matrix, game board) and yields items as a **single 1D stream**. |
 | **Why Use It** | Processes elements lazily (one by one) to save memory instead of building a full intermediate list in RAM. |
 | **Common Use Case** | Feeding flattened elements directly into aggregator functions (e.g., `Counter()`, `sum()`, `set()`, `"".join()`). |
----
 ```python
 from collections import Counter 
 # 2D Grid / Board 
@@ -107,4 +105,3 @@ counts = Counter(stream_board(board))
 | **Generator Expression** | `(char for row in board for char in row)` | **Low** <br> **$O(1)$** RAM | Generates and yields items lazily one at a time on demand. |
 | **Nested `yield` Loop** | `for row in board:`<br />    `for char in row:`<br />        `yield char` |  **Low** <br> **$O(1)$** RAM | Standard multi-line function logic equivalent to the generator expression. |
 | **List Comprehension** | `[char for row in board for char in row]` |  **High** <br> **$O(N)$** RAM | Allocates and constructs the full flattened list in memory immediatelys. |
----

@@ -1,3 +1,5 @@
+[TOC]
+
 ## Table of Contents
 * [Table: Variable Transformation](#variable-transformation)
 * [Code: Variable Transformation]
@@ -14,7 +16,6 @@
 | **Raw data**| the dataset that comes straight from the data source. There might be missing values, outliers, wrong data input, etc. |
 | **Raw Variable** | a variable from the cleaned dataset that has not otherwise been manipulated. Example: stock price X. |
 | **Transformed Variable** | A variable created by manipulating a raw variable (i.e., f(X)). |
----
 
 ### When to Transform Variables? 
 | Situation | Explanation |
@@ -35,7 +36,6 @@ $$
 \log(Y), & \text{if } \lambda = 0
 \end{cases}
 $$|
----
 
 
 

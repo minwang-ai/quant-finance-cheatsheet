@@ -1,3 +1,5 @@
+[TOC]
+
 # CS50P Lecture 0: Introduction
 
 ## Environment & Workflow
@@ -11,7 +13,6 @@
 | **Up-arrow key**  | recall recent terminal commands. | |
 | **tab**| auto-complete current command|
 | `..` | parent directory |
----
 
 
 ### Basic Linux CLI Commands
@@ -26,7 +27,6 @@
 | `cd` | **C**hanges the current working **d**irectory. | - `directory` (optional): target directory, <br>, e.g.,`..` means parent directory <br> and `~` means home directory | `cd documents`<br>`cd ..`<br>`cd ~` |
 | `rmdir` | **R**e**m**oves a **dir**ectory. | `directory_name`: empty directory to remove | `rmdir empty_folder` |
 | `clear` | **Clears** the terminal screen. | None | `clear` |
----
 
 
 ## Escape Character - backslash \ 
@@ -55,7 +55,6 @@ Treats the next character as a literal (e.g., `\"` for quotes `"`).
 | **Nesting functions** | Running functions inside of other functions. The inner one executes first, so the return value of the inner function becomes the argument of outer function. | e.g. `x = int(input("What's x? "))`|
 | **Chain methods** | Combine methods for readability and simplicity | e.g., `name.strip().title()` | 
 | **Scope** | A variable only exists within the context (block) where it is defined. | we can only use the variables there |
----
 
 
 ## Define Custom Functions (Keyword `def`)
@@ -86,7 +85,6 @@ if __name__ == "__main__":
 | :--- | :--- |
 | **Readability** | The overarching premise of PEP 8: "**Readability counts**". |
 | **Consistency** | Consistency is vital within a project, and most important within a single module or function. |
----
 
 ### PEP 8 Formatting Standards
 | Feature | Rule / Guideline |
@@ -97,7 +95,6 @@ if __name__ == "__main__":
 | **Blank Lines** | Use blank lines between blocks of code and comments to avoid a "wall of text". |
 | **Imports** | Place `import` and `from` statements at the top of the file following specific prescribed patterns. |
 | **Whitespace** | Use general whitespace to make logical blocks easier to understand. |
----
 
 ### Automated Style Tools
 Programs that analyze or reformat your code are called **linters** or **formatters**.
@@ -107,4 +104,3 @@ Programs that analyze or reformat your code are called **linters** or **formatte
 | **`pylint`** | Linter | **Statically analyzes** code to find mistakes or style inconsistencies; can be "noisy" and **overwhelming** for beginners. |
 | **`pycodestyle`**| Formatter | automatically reformats code to match style guidelines. |
 | **`black`** (recommended)| Formatter | A highly **opinionated** formatter that **makes stylistic decisions** for us so we can focus on solving problems. |`black file.py` |
----

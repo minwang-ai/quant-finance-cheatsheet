@@ -1,3 +1,5 @@
+[TOC]
+
 ## What is an Operating System?
 
 | Item | Definition |
@@ -7,9 +9,9 @@
 | Hardware | - Central Processing Units (CPUs) <br> - Physical Memory <br> - Network Interconnects (Ethernet port/Wifi Card) <br> - Graphic Processing Units (GPU) <br> - Storage Devices (hard Disk, SSDs, Flash drives [USB]) |
 ----
 Figure: OS sits between apps and hardware
+
 ![OS sits between apps and hardware](figures/os-what-is-os.png)
 
----
 
 
 #### Main functions of OS
@@ -19,7 +21,6 @@ Figure: OS sits between apps and hardware
 | **Hide hardware complexity** | **Directly** has privileged **access** to the underlying hardware and provide simpler abstractions than raw devices to apps | - Support different types of devices <br> - File abstraction instead of a block of disk storage: `read`/`write` <br> - Internet Socket abstraction instead of bits and packets: `send/receive` |
 | **Allocate, Manage resources** | Manages hardware on behalf of applications according to some predefined **policies**. Decide how many and which resources will the app use, e.g., CPU, memory, IO | - allocates memory for applications <br> - schedules apps for execution on the CPU <br> -controls access to various devices and so on |
 | **Isolation & protection** | Ensures that **applications** are isolated and prevent concurrent apps from harming each other | - Allocate each apps different parts of underlying phycial memory <br> - Make sure one application can’t read/write another’s memory |
----
 
 **Examples** of OS
 | Category| Examples |
@@ -27,7 +28,6 @@ Figure: OS sits between apps and hardware
 | Desktop | - Microsoft Windows <br> - Unix-based : Mac OS X (extend BCD),   Linux|
 | Embedded | Android, iOS, Symbian |
 | Server||
----
 
 
 
@@ -48,6 +48,7 @@ Figure: OS sits between apps and hardware
 | Policy | The **Least recently used** (LRU)  (unimportant, likely not useful in future) memory page will be copied in disk <br> The frequently/currently used are more important (we might contineu to use them) so we metain them in memory since it is faster to access memory than disk.|
 ----
 Figure: Example - memory management
+
 ![OS sits between apps and hardware](figures/os-memory-manage.png)
 
 
@@ -59,7 +60,6 @@ Figure: Example - memory management
 |---|---|
 | **Separate mechanism from policy** | Keep mechanisms flexible to support different policies because in different settings, different policies make more sense. <br> e.g., for memory management: track the frequency and time for: Lest recently used (LRU) vs least frequantly used (LFU) vs random |
 | **Optimize for the common case** | Pick a policy that match the device setup (type, CPUs, memory), users' application, workloads requrements.|
----
 
 ### Protection boundary: user vs kernel
 | | User - level (unprivileged) | kernel - level (privileged)|
@@ -69,6 +69,7 @@ Figure: Example - memory management
 ----
 
 Figure: System Call Flow
+
 ![System Call Flow](figures/os-system-call-flow.png)
 
 **System call flow** explanation:<br> 
@@ -99,6 +100,7 @@ Application must save relevant data at well-defined location.
 
 
 Figure: System Calls: windows vs linux
+
 ![System Calls: windows vs linux](figures/os-windows-vs-linux-system-calls.png)
 
 ### Different types of OS organization (kernel designs)
@@ -108,7 +110,6 @@ Figure: System Calls: windows vs linux
 | Monolithic (in the past) <br> &darr;| All the abstractions, services are inside OS, making it very large. | - Everything included <br> - Inlining, compile-time optimizations | - Too much code, hard to matain and debug, not customizable/portable / manageable <br> - Large memory requirement(impact appliataion performance)|
 | **Modular** (common today) | basic serivces and APIs <br> + <br> loadable modules (Dynamically install new modules) | - Maintainable for upgrade <br> - smaller codebase, less resource intensive (more memory for apps -> better performace) | - Have to go through module interface before implementation reduces optimization opportunities (not signaficant) <br> - module maintenance issues (modules come from disparate code bases with bugs) |
 | **Microkernel** (embedded systems, control systems) | Minimal kernel (IPC, address space, threads) <br> + <br> Everything else (file systems and disk drivers) will run outside OS kernel at user-level. <br> It requires lots of interprocess communication (IPC) | - Small, lower overhead, better performace <br> - easy to verify code| - Bad portability (often customized to underlying hardware) <br> - Harder to find common OS components leads to software complexity <br> - Expensive cost of frequent user/kernel crossing (due to IPC)|
----
 
 ### Example architectures 
 
@@ -118,10 +119,13 @@ Figure: System Calls: windows vs linux
 | macOS (OS X) | - I/O kit for device drivers <br> - kernel extension kit for dynamic loading of kernel components <br> → - Mach microkernel (memory management, thread scheduling, IPC (including RPC) <br> + BSD (Unix interoperability + POSIX API + network I/O) <br> → user | |
 
 #### Figure: Linux Architecture
+
 ![Linux Architecture](figures/os-linux-architecture.png)
 
 #### Figure: Linux Kernel
+
 ![Linux Architecture](figures/os-linux-kernel.png)
 
 #### Figure: Mac OS Architecture
+
 ![Mac OS Architecture](figures/os-macos-architecture.png)

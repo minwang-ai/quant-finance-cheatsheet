@@ -1,3 +1,5 @@
+[TOC]
+
 # String (`str`)
 
 ## String Operator Overloading
@@ -5,7 +7,6 @@
 | :--- | :--- | :--- | 
 | **Concatenation (+)** | chain strings together. | ` str1 + str2` |
 | **multiplicaton (*)** | repeat strings **n times** | ` print(str_variable * n)` |
----
 
 
 ## Output Formatting (f-strings)
@@ -17,7 +18,6 @@ prefixing a string with `f`, expressions inside {} are evaluated at runtime, mak
 | value | The variable or expression we want to print.|
 | colon : | The separator that tells Python everything after this is a formatting instruction.|
 |format| Special codes that tell Python how to display that value.|
----
 
 ### f-strings Patterns Cheat Sheet
 | Feature | Meaning | Syntax | Examples |
@@ -27,7 +27,6 @@ prefixing a string with `f`, expressions inside {} are evaluated at runtime, mak
 | **Precision** | **round** the output variable `num` to the **nearest `n` decimal points**. Here `n` is a number and it could not be `0`. |`f"{num:.nf}"` | `print(f"{num:.2f}")` <br> 3.1415926 -> 3.14 |
 |**Percentage**| automatically convert float output variable `num` to percentage, add `%`sign and keep the **nearest `n` decimal points**.  | `f"{num:.n%}"`  | `f"{num:.0%}"`<br> 0.75 -> "75%" | 
 | **Padding** | **Pad or fill** a string with the specified **padding character** `pad_char` to a specific **total width** `total_width`:| - Center the string and **pad both sides using `^`:** <br>`f"{str:{pad_char}^total_width}"` <br> - Padding from the **right**  using `<`:<br> `f"{str:{pad_char}<total_width}"` <br> - Padding from the" **left**  using `>`:<br> `f"{str:{pad_char}>total_width}"` - **zero-padding** for **numbers**: `f"{num:0total_width}"` | - `f"{str:{pad_char}^{width}}"` string "GFG" pad with character "-" becomes "----GFG-----" <br> - zero-padding: `f"{num:02}"`  "9" becomes "09"|
----
 
 
 ## [String build-in methods](https://docs.python.org/3/library/stdtypes.html#string-methods)
@@ -64,4 +63,3 @@ prefixing a string with `f`, expressions inside {} are evaluated at runtime, mak
 | `.format()` | Formats a string by converting the argument as a formatted string. | `str.format(args...)` | `args...`: Values to format into the string. | Return a formatted string. |  |
 | `.removeprefix()` | Removes a specific prefix from the string (Python 3.9+). | `str.removeprefix(prefix)` | `prefix`: The prefix to remove. | Return a new string without the prefix. |  |
 | `.removesuffix()` | Removes a specific suffix from the string (Python 3.9+). | `str.removesuffix(suffix)` | `suffix`: The suffix to remove. | Return a new string without the suffix. |  |
----

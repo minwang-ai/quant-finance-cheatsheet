@@ -1,3 +1,5 @@
+[TOC]
+
 # Table of Contents
 * [Table : Risk Types](#risk-types)
 * Default
@@ -50,7 +52,6 @@
 | Debt Covenant           | Legal conditions the borrower agrees to follow (e.g. max debt limit, minimum revenue). Breaking one can trigger loan recall or default.      |
 | Credit Risk             | The lender's risk that the borrower will default.                                           |
 | Creditworthiness        | The borrower’s ability and reputation for repaying debts. Bad Creditworthiness -> Bank worries borrower will default → charges higher interest to offset this risk.             |
----
 
 
 
@@ -83,7 +84,6 @@
 | **Yield**                   | Lower <br>(due to low risk)                                                 | Higher <br>(to compensate for credit risk)                              |
 | **Common Tools to Avoid Default** | - Raise taxes<br>- Print money<br>- Issue new bonds to roll over old debt | - Cut costs<br>- Restructure debt<br>- Seek external support         |
 | **Do These Tools Always Work?** | Only with market trust and moderate use. <br> Printing too much → inflation; excessive rolling over → debt spiral | Often limited or unavailable for companies or weaker countries       |
----
 
 ## Financial Institutions 
 

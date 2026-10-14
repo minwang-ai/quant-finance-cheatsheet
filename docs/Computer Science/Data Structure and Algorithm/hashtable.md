@@ -1,3 +1,5 @@
+[TOC]
+
 # Hashing (hash map and sets)
 
 ## Interface of Hash Maps - Python vs. C++ 

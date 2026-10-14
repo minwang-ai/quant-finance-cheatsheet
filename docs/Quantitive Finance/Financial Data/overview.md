@@ -1,3 +1,5 @@
+[TOC]
+
 # Best Practice
 
 ## Table of Contents
@@ -31,7 +33,6 @@ Financial data has evolved from traditional market data & corporate financial st
 | **Unstructured Data** | non-numerical data without predefined schema or tabular organization <br> (e.g., text, social media post, review sites, images, audio, video.) | • social media posts, news, customer reviews/ Instagram photos for company stock <br>• Satellite images for weather derivatives | • Handled via `dict` and `list` because nested containers support mixed data types | <br> • use ML models to do sentiment analysis  <br> • Difficult to store |
 | **Semi-Structured Data** | Between structured and unstructured; contains some schema (tags, fields) but allows flexibility in format and nesting. | • Emails (“To,” “From,” “Subject,” text body) <br>• JSON / XML files(schema could change from file to file and contains nested data structures.) | • `dict`,`list` for nested fields <br>• `pandas.DataFrame` with `MultiIndex` for tabular tags/schema | • More indexable and searchable than unstructured data |
 
----
 
 
 ## Data Sources
@@ -43,7 +44,6 @@ Financial data has evolved from traditional market data & corporate financial st
 | **Data Vendors** | BarChart, RavenPack, Capital IQ, CRISP, Datastream, Morningstar, Exante Data,Xignite, Refinitiv, Short Trends, dxFeed | clean/raw data; via APIs  |
 | **Free Public Sources** | Quandl, Alpha Vantage, FRED: Federal Reserve Economic Database, , Google Finance, Yahoo Finance | Public/educational access; limited ammount can be accessed |
 
----
 
 ### note
 - **Quote = bid + ask prices**, showing willingness to trade.  
@@ -59,7 +59,6 @@ allow you to link data precisely to specific securities.
 | **CUSIP** | *Committee on Uniform Security Identification Procedures* | North American securities (stocks, bonds, options). | 9-character alphanumeric code: <br>• First 6 = issuer <br>• Next 2 = security type <br>• Last 1 = check digit (created correctly) | <br> • Unique to U.S. & Canada. <br> • **CINS** (International Numbering System) is a CUSIP for securities in foreign markets (adds issuing country prefix). |
 | **SEDOL** | *Stock Exchange Daily Official List* | UK and some global markets. | 7-character alphanumeric identifier. | <br> • Assigned when a company is listed on an exchange; removed when delisted. <br> •  Example: Hertz changed SEDOL after moving from NYSE → NASDAQ in 2020. |
 | **ISIN** | *International Securities Identification Number* | Global standard for identifying securities across markets internationally. | 12-character code: <br>• First 2 = country <br>• Next 9 = security | <br> •  more universal <br> • e.g., futures tend not to have CUSIPs but do have ISINs. Foreign exchange rates have identifiable tickers (e.g., GBP/USD) but are referred to internationally by their ISINs. |
----
 
 
 
@@ -68,7 +67,6 @@ allow you to link data precisely to specific securities.
 |---------------------------|--------------------------|--------------------------|----------------------|
 | **Fungible Asset** | Interchangeable asset with identical value but ≠ identical asset |  identifiers | Stocks, bonds, ETFs, gold, Bitcoin, paper currency in any country, <br> diamonds without engraved serial number by GIA (with risks that it is not properly appraised for clarity or carats or might be actually man-made or fake.) |
 | **Infungible Asset** | Unique or non-interchangeable items. | no identifiers, use deed or property record, often filed at the local level | Real estate, art, jewelry (Diamonds with engraved serial number by GIA), collectibles. |
----
 
 
 ## Time Zones, Trading Days, and 24/7 Trading
@@ -85,7 +83,6 @@ Always verify *when* data was recorded before calculating correlations, returns,
 | **OTC market issue** | OTC (Over-The-Counter) instruments trade across cities without a central exchange. There is no single “official closing price” for the day and each trading center (Tokyo, London, New York) has its own “closing quote.”| The quality of your **data vendor** become critical. (Are they providing the time zone, market, currency, etc.?) |
 | **24/7 trading assets** | Some assets (e.g., Bitcoin) trade continuously. there’s no daily closing. | data vendors pick an consistent daily cutoff time to define a “daily close.” (e.g., 00:00 GMT) for daily aggregation.  |
 
----
 
 ### 💡 Takeaways
 - Always check **timestamp, time zone, and trading-day definitions** before comparing markets.  

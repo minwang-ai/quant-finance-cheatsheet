@@ -1,3 +1,5 @@
+[TOC]
+
 # Numbers
 ## Numbers 
 | Category | Items | Examples |
@@ -5,7 +7,6 @@
 | **Data Types** | `int` (integers), <br> `float` (decimal/real numbers), <br> `complex(a,b)` (complex number a+bi). |
 | **Type Casting** | **convert data types**  |e.g., after getting input from command line via `input()`, remember to use `int(variable)` or `float(variable)` to convert data types **from string to numbers**. |
 | **Readable Big Numbers** | use **underscores** `_` as the seperator | `n = 100_000_000`|
----
 
 
 ## Python Arithmetic Operators
@@ -19,7 +20,6 @@
 | `//` | Performs **floor division**. | `x // y` | `x`, `y`: numeric values, `y != 0` | Floor of the division result | Time: `O(1)`<br>Space: `O(1)` | `5 // 2 -> 2`<br>`-5 // 2 -> -3` |
 | `%` | **Modulo**: check if two numbers divide  evenly or have a **remainder**. It is essential for determining **Parity** (whether a number is even or odd) | `x % y` | `x`, `y`: numeric values, `y != 0` | Remainder of `x` divided by `y` | Time: `O(1)`<br>Space: `O(1)` | `5 % 2 -> 1` <br><br> - even: `n % 2 == 0` <br> - odd: `n % 2 != 0`|
 | `**` | **Exponent**: Raises the first number to the power of the second. | `x ** y` | `x`: base value<br>`y`: exponent | `x` raised to the power `y` | Depends on operand size | `2 ** 3 -> 8` |
----
 
 ## Python Built-in Numeric Functions
 

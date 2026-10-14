@@ -1,3 +1,5 @@
+[TOC]
+
 ## Threads
 |Threads||
 |--|--|
@@ -18,9 +20,11 @@ Defination|A single-thread process is represented by <br> - its [**address space
 ----
 
 Figure: Multi-Threads
+
 ![Multi-Threads](figures/os-multi-threads.png)
 
 Figure: Single thread Process vs. **Multi Thread** Process
+
 ![Process vs. Thread](figures/os-process-vs-thread.png)
 
 
@@ -36,12 +40,13 @@ Figure: Single thread Process vs. **Multi Thread** Process
 |why **multithreading** instead of **multiprocess**?| - **lower memory requirement**: A **multiprocess** application requires **more memory** => more swaps from disk (we have to allocate each process a address space, and a executation context) while <br>  a **multi-threaded** application requires **less memory** (sharing address space). <br> - **lower communication overhead**: communicating, passing, synchronizing data among processes (requires **inter process communication IPC**) is more **costly** than **inter thread communication**(**shared variables** in the same process address space)|
 |even on **Single CPU** or generally when **number of threads > the number of CPUs**| - **Hide latency** associated with I/O operations: If thread has to wait on some event for some time **(t_idle)> two context switche (2*t_ctx_switch)**, then it makes sense to switch to another **thread** to perform other operation and switch back. <br> - **No memory overhead**: Threads **shared address space**|
 |User applications and **OS kernel**| support **multiple execution contexts** to operate concurrently <br> - OS threads could work on behalf of apps <br> - run OS level services like aemons and device drivers. |
----
 
 Figure: Multi-process requires more **memory (address space)** while multi-threads does not!
+
 ![Multi-Process](figures/os-multi-process.png)
 
 Figure: Multi-threading is benificial even on **Single CPU**
+
 ![Multi-Process](figures/os-multi-thread-single-CPU.png)
 
 ## Basic Thread Mechanisms
@@ -50,7 +55,6 @@ Figure: Multi-threading is benificial even on **Single CPU**
 |---|---|--|
 |thread data structure| identify threads, keep track resource usage| represent each thread
 |Synchronization Mechanisms| - create and manage threads <br> - allow threads safely coordinate among each other running concurrently in the same address space| - don't overwrite each other's inputs or results <br> - allow one thread to wait on results that should be produced by other threads| 
----
 
 
 
@@ -61,19 +65,23 @@ Figure: Multi-threading is benificial even on **Single CPU**
 |thread data structure|thread type|all the info to **represent** a thread, including:  <br> Thread ID, Program counter, Stack pointer, Register values, Stack, Other thread specific attributes (e.g., for thread management)|
 |**create** a thread|parent thread call **Fork(proc, args)**| two arguments: <br> - proc: the procedure that created thread will start executing <br> - args: arguments for the procedure proc. Note that: It is not the UNIX fork. <br> <br> When one thread (parent thread $T_0$) calls fork, a new thread (child thread $T_1$) is created with a new thread data structure (its fields are initialized such that its program counter pointing to the first instructure of the procedure proc and the arguments will be avilable on the stack of the thread). When the thread finishes, store the results of computation in the shared address space and use mechanisms to notify the parent or other threads. |
 |**terminate** a thread|parent thread call **Join (child thread ID)**| The parent thread will be **blocked** until the child completes. Join will return to the parent the result of the child's computation. At that point,child thread exits the system and all the resources allocated for child will be freed.
----
 
 
 Figure: Thread creation and termination
+
 ![thread creation](figures/os-thread-creation.png)
 
 
 Figure: Thread creation example: insert element to a shared link list
+
 ![thread creation](figures/os-thread-creation-example.png)
+
 Note: data race: because we do not know which thread will run at which time, we cannot be certain of the ordering of the elements in the shared list. Perhaps the child thread inserts its element before the parent thread, or perhaps the parent thread inserts first. 
 
 Figure: data race example: overwriting - insert element to a shared link list 
+
 ![data race](figures/os-thread-data-race-example.png)
+
 If multiple threads running concurrently, the operations are randomly interleaved. Only one element will be ultimately successfully linked to the list; the other one will be lost.
 
 
@@ -82,12 +90,12 @@ If multiple threads running concurrently, the operations are randomly interleave
 #### Why we need synchronization mechanisms? issues of concurrent execution 
 
 Figure: Data Race problem on threads because threads share memory address space
+
 ![data race](figures/os-data-race.png)
 
 |process| threads|
 |---|---|
 |Each process operate within their own address space. The operating system ensures that no valid mapping and access for any address in address space of a process (e.g., P2) to physcial memory (X) which is already mapped to another process (P1)| Threads share the same virtual address space and virtual to physical address mappings, which introduces data race problems: one thread can try to read the data while another modifies it, leading to inconsistencies|
----
 #### Synchronization Mechanisms
 To avoid the issues of concurrent execution
 |Mechanisms| Basic Idea| Details |
@@ -99,15 +107,18 @@ To avoid the issues of concurrent execution
 
 
 Figure: mutex example: safe insert - insert element to a shared link list 
+
 ![mutex example](figures/os-thread-no-data-race-mutex.png)
 
 Figure: Condition Variable example: consumer and producer
+
 ![Condition Variable example](figures/os-thread-condition-variable-example.png)
 
 - The consumer aquire the mutex, check list is not full, then suspends itself (automatically release the mutex) and waits until the list become full (automatically aquire the mutex).
 - The producer sends signal when the list is full.
 
 Figure: Condition Variable API Wait implementation: 
+
 ![Condition Variable example](figures/os-thread-condition-var-wait.png)
 
 
@@ -122,12 +133,12 @@ We can enumerate the cases, condense our two counters into one proxy variable - 
 |if read.counter == 0 and write.counter == 0: can read, can write| **free**: resource.counter = 0 |
 |if read.counter > 0 : can read| **reading**: resource.counter > 0 |
 |if write.counter == 1 : cannot read, cannot write | **writing**: resource.counter = -1 (encoding as a negative number) |
----
 
 
 
 
 Figure: **Readers/Writer example implementation**: 
+
 ![Readers/Writer example](figures/os-thread-reader-writer.png)
 
 |variables|meaning|
@@ -136,7 +147,6 @@ Figure: **Readers/Writer example implementation**:
 |counter_mutex| a mutex which always need to be aquired whenever we access to resource_counter|
 |read_phase| a condition variable signifying that the resource is ready for reading|
 |write_phase| a condition variable signifying that the resource is ready for writing|
----
 
 
 Readers/Writer with proxy variable implementation   - **Structure**
@@ -148,12 +158,12 @@ more than one read tBenefithread or only one write thread to be in the critical 
 | 1| enter critical section block $\approx$ lock | set resource_counter - the shared resource is accessed (using mutex)|
 | 2| critical section |read/ write shared data (no mutex)|
 | 3|  exit critical section block $\approx$ unlock| reverse resource_counter - free the shared resource and Singal/Broadcast condition variables (using mutex)|
----
 
 
 
 
 Figure: **critical section structure** with proxy variable
+
 ![critical section structure](figures/os-thread-critical-section-structure-with-proxy-var.png)
 
 
@@ -173,13 +183,13 @@ Figure: **critical section structure** with proxy variable
 when we wake up threads, but the waken up threads may not be able to proceed.
 
 Figure: Spruious Wake-up
+
 ![Spruious Wake-up](figures/os-thread-spurious-wakeup.png)
 
 |writer| readers|
 |--|--|
 |The writer hold the counter_mutex: sending broadcast and signal| readers are waiting on conditiona variable read_phase's queue|
 |The writer still holds the counter_mutex: complete the rest of operations before unlock| readers are waken up and try to reacquire the mutex, but failed, so they are waiting on the counter_mutex's queue (wait again) -> **waste cycles by context switching** |
----
 
 **Solution**:
 |senarios| solutions|
@@ -189,9 +199,11 @@ Figure: Spruious Wake-up
 ----
 
 Figure: Spruious Wake-up with **solution**: unlock the mutex before broadcast/signal
+
 ![Spruious Wake-up solution](figures/os-thread-spurious-wakeup-solution-ok.png)
 
 Figure: Spruious Wake-up: no solution
+
 ![Spruious Wake-up solution](figures/os-thread-spurious-wakeup-solution-not-ok.png)
 
 
@@ -201,7 +213,9 @@ occurs when two or more competing threads are waiting on each other to complete,
 Metaphor: two stubborn workers: each grab a tool and want another tool but do not want to give up the one they have.
 
 Figure: deadlock
+
 ![deadlock](figures/os-thread-deadlock.png)
+
 A cycle in the wait graph is necessary and sufficient for a deadlock to occur. The edges are from the thread waiting on a resource to the thread owning a resource.
 
 |Thread T1| Thread T2|
@@ -209,7 +223,6 @@ A cycle in the wait graph is necessary and sufficient for a deadlock to occur. T
 |aquired mutex for shared resource A|aquired mutex for shared resource B|
 |aquired mutex for shared resource B, but failed (since it is held by T2) |aquired mutex for shared resource A, but failed (since it is held by T1)|
 |waiting| waiting|
----
 
 
 **Solution of deadlock**:
@@ -229,4 +242,3 @@ Example:
 |prevent deadlocks| Each time to acquire a mutex: check if that operation will cause a cycle in the graph: delay the operation or change code to first release some resource and afterward perform lock request | very expensive|
 | detect deadlocks and recover| analysis of the wait graph and determine whether any cycles have occurred.| still expensive and sometimes impossible (if input and output are external) due to rollback executation|
 | doing nothing| hope that the system never have deadlocks, and if we are wrong, just reboot. |
----

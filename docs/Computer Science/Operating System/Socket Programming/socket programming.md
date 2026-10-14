@@ -1,5 +1,7 @@
 
 
+[TOC]
+
 # Chapter 2: What is a Socket? 
 
 | Topic | Description |
@@ -9,16 +11,18 @@
 | How you **create a socket** | Call `socket()` to obtain a socket descriptor. |
 | How you **communicate** | Use `send()` / `recv()` socket calls. |
 | Why it matters | It gives a standard programming interface for network communication, independent of underlying hardware details. |
----
 
 
 Figure: socket metaphor : post delivery
+
 ![metaphor](figures/socket-post-metaphor.png)
 
 Figure: TCP
+
 ![TCP](figures/socket-tcp.png)
 
 Figure: UDP
+
 ![UDP](figures/socket-udp.png)
 
 ## Section 2.1: Two Types of Internet Sockets 
@@ -34,7 +38,6 @@ Figure: UDP
 | **Speed/overhead** | More overhead, generally **slower** | Lower overhead, generally **faster** |
 | Typical use cases | `ssh`, `telnet`, HTTP/web traffic, chat | When a TCP stack  is unavailable or when a few dropped packets are acceptable, e.g., <br> tftp (trivial file transfer protocol, a little brother to FTP), dhcpcd (a DHCP client), Real-time multiplayer games, audio/video streaming, DHCP/TFTP-style workflows |
 | Key tradeoff | **Correctness** and delivery guarantees | **Low Latency** and throughput with possible packet loss |
----
 
 ## Section 2.2: Network Theory
 How packets are built:
@@ -46,10 +49,11 @@ How packets are built:
 | Layered Network Model (ISO/OSI 7-layer) | Application, Presentation, Session, Transport, Network, Data Link, Physical. |
 | Layered model consistent with Unix (simplified) | Application (telnet, ftp, etc) <br> → Host-to-Host Transport (TCP/UDP)<br>  → Internet (IP/routing) <br> → Network Access (Ethernet/Wi-Fi). |
 | Programmer responsibility | Use `send()` for stream sockets or `sendto()` for datagrams; kernel/hardware handle most lower-layer header work. |
----
 
 Figure: Data Encapsulation
+
 ![Data Encapsulation](figures/socket-data-encapsulation.png)
+
 a packet is born, the packet is wrapped (“encapsulated”) in a header (rarely a footer) by the first protocol (TFTP protocol), then the whole thing (TFTP header included) is encapsulated again by the next protocol (UDP), then again by the next (IP), then again by the final protocol on the hardware (physical) layer (Ethernet).
 
 
@@ -64,7 +68,6 @@ a packet is born, the packet is wrapped (“encapsulated”) in a header (rarely
 | Loopback address | It always means “this machine I’m running on now”. <br> - IPv4 loopback is `127.0.0.1`<br> - IPv6 loopback is `::1`. |
 | Subnet concept | Address = **network** part + **host** part, determined by a netmask (outdated). <br> <br> New style (Written as `address/the number of network bits (can be arbitrary) in decimal`| for IPv4: `192.0.2.12/30`, <br> for IPv6: `2001:db8::/32`|
 | Port numbers | 16-bit transport-layer endpoint identifier; same IP can host multiple services by different ports. <br> <br> Metaphor: Think of the IP address as the street address of a hotel, and the port number as the room number.  | HTTP `80`, telnet `23`, SMTP `25`; ports `<1024` are often special, and usually require special OS privileges to use. |
----
 
 ## Section 3.2: Byte Order
 if you want to represent the two-byte hex number.
@@ -74,7 +77,6 @@ if you want to represent the two-byte hex number.
 | Where it is used | Standard byte order used on the wire for **network** protocols. | Native byte order used internally by the **local computer**. |
 | Byte layout example (`0xb34f`) | Stored as `b3 4f` (big end byte first). | Could be `b3 4f` (big-endian hosts) or `4f b3` (little-endian hosts). |
 | **Conversion** needed? | No  | **Convert** to Network Byte Order before sending out on the wire and **convert** back to Host Byte Order after receiving. |
----
 
 Convension
 Use every combination of these: 
@@ -86,7 +88,6 @@ Use every combination of these:
 |htonl() |	host to network long |
 |ntohs() |	network to host short |
 |ntohl() |	network to host long |
----
 
 ## Section 3.3: Structs
 
@@ -116,7 +117,6 @@ Use every combination of these:
 | `struct sockaddr *` | `ai_addr` | Pointer to socket address <br> - IPv4: `struct sockaddr_in` <br> or - IPv6: `struct sockaddr_in6`. |
 | `char *` | `ai_canonname` | Full canonical host name|
 | `struct addrinfo *` | `ai_next` | pointer points to the next node in result linked list. |
----
 
 ### `struct sockaddr`
 
@@ -124,7 +124,6 @@ Use every combination of these:
 |---|---|---|
 | `unsigned short` | `sa_family` | Specify IP version: <br> - IPv4:`AF_INET`, <br> - IPv6: `AF_INET6`, |
 | `char[14]` | `sa_data` | contains a destination address and port number for the socket (tedious) |
----
 **Notes:**
 generic and somewhat unwieldy to fill manually; usually use **family-specific structs** to reference elements of the socket address easily and **cast**. 
 - `struct sockaddr_in` (IPv4) 
@@ -139,7 +138,6 @@ Here "in” for  “Internet”
 | `unsigned short int` | `sin_port` | must be **Network Byte Order**. | using `htons()` for conversion|
 | `struct in_addr` | `sin_addr` | IPv4 Ingernet address | see `struct in_addr` (IPv4)  |
 | `unsigned char[8]` | `sin_zero` | to pad the structure to the length of a `struct sockaddr`| should be set to all zeros with the function `memset()` |
----
 **Notes:**
 - a pointer to a `struct sockaddr_in`(IP specific) can be cast to a pointer to a `struct sockaddr` (generic) and vice-versa.  So we can use a `struct sockaddr_in` and **cast** it to `struct sockaddr*` at last minute.
     - `struct sockaddr*` is needed by function connect().
@@ -150,7 +148,6 @@ Here "in” for  “Internet”
 | Type | Field | Meaning |  how to use |
 |---|---|---|--|
 | `uint32_t` | `s_addr` | The 32-bit (4 byte) IPv4 address value (in network byte order). | If you  have declared ina to be of type `struct sockaddr_in`, then accessed by `ina.sin_addr.s_addr`|
----
 
 
 #### `struct sockaddr_in6` (IPv6) 
@@ -162,14 +159,12 @@ Here "in” for  “Internet”
 | `u_int32_t` | `sin6_flowinfo` | IPv6 flow information. |
 | `struct in6_addr` | `sin6_addr` | IPv6 address | see `struct in6_addr` |
 | `u_int32_t` | `sin6_scope_id` | Scope ID |
----
 
 ##### `struct in6_addr` (IPv6)
 
 | Type | Field | Meaning | how to use |
 |---|---|---|--|
 | `unsigned char[16]` | `s6_addr` | Raw 16-byte IPv6 address. | If you  have declared ina to be of type `struct sockaddr_in`, then accessed by `ina.sin6_addr.s6_addr`|
----
 
 ### `struct sockaddr_storage` (Family-Agnostic, large)
 
@@ -179,7 +174,6 @@ Here "in” for  “Internet”
 | `char[_SS_PAD1SIZE]` | `__ss_pad1` | Implementation padding; ignore in normal use. |
 | `int64_t` | `__ss_align` | Implementation alignment field; ignore in normal use. |
 | `char[_SS_PAD2SIZE]` | `__ss_pad2` | Implementation padding; ignore in normal use. |
----
 
 ## Section 3.4: IP Addresses, Part Deux
 
@@ -189,7 +183,6 @@ No need to figure them out by hand
 |---|---|---|---|---|
 | `inet_pton()` | **p**resentation **to** **n**etwork (`pton`) | Converts numeric string IP address into binary network address representation either `struct in_addr` (IPv4) or `struct in6_addr` (IPv6). | make sure to do **error checking (result is greater than 0)** before using. <br> Return <br> - `-1` on error, <br> - `0` if the address text is invalid, <br> - `>0` on success. | - IPv4: `struct sockaddr_in sa; inet_pton(AF_INET, "10.12.110.57", &(sa.sin_addr));` <br> -IPv6:`struct sockaddr_in6 sa6; inet_pton(AF_INET6, "2001:db8:63b3:1::3490", &(sa6.sin6_addr));` |
 | `inet_ntop()` <br> (reverse direction)| **n**etwork **to** **p**resentation (`ntop`)  | Converts binary network address representation to string IP address | Two macros (`INET_ADDRSTRLEN`/`INET6_ADDRSTRLEN`) conveniently hold **the size of the string** that we’ll need to hold the **largest IPv4 or IPv6 address**. <br> Numeric addresses only; no DNS lookup on a hostname like `www.example.com`. | - IPv4: `char ip4[INET_ADDRSTRLEN]; // space to hold the IPv4 string  struct sockaddr_in sa; // pretend this is loaded with something inet_ntop(AF_INET, &(sa.sin_addr), ip4, INET_ADDRSTRLEN); ` <br> - IPv6:`char ip6[INET6_ADDRSTRLEN]; // space to hold the IPv6 string struct sockaddr_in6 sa6; // pretend this is loaded with something  inet_ntop(AF_INET6, &(sa6.sin6_addr), ip6, INET6_ADDRSTRLEN); ` |
----
 
 
 ### Section 3.4.1: Private (Or Disconnected) Networks
@@ -198,7 +191,6 @@ No need to figure them out by hand
 |---|---|--|
 |**Internal** IP addresses|**firewall** translates using **Network Address Translation (NAT)** |**external** (everyone knows) IP addresses|
 | **my devices** can use private 24M IP address allocated just for me||**static** IPv4 addresses **allocated** to me by the **DSL company**|
----
 
 #### Reserved private ranges 
 - IPv4:
@@ -226,7 +218,6 @@ No need to figure them out by hand
 | Change 8 | `gethostbyname()` → <br>`getaddrinfo()` (preferred/superior) | `getaddrinfo("example.com", "80", &hints, &res)` |
 | Change 9 | `gethostbyaddr()` → <br> `getnameinfo()` (preferred/superior) | `getnameinfo(sa, salen, host, hostlen, svc, svclen, 0)` |
 | Change 10 | `INADDR_BROADCAST` does not apply in IPv6; use **IPv6 multicast** patterns instead. |  |
----
 
 
 # Chapter 5: System Calls or Bust
@@ -253,7 +244,6 @@ int getaddrinfo(const char *node,
 | `*hints` (input) | **pointer** `&hints` points to a defined struct addrinfo `hints` that we’ve already filled out with relevant  information.   | Example: <br> `struct addrinfo hints;` <br>`hints.ai_family = AF_UNSPEC; // IPv4 or IPv6 agnostic` <br> `hints.ai_socktype = SOCK_STREAM; // TCP stream sockets` <br> `hints.ai_flags = AI_PASSIVE;     // fill in my IP for me automatically` |
 | `**res` (output) | address of a pointer which points to **a Linked list** `res`, where each node is `struct addrinfo` | Define pointer `struct addrinfo *res` and pass the address `&res` as output parameter  |
 | `int status` Return value | - `0` : success <br> - **non-zero : error** | error handling: print error using `gai_strerror(status)`. |
----
 
 
 ### Server setup code example
@@ -318,7 +308,6 @@ int socket(int domain, int type, int protocol);
 | `type` (input) | Communication type. | - `SOCK_STREAM` (TCP) <br> - `SOCK_DGRAM` (UDP). |
 | `protocol` (input) | Specific protocol. | - Usually `0` to auto-select the proper protocol for the given `type`.  <br> - Or call `getprotobyname()` to look up the protocol you want, “tcp”  or “udp”.|
 | Return value | Socket file descriptor  | - `int sockfd` on success <br> - `-1` on error  | The global variable `errno` is set to the error’s value |
----
 
 ### code example 
 
@@ -357,7 +346,6 @@ int bind(int sockfd, struct sockaddr *my_addr, int addrlen);
 | `my_addr` (input) | a pointer to a `struct sockaddr` that  contains information about your address, namely, port and IP address| Typically use `res->ai_addr` from `res`  output of `getaddrinfo()` |
 | `addrlen` (input) | Length (bytes) of the address passed in `my_addr`. | Usually `res->ai_addrlen`|
 | Return value | Result of bind operation. | - `0` on success <br> - `-1` on error and sets `errno` to the error's value. |
----
 
 ### Common pitfall and solutions
 - Don’t go underboard with port numbers. 
@@ -411,7 +399,6 @@ int connect(int sockfd, struct sockaddr *serv_addr, int addrlen);
 | `serv_addr` (input) | Pointer to `struct sockaddr` (containing the destination port and IP address) | Usually pass info from `getaddrinfo()`, i.e., `res->ai_addr`|
 | `addrlen` (input) | Length in bytes of `serv_addr`. | Usually pass info from `getaddrinfo()`, i.e., `res->ai_addrlen`. |
 | Return value | Result of connection attempt. | -`0` on success - <br> `-1` on error and set `errno`. |
----
 
 
 ### code example for client connect to remote host:
@@ -446,7 +433,6 @@ int listen(int sockfd, int backlog);
 | `sockfd` (input) | Socket file descriptor (fd)| returned by socket() system call.  |
 | `backlog` (input) | the limit about **number of  connections** allowed **waiting** in the incoming queue until you `accept()`.|  Most systems silently limit this number to about `20`; you can probably get away with setting  it to `5` or `10`. |
 | Return value | Result of listen setup. - `0` on success <br> - `-1` on error and sets `errno` on error. |  |
----
 
 
 
@@ -480,7 +466,6 @@ int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 | `addr` (output) | a pointer to a local `struct sockaddr_storage` | - Define `struct sockaddr_storage their_addr;`  <br>  - **cast** it to `(struct sockaddr *)` by `(struct sockaddr *)&their_addr` <br> <br> `struct sockaddr_storage` is where the information about the incoming connection will go (and with it you can determine which host is calling you from which port). |
 | `addrlen` (input) | a local integer variable that should be set to `sizeof(struct sockaddr_storage)` before its address is passed to `accept()`  | `addr_size = sizeof their_addr;`  |
 | Return value | A **new** connected socket descriptor. | - `new_fd >= 0` on success <br> - `-1` on error and sets `errno`. |
----
 
 ### code example for server `accept()`:
 
@@ -545,7 +530,6 @@ int recv(int sockfd, void *buf, int len, int flags);
 | `len` (input) | the length  of that data in bytes. | Usually `strlen(msg)` for strings (without `\0`). |
 | `flags` (input) | Send flags. | set to `0`. |
 | Return value | Number of bytes **actually sent**. | `-1` on error and `errno` is set to the error number. <br> Note: <br> may send **fewer** bytes than requested. If the value returned by  `send()` (actually sent) **doesn’t match** the value in len (intend to send), it’s up to you to **send the rest of the string** by looping until all bytes are sent. <br> If the packet is small (less than 1K or so) it will probably manage to send the whole thing all in one go. |
----
 
 | `recv()` Parameter / Return | Description | Notes |
 |---|---|---|
@@ -554,7 +538,6 @@ int recv(int sockfd, void *buf, int len, int flags);
 | `len` (input) | maximum length of the buffer `buf`. | Protects against buffer overflow |
 | `flags` (input) | Receive flags. | set to `0`. |
 | Return value | Number of bytes actually received into buffer. | - `-1` on error (`errno` set) <br> - `0` means remote side **closed the connection**. |
----
 
 
 ### code example for `send()`:
@@ -595,7 +578,6 @@ int shutdown(int sockfd, int how);
 | sockfd (input) | the socket file descriptor you want to shutdown | `0` on success, `-1` on error (`errno` set). | 
 | how (input)| disable direction control | - `0`: Further **receives** are disallowed. <br> - `1`: Further **sends** are disallowed. <br> - `2`: Further **sends and receives** are disallowed (similar communication effect to `close()`).|
 | Return value | shundown result | - `0` on success <br> - `-1` on error (`errno` set) |
----
 
 
 
@@ -626,7 +608,6 @@ int getpeername(int sockfd, struct sockaddr *addr, int *addrlen);
 | `addr` (output) | a pointer to a`struct sockaddr` or `struct sockaddr_in` that will hold the **information about the other side** of the connection | |
 | `addrlen` (input) | a pointer to an int | should be initialized to `sizeof *addr` or `sizeof(struct sockaddr`  |
 | Return value | Result of query. | - `0` on success <br> - `-1` on error and sets `errno` accordingly |
----
 
 
 ### code example (to check)
@@ -655,7 +636,6 @@ int gethostname(char *hostname, size_t size);
 | `hostname` (output) | a pointer to an array of chars that will contain the hostname upon the function’s return | |
 | `size` (input) | Buffer length in bytes for hostname array | Ensure buffer is large enough to avoid truncation issues. |
 | Return value | Result of call. |  - `0` on success <br> - `-1` on error and sets `errno` accordingly  |
----
 
 
 ### code example (to check)
@@ -673,6 +653,7 @@ if (gethostname(hostname, sizeof hostname) == -1) {
 Client processes and server processes communicate in request/response style over the network. Note that the client-server pair can speak `SOCK_STREAM`, `SOCK_DGRAM`, or anything else (as long as they’re speaking the **same** thing).
 
 Figure: Client-Server Interaction
+
 ![Client-Server Interaction](figures/os-socket-client-server-interaction.png)
 
 
@@ -682,7 +663,6 @@ Figure: Client-Server Interaction
 |Model|| Parent process keeps waiting for a connection, `accept()` it, then `fork()` a child process to handle each client. |
 |Socket|| - `sockfd` listening socket (stays open) <br> - `new_fd`: connected socket for one client|
 | Typical stream flow |resolve server address `getaddrinfo()`<br> -> create socket `socket()` <br> -> call server `connect()` <br> -> receive reply `recv()` <br> -> close socket|  `getaddrinfo()` <br> -> `socket()` <br> -> `bind()` <br> -> `listen()` <br> -> `accept()` |
----
 
 ## Section 6.1: A Simple Stream Server
 This demo server accepts TCP connections and sends `"Hello, world!"` out over the stream connection.

@@ -1,3 +1,5 @@
+[TOC]
+
 # CS50P Lecture 3: [Exceptions](https://docs.python.org/3/tutorial/errors.html)
 Handle **something out of the ordinary** (exceptional).
 All errors in Python are dealt with using exceptions, but **not all exceptions are errors**.
@@ -7,7 +9,6 @@ All errors in Python are dealt with using exceptions, but **not all exceptions a
 | :--- | :--- | :--- | :--- |:--- |
 | **Syntax Error** | Errors in the **"grammar"** of the code. | caught before the program runs | - Missing quotes, unclosed parentheses (`unterminated`: started something but didn't stop it; `literal`:something we literally typed) <br> - Typos | Double-check typing; the interpreter usually points to the line. |
 | **Runtime Error** | Errors that occur while the **program is running** due to **unexpected behavior**. |  caught during execution.| - Unexpected user input (ValueError: e.g., entering "cat" when a number is expected). | Implement "defensive programming" using try-except blocks. |
----
 
 ## Use `try/except` block to catch errors
 These keywords allow you to `try` to run some code `except` if something goes wrong, to handle errors caused by unexpected events gracefully **without crashing**.
@@ -17,14 +18,12 @@ These keywords allow you to `try` to run some code `except` if something goes wr
 | **`try`** | Try to execute a block of code that might cause errors. | If the whole block of code executes without any run-time errors, just run the code after the `try-except` block (e.g., `else` block if it exists).| testing out code before something goes wrong| - Only include the **fewest lines of code** possible that are **likely to fail** (because the error will be **catched immediately** and then the program **skip the rest of the `try`  block** and **jump to `except` block**) <br> - combine with **while loo**p** when handling **incorrect user input**: ask for input again.  |
 | **`except`** | Defines the code to run to handle the error if a specific error occurs in the `try` block. | | Prevents the program from crashing by allowing a defined response to errors. | - It is a **bad practice to catch all runtime error in one except** using `except Exception:` <br> - **Better** practice: figure out what **kind of errors** could happen and handle them **seperately** explicitly. |
 | **`else`** | Defines code to run **if no exceptions** were raised in the `try` block. || For logic that depends on the successful execution of the `try` block. |
----
 
 
 | Keyword | Purpose | Behavior |
 | :--- | :--- | :--- | 
 | [**`pass`**](https://docs.python.org/3/tutorial/controlflow.html#pass-statements)| Silently **ignores** an exception. Acts as a **null placeholder**. The program will catch the error but take no action  | Execution continues to **the next line of code** immediately following the current block. |
 | **`continue`** | **Interrupts** the current loop iteration. | Jumps directly **back to the top of the loop** (the `while True` line) and starts a new cycle|
----
 
 ### Syntax template - try-except block
 ```python
@@ -101,7 +100,6 @@ For example, an ArithmeticError exception will catch itself and all FloatingPoin
 | **`IndexError`** | Occurs when attempting to access an index that is outside the bounds of a list. | Accessing list index but index is **out of range**, e.g.,`sys.argv[1]` when the user forgot to provide a **command-line argument**. |
 | **`requests.RequestException`** | The base class for all exceptions raised by the `requests` library. | A "catch-all" to prevent a crash if an **API query** fails due to network or connection issues. |
 | **`AssertionError`**| Raised when an `assert` statement's boolean condition evaluates to `False`. | Raised during unit testing when checking if a function's returned value is not equal to its expectations |
----
 
 ## When to Use Exception
 * Error Handling:
@@ -122,7 +120,6 @@ There is a whole suite of exceptions that already exist and we can also create o
 | Keyword | When to Use | Behavior | Syntax | Example |
 | :--- | :--- | :--- | :--- |:--- |
 | **`raise`** | **Alter programmers and users** when something is **wrong** or they use it in an incorrect way.| Manually triggers a specific exception. | `raise SpecificErrorType("ErrorMessage")` | `raise ValueError("Invalid age")` |
----
 
 ### Why use `raise`?
 *   **Enforce Our Own Logic**: Python doesn't mind if an age is `-5`, but your program should. 

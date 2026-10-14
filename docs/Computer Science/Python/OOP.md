@@ -1,3 +1,5 @@
+[TOC]
+
 # Lecture 8: Object-Oriented Programming (OOP) 
 
 Object-Oriented Programming is a programming paradigm where you transition from writing code step-by-step (procedurally) to **creating custom blueprints and data types** (classes) .
@@ -18,7 +20,6 @@ The most important feature: **methods** associated with the objects can **access
 | **Attributes (instance variables)**| Variables stored inside an object or class and operate on **each instance**. | Within def: <br>`self.attribute = value` <br> <br> Outside def:<br>`instance.attribute = value` | **Accessed and set** using **dot notation**. | Standardizes the data that belongs to an instance. We can make it **inmutable or mutable**. |
 | **Instance Methods** | Functions defined inside a class that dictates how **each instance** behave. |  Within def: <br> `self.method()`<br><br> Outside def:<br>`instance.method()` | Must take **`self`** as its first parameter to refer to the current object. | Allows objects to perform **custom actions** and **manipulate their own data**. |
 | **Class variables**| **Shared variables** for the **entire class** or across **all the instances of the class**, exist within class itself. | Within def: <br> `class ClassName:`<br>&nbsp;&nbsp;&nbsp;&nbsp;`class_variable = value` | |
----
 
 ### Class Definition Template
 encapsulate all the functionality of a class within the class definition. 
@@ -74,7 +75,6 @@ If we define these [Python special methods](https://docs.python.org/3/reference/
 | **`__str__`** | Defines how the object should represent itself as a text string for **users**. The return string is displayed automatically when the **object is printed** (e.g., **`print(instance)`)**| `def __str__(self):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`return f"{self.attribute}"` | - **`self`**: The current object. | **Must return a string**. |
 | **`__repr__`** |	Provides the “official” string **representation** that shows more info (type) (used in the Python shell, debugging, etc.) for developers|
 | **`__add__`** | **Operator Overloading**: **Customizes** how the `+` operator behaves between two objects. | `def __add__(self, other):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`return ...` | - **`self`**: The object on the left of `+`.<br>- **`other`**: The object on the right of `+`. | Returns a new object (or custom value) representing the sum of both objects. |
----
 
 ### Getter and Setter - Define Properties using Decorators 
 To validate or restrict attributes before it is assigned to any values and avoid wrongly assignment, we define properties using function decorators (which begin with **`@`**)
@@ -86,14 +86,12 @@ To validate or restrict attributes before it is assigned to any values and avoid
 | **`@<attribute>.setter`** | Defines a **setter** function to validate data before it is saved.   | `@attribute.setter`<br>`def attribute(self, argument):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`if attribute not in [...]:`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`raise ValueError()`<br>&nbsp;&nbsp;&nbsp;&nbsp;`self._attribute = argument` | - **`self`** <br>- **`argument`**: The new value being assigned. | It will be called **automatically** whenver we **access the attribute via `.attribute = new_value`** |
 | **`@classmethod`** | The function defined inside the class to add functionality to the **class itself as a whole**, not to each individual instance of that class. It does **not** have access to the object itself **`self`** but the class itself **`cls`** | `@classmethod`<br>`def class_method_name(cls, arguments):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`return cls(variables) # create an object of current class` | **`cls`**: Refers to the **class** itself, **replacing** the standard instance **`self`**. | Can be **called directly on the capitalized class name** (e.g., `ClassName.class_method_name()`) **without** instantiating an object first. |
 |**`@staticmethod`** |
----
 
 ### Built-In Type Checking (`isinstance`)
 
 | Method | Purpose | Syntax | Parameters  | Return Value|
 | :--- | :--- | :--- | :--- | :--- |
 | **`isinstance()`** | Checks whether an object is an instance of a specified class or data type (or tuple of types). | `if not isinstance(object, classinfo):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`raise ValueError("")` | - **`object`**: The variable/instance to inspect.<br>- **`classinfo`**: A type (e.g., `int`, `str`, any class) or tuple of types (e.g., `(int, float)`). | Returns **`True`** if the object matches the specified class/type; returns **`False`** otherwise. |
----
 
 
 ## Advanced Features
@@ -116,7 +114,6 @@ class Child(Parent):
 | Concept | Purpose | Syntax Example | Explanatory Details |
 | :--- | :--- | :--- | :--- |
 | **`super()`** | **Access the parent (or "super") class** of the current class, letting the child call the parent methods. | `super().__init__(shared_arguments)` | Used inside a child's `__init__` constructor to reuse the parent's initialization logic. |
----
 
 #### Connecting to Exceptions Hierarchy
 Python’s own exception system relies entirely on OOP inheritance. All exceptions are classes structured in a hierarchical parent-child tree:

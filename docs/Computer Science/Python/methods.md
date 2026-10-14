@@ -1,3 +1,5 @@
+[TOC]
+
 # Methods
 
 ### Unpacking
@@ -6,7 +8,6 @@
 | :--- | :--- | :--- | :--- |
 | **Unpacking List(`*`)** | Unpacks elements of a **list or tuple** into **positional arguments** when calling a function. | `function(*my_list)` | Passes **each element of the sequence as an individual argument**. <br><br>Note that the list/tuple/dict element size should be the **same** as the number of arguments of the function, otherwise, it will raise Type**Error** |
 | **Unpacking Dictionary(`**`)** | Unpacks **key-value pairs of a dictionary** into named keyword arguments. | `my_dict = {"key__1": value_1, "key__2": value_2}`<br>`function(**my_dict)` | Matches dictionary **keys** to **function parameter**, and pass the **values**, seperate conceptually with equal signs  `function(my_dict[key_1], my_dict[key_2])` |
----
 
 ### Placeholder `*args` and `**kwargs`
 To tell our functions to expect a presently **unknown variadic** number of positional **arg**uments / **k**ey**w**ord **arg**uments. `*args` and `**kwargs` can be named differently, e.g., `*objects`
@@ -14,7 +15,6 @@ To tell our functions to expect a presently **unknown variadic** number of posit
 | :--- | :--- | :--- | 
 | **`*args` Parameter** (can be called with different names) | Could take an **arbitrary number** of **positional arguments**(from left to right) into a tuple, i.e., `args = (value_1, value_2, value_3)` | `def f(*args):` <br><br> `f(value_1, value_2, value_3)`| 
 | **`**kwargs` Parameter** | Could take an **arbitrary number** of **keyword arguments** (can be called optionally and individually by its own name) into a dictionary, i.e., `kwargs = {arg_1 : value_1, arg_2 : value_2, arg_3 : value_3}` | `def f(**kwargs):`<br><br> `f(arg_1 = value_1, arg_2 = value_2, arg_3 = value_3)`| 
----
 
 
 ## Scope
@@ -30,7 +30,6 @@ Use global variables **sparingly**.
 | **Scope (Access)** | Only inside that function | Anywhere in the module |
 | **Lifetime** | Exists only while function runs | Exists for the entire program execution |
 | **Modification** | Assign directly <br> `var = 10` | Requires **`global` keyword** to tell each function that `var` does not refer to a local variable: instead, it refers to the global variable we originally placed at the top of our code.  <br> `global var` <br> `var = 10` |
----
 Note:
 **Do not** have a local variable that has the **same name** as any global variable.
 
@@ -51,9 +50,9 @@ Python does **not enforce** constant immutability like other languages, we can o
 | **Syntax details** | Starts with `def` keyword followed by the function name, arguments, and a block of code for multiple expressions, optionally explicit return statement. | Starts with `lambda` keyword followed by parameters, a colon, and a **single expression**.<br><br>* **arguments**: A comma-separated list of parameters<br>* **expression**: A single expression that is evaluated and returned automatically. |
 | **Example** | `def add(x, y):` <br>&nbsp;&nbsp;&nbsp;&nbsp; `return x + y` | `lambda x, y: x + y` |
 | **Scope of Variables** | Can define local variables for use within the function. | Cannot define new variables; can only use function arguments and existing variables. |
----
 
 Figure: Regular Function vs Lambda Function
+
 ![Lambda](figures/lambda_function.jpeg)
 
 
@@ -67,7 +66,6 @@ Nevertheless, it’s good practice to ensure all of your variables are of the ri
 | Concept | Purpose | Syntax | + |
 | :--- | :--- | :--- | :--- |
 | **Type Hints** | **Annotates the expected types** for arguments, variable and return values for static analysis. | `def function(argument: arg_type) -> return_type:`<br>&nbsp;&nbsp;&nbsp;&nbsp; `variable: var_type = value` <br>&nbsp;&nbsp;&nbsp;&nbsp; `return return_var` | Improves code readability and allows type checkers to catch errors before runtime. |
----
 `pip install mypy`<br>`mypy file_name.py`
 
 

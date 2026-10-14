@@ -1,3 +1,5 @@
+[TOC]
+
 # Table of Contents
 * [Table: Basic Concept of Interest](#basic-concept-of-interest)
 * [Table: Simple Interest vs. Compound Interest](#simple-interest-vs-compound-interest)
@@ -46,12 +48,14 @@
 ### Simple Interest VS Compound Interest
 | Type | Concept | Formula | note |
 |-------|---------|------------|-----------|
-| Simple <br> Interest | Interest earned only on principal. | $$ \text{Simple Interest} = P \times r \times n $$ <br> $$FV = PV \times(1+nr)$$| Usually for Certificates of Deposits. Better when we are borrower.
-| Compound Interest | Interest earned on principal + accumulated previous interest. | $ \text{Compound Interest} = P \times (1 + r)^t - P$ <br> $$FV = PV \times(1+r)^t$$ <br> $$ \Rightarrow PV = \frac{FV}{(1 + r)^t}$$  <br> $$ \Rightarrow r = \left(\frac{FV}{PV}\right)^{1/t} - 1$$| Most common type. Better when we are depositor/investor. <br> [Growth of investments over time:](https://worldquantuniversity.shinyapps.io/wqu_compound_interest_m1_ck/) <br> • the nearly linear growth with low interest rates and fewer compounding periods <br> • an exponential growth pattern when higher interest rates, more frequent compounding periods, and extended time frames are applied. 
+| Simple <br> Interest | Interest earned only on principal. | $ \text{Simple Interest} = P \times r \times n $ <br> $FV = PV \times(1+nr)$| Usually for Certificates of Deposits. Better when we are borrower.
+| Compound Interest | Interest earned on principal + accumulated previous interest. | $ \text{Compound Interest} = P \times (1 + r)^t - P$ <br> $FV = PV \times(1+r)^t$ <br> $ \Rightarrow PV = \frac{FV}{(1 + r)^t}$  <br> $ \Rightarrow r = \left(\frac{FV}{PV}\right)^{1/t} - 1$| Most common type. Better when we are depositor/investor. <br> [Growth of investments over time:](https://worldquantuniversity.shinyapps.io/wqu_compound_interest_m1_ck/) <br> • the nearly linear growth with low interest rates and fewer compounding periods <br> • an exponential growth pattern when higher interest rates, more frequent compounding periods, and extended time frames are applied.
 -------
 
 #### Figure : Difference between simple and compounded interest over time
+
 ![Difference between the simple and compounded interest](Difference_simple_compounded_interest.png "Difference between the simple and compounded interest")
+
 Note: the compound interest grows much faster than simple interest over time
 
 
@@ -62,10 +66,10 @@ Note: the compound interest grows much faster than simple interest over time
 |-------|---------|------------|
 | Compound Frequency |	How often interest is added to your account. | monthly = 12 times/year, quarterly = 4 times/year, daily = 365 times/year |
 | Nominal Annual Rate |	The stated (advertised) yearly interest rate, not accounting for compounding frequency. 	| 12% annual rate compounded monthly ≠ 12% actual return. |
-| Discrete Compounding| with compounding frequency: <br> $$FV = PV \times(1+r)^t = PV \times\left(1+\frac{r}{q} \right)^{qt}$$| |
-| Continuous Compounding | the extrame case, when compound frequency $q$ is infinite large - interest is added at every instant $$ \lim_{q \to \infty} FV = PVe^{rt}$$ |  |
-| Effective Annual Rate (EAR)	| The true annual rate, including the effect of compounding. Formula: $$\text{EAR} = \left(1 + \frac{r}{q} \right)^q - 1$$| 12% nominal annual rate compounded monthly ≈ 12.68% EAR. <br> It allows: <br> •  fair comparison for two investment offers with different compounding frequencies <br> •  Understanding how much you’re really earning or paying. |
-| Keep EAR the Same <br> Convert the Nominal Rate | Keep Effective Annual Rate the same, convert from one nominal rate with its compounding frequency to another. Formula: $$\frac{FV}{PV} = \left(1 + \frac{r_{q_1}}{q_1}\right)^{q_1} = \left(1 + \frac{r_{q_2}}{q_2}\right)^{q_2}$$ $$\Rightarrow r_{q_2} = q_2 \times \left[\left(1 + \frac{r_{q_1}}{q_1}\right)^{q_1/q_2}-1\right]$$ |  |  
+| Discrete Compounding| with compounding frequency: <br> $FV = PV \times(1+r)^t = PV \times\left(1+\frac{r}{q} \right)^{qt}$| |
+| Continuous Compounding | the extrame case, when compound frequency $q$ is infinite large - interest is added at every instant $ \lim_{q \to \infty} FV = PVe^{rt}$ |  |
+| Effective Annual Rate (EAR)	| The true annual rate, including the effect of compounding. Formula: $\text{EAR} = \left(1 + \frac{r}{q} \right)^q - 1$| 12% nominal annual rate compounded monthly ≈ 12.68% EAR. <br> It allows: <br> •  fair comparison for two investment offers with different compounding frequencies <br> •  Understanding how much you’re really earning or paying. |
+| Keep EAR the Same <br> Convert the Nominal Rate | Keep Effective Annual Rate the same, convert from one nominal rate with its compounding frequency to another. Formula: $\frac{FV}{PV} = \left(1 + \frac{r_{q_1}}{q_1}\right)^{q_1} = \left(1 + \frac{r_{q_2}}{q_2}\right)^{q_2}$ $\Rightarrow r_{q_2} = q_2 \times \left[\left(1 + \frac{r_{q_1}}{q_1}\right)^{q_1/q_2}-1\right]$ |  |
 -------
 
 
@@ -139,7 +143,7 @@ A zero-coupon bond:
 | Aspect | Spot Rate |	Forward Rate |
 |-------|---------|------------|
 | Definition |	Annual interest rate is agreed today <br> and we start investment now | Annual interest rate is agreed today <br> but we wait and start investment in the future |
-| Formula | Derive spot rate from a sequence of forward rates. $$r(0, t) = \left[ \prod_{i=1}^{t} (1 + f(0, i - 1, 1)) \right]^{\frac{1}{t}} - 1 \\= \left[ (1 + r(0, 1)) \cdot (1 + f(0, 1, 1)) \cdots (1 + f(0, t - 1, 1)) \right]^{\frac{1}{t}} - 1$$ | derive forward rate from spot rate $$f(0, s, t - s) = \left[ \frac{(1 + r(0, t))^t}{(1 + r(0, s))^s} \right]^{\frac{1}{t - s}} - 1$$|
+| Formula | Derive spot rate from a sequence of forward rates. $r(0, t) = \left[ \prod_{i=1}^{t} (1 + f(0, i - 1, 1)) \right]^{\frac{1}{t}} - 1 \\= \left[ (1 + r(0, 1)) \cdot (1 + f(0, 1, 1)) \cdots (1 + f(0, t - 1, 1)) \right]^{\frac{1}{t}} - 1$ | derive forward rate from spot rate $f(0, s, t - s) = \left[ \frac{(1 + r(0, t))^t}{(1 + r(0, s))^s} \right]^{\frac{1}{t - s}} - 1$|
 | Idea behind both formulas| Investing with a spot rate from time $0$ to $t$ should give the same result as investing one year at a time with the relevant forward rates. <br> Therefore: chain and average across years (root), and minus 1 to get interest rate from growth factor  |Total accumulated growth factor from $0$ to $t$ = Accumulated growth factor from $0$ to $s$ $\times$ Accumulated growth factor from $s$ to $t$|
 -------------------
 
@@ -184,7 +188,7 @@ Inflation rate is the rate at which prices rise.
 |-------|---------|------------|
 | Definition	| Stated interest rate without removing inflation effect| Interest rate after removing inflation effect <br> — actual purchasing power gain|
 | When useful	| Comparing products at a point in time	| Comparing across time or countries, inflation-adjusted analysis|
-| Formula <br> Fisher Equation: <br> $$1 + r_n = (1 + r_r)(1 + \pi^e)$$ <br> Use approximation when $r_n$ and $\pi^e$ are small : $$r_r \approx r_n - \pi^e$$  | $$\Rightarrow r_n = (1 + r_r)\times (1 + \pi^e)-1$$| $$\Rightarrow r_r = \frac{1 + r_n}{1 + \pi^e} - 1$$|
+| Formula <br> Fisher Equation: <br> $1 + r_n = (1 + r_r)(1 + \pi^e)$ <br> Use approximation when $r_n$ and $\pi^e$ are small : $r_r \approx r_n - \pi^e$  | $\Rightarrow r_n = (1 + r_r)\times (1 + \pi^e)-1$| $\Rightarrow r_r = \frac{1 + r_n}{1 + \pi^e} - 1$|
 -------
 
 ### The idea behind the Fisher Equation: 
@@ -195,9 +199,9 @@ $$
 ### Notation
 | Symbol | Meaning |
 |----------|--------|
-| $$r_n$$        | **Nominal** interest rate         |
-| $$r_r$$        | **Real** interest rate (inflation-adjusted, reflects purchasing power) |
-| $$\pi^e$$     | Expected inflation rate (price increase rate over time)      |
+| $r_n$        | **Nominal** interest rate         |
+| $r_r$        | **Real** interest rate (inflation-adjusted, reflects purchasing power) |
+| $\pi^e$     | Expected inflation rate (price increase rate over time)      |
 ------------
 
 
@@ -209,6 +213,5 @@ $$
 | **Typical rate example**    | 3% per year                                       | 7.5%–18% or more (depends on credit, loan type)     |
 | **Why rates differ?**       | Banks take your money and pay low to you acquire funds (input, raw material)                  | Banks Lends it out as product (service) and charge high to cover risk, costs, and profit  |
 | **Risk to bank**            | Low (your deposit is safe, insured)              | High (borrowers may default, need to manage risk)   |
-
 
 

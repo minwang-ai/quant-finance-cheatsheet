@@ -1,3 +1,5 @@
+[TOC]
+
 # CS50P Lecture 4: Libraries 
 Instead of copying and pasting code from an old project of yours or others, you can **share** functions or features by **creating modules** and **import** modules/functions to your new project. 
 
@@ -6,7 +8,6 @@ Instead of copying and pasting code from an old project of yours or others, you 
 | :--- | :--- | :--- | :--- | :--- | :--- | 
 | **`import`** (**preferred**)| import the entire module (**all** the functions, classes, variables)  into the current namespace | `import <module>` <br> optional:<br> `import <module> as <alias>`| When we call the functions, we need to **specify the module name as a prefix** `module.function()`| + **Clarify the origin of names** of functions and variables to the module. Keep namespace clean, as it **prevents potential naming conflicts**. <br> + **Avoid ImportError** in case of **circular imports** <br> <br>- **Calling multiple times** of `module.function` makes the code **longer, ugly and annoying** |- not use the functions/classes/variables frequently <br> - want to clarify the origin of names|
 | **`from ... import ...`**|  Case 1. only import some **specific functions/classes/variables** of a module into the current namespace <br><br> Case 2. import **submodules**| `from <module> import <function>,<class>, <variable>` <br> <br> ` from <module> import <submodule>` | When we call the functions, we simply call the function `function()` **without** specifying the module name as a prefix<br><br> Note:<br> **Avoid** using  `from <module> import *` because they make it unclear which names are present in the namespace (hide the origin of names, and risk overwriting built-in functions), confusing both readers and many automated tools. |- Without the module prefix leads to **cleaner code** when using that function multiple times <br> - We **cannot use** the same name for the variable or functions name as the one from the libraries, otherwise cause potential **naming conflicts**. | - Use a name **frequently** <br> - The **module name is long**|
----
 Note:
 - **Both** methods load the **entire module**.
 - Group Imports Logically:
@@ -27,13 +28,11 @@ Note:
 | **`random.randint()`** | Generate a **random integer** between two values inclusive. | `random.randint(start, end)` | - `start`, `end`: **inclusive** range [`start`, `end`] | `int` |  |
 | **`random.randrange()`** | Generate a **random integer** within a specified range.  | `random.randrange(start, stop, step)` | - `start` (optional): The starting number of the range. Default is 0. <br> - `stop` (required): The upper limit (**exclusive**) for the generated number <br> - `step` (optional): The step size. Default is 1 and cannot be zero (raises `ValueError`).| `int` | - Even or odd Numbers <br> - Dice roll - <br> Random selection from a list: random index |
 | **`random.shuffle()`** | **Reorder** a **list** randomly **in-place**. | `random.shuffle(x)` | `x` (a list) | `None` Modifies the original list |
----
 
 ### [`statistics`](https://docs.python.org/3/library/statistics.html)
 | Method | Purpose | Syntax | Parameters | Return Value | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **`statistics.mean()`** | Calculate the arithmetic mean (average). | `statistics.mean(data)` | `data` (list of numbers) | `float` |  |
----
 
 ### `datetime`
 
@@ -46,7 +45,6 @@ Note:
 | **`date`** *(Class)* | create a calendar **date** (year, month, day) in the Gregorian calendar. | `d = date(year, month, day)` | - **`year`**: Integer (e.g., `2024`).<br>- **`month`**: Integer (`1`–`12`).<br>- **`day`**: Integer (`1`–`31`). | An instance of a **`date` object**. |
 | **[`date.today()`](https://docs.python.org/3/library/datetime.html#datetime.date.today)** | Retrieves the current local calendar date. | `today_date = date.today()` | None. | a **`date` object** representing today. |
 | **`date.fromisoformat()`** | Parses an ISO 8601 formatted date string (`YYYY-MM-DD`). | `d = date.fromisoformat(date_str)` | **`date_str`**: String in `YYYY-MM-DD` format. | A **`date` object** if valid; automatically; raises a **`ValueError`** if invalid. |
----
 
 ### [timedelta objects](https://docs.python.org/3/library/datetime.html#timedelta-objects)
 `from datetime import timedelta`
@@ -55,7 +53,6 @@ Note:
 | **Date Subtraction (`-`)** | Computes the difference between two `date` objects (operator overloading via `__sub__`). | `delta = date2 - date1` | - **`date2`**: End date object.<br>- **`date1`**: Starting date object. | a **`timedelta` object** representing the duration between the two dates, which itself comes with several (read-only) "instance attributes" |
 | **`timedelta()`** | Constructs a **custom time interval** for relative date calculations/testing. | `delta = timedelta(days=365)` | **`days`**: Integer representing duration in days. | A **`timedelta` object**. |
 | **`timedelta.days`** *(Attribute)* | Accesses the total number of days stored in a `timedelta` object. | `num_days = delta.days` | None (read-only attribute). | An **integer** representing the total days difference. |
----
 
 
 ##  Command-Line Arguments: [`sys`](https://docs.python.org/3/library/sys.html) & [`argparse`](https://docs.python.org/3/library/argparse.html)
@@ -68,7 +65,6 @@ The `sys` is a module that allows us to take user input from the command line wh
 | **`sys.argv`** <br> stands for **arg**ument **v**ector | Access **a list of all the arguments** that user typed at the command line as inputs to the program when running python script to influence the behavior of the program. | `sys.argv[i]` | **`i` (index)**: An integer representing the position of the argument in the list. | `str` | - `sys.argv[0]` is always the python **file_name.py** <br> -  `sys.argv[1]` is the **first user input**. Using **slicing** `sys.argv[1:]` to skip the file name. <br><br> - Use **conditions**, e.g., `if len(sys.argv) == 2` to avoid **IndexError** (list index out of range) when accessing `sys.argv` <br><br> - Use **quote** for string `"str"` to pass a string as one argument |
 | **`sys.exit()`** | **Exit** the whole program **earlier**  and optionally print an error message if an error arises. | `sys.exit(msg)` | **`msg` (string)** (optional): A message displayed to the user when the program terminates. |  | Used to stop a program gracefully if the user provides incorrect inputs. |
 | **[`os.path.splitext()`](https://docs.python.org/3/library/os.path.html#os.path.splitext)** | Splits a file path into its root name and its **file extension**. | `root, ext = os.path.splitext(path)` | **`path`**: A string representing the filename or file path. | A **tuple of two strings** `(root, ext)`. | *Example: `"photo.png"` returns `("photo", ".png")`.* |
----
  
 ### `argparse` 
 `argparse` stands for **argument parser**, a library that handles all the parsing of complicated strings of command-line arguments. 
@@ -88,7 +84,6 @@ args = parser.parse_args()
 | **`ArgumentParser`** | Creates a parser object to handle command-line flags and parameters. | `import argparse`<br >`parser = argparse.ArgumentParser(description="...")` | **Replaces** complex manual **`sys.argv`** parsing logic. | 
 | **`add_argument()`** | Add command line arguments that we should expect from the user  | `parser.add_argument("-n", default= ... , help="...", type= ...` | We can **specifies expected flag name, types, default values**, and help text. |
  | **`parse_args()`** | Parses terminal arguments and returns them as **object attributes**. | `args = parser.parse_args()`<br>`args.attribute` | Automatically generates `-h` `--help` documentation about how to use the program for users. | 
----
 
 ## Packages & APIs: [`requests`](https://docs.python-requests.org/) & [`json`](https://docs.python.org/3/library/json.html)
 
@@ -104,7 +99,6 @@ The format in the downloaded text file is called **JSON** (javascript object not
 | **`requests.get()`** | **Download data** from a URL and store it into response object, like typing url in a web browser and enter. | `response = requests.get(url)` | url: The https url to the API in string format. Check the documentation of the API.| `Response` object | 
 | **`response.json()`** | Converts that **JSON** response into a Python **dictionary** so that we can extract specific information | `content = response.json()`| | `dict` or `list` | Converts JSON text into a format Python can use. |
 | **`json.dumps()`** | Format JSON data for **nice printing**. | `json.dumps(obj, indent=2)` | - obj <br> - `indent`: Indentation making nested data more readable.| `str` |  |
----
 
 **Best practice**: using **try-except block** for requests:
 
@@ -152,7 +146,6 @@ for **generating natural language plurals, ordinals, and converting numbers to w
 | :--- | :--- | :--- | :--- | :--- |
 | **`inflect.engine()`** | The important first step: creates an instance of the **inflect engine** to perform text generation. |`p = inflect.engine()` | None. | An **`inflect.engine` object**. |
 | **`p.number_to_words()`** | Converts **numeric integers into English words**. | `words = p.number_to_words(number, andword="")` | - **`number`**: Number to convert.<br>- **`andword`** *(Optional)*: String to join tens/hundreds (set to `""` to **remove "and"**). | A **string** containing the number spelled out in words (in **lowercase**). |
----
 
 ### PDF Generation (`fpdf2`) 
 
@@ -176,7 +169,6 @@ The canvas uses a standard 2D millimeter-based coordinate system
 | **`pdf.set_y()`** | Sets the vertical position of the **cursor** explicitly. | `pdf.set_y(140)` | **`y`**: Absolute vertical position in mm (positive value measured from top edge; negative value measured from bottom). | Moves active drawing cursor vertically. |
 | **`pdf.epw`** *(Property)* | Gets the **Effective Page Width** (total width minus left and right margins). | `w = pdf.epw` | None (read-only property). | Returns float representing printable width in mm. |
 | **`pdf.output()`** | Compiles and writes the PDF data to a file on **disk**. | `pdf.output("file_name.pdf")` | **`name`**: Destination filename or file path string. | Saves the generated PDF file to disk. |
----
 
 #### Object-Oriented Subclassing with `FPDF`
 
@@ -185,7 +177,6 @@ The canvas uses a standard 2D millimeter-based coordinate system
 | **Subclassing `FPDF`** | `class NewClass(FPDF):` | Extends the base `FPDF` class to encapsulate **custom PDF layouts and header** behaviors. |
 | **Parent Initialization (`super()`)** | `super().__init__(orientation="P", unit="mm", format="A4")` | Invokes the constructor of the parent `FPDF` class to ensure full initialization. |
 | **Method Overriding (`header`)** | `def header(self):`<br>&nbsp;&nbsp;&nbsp;&nbsp;`self.set_font("helvetica", "B", 30)`<br>&nbsp;&nbsp;&nbsp;&nbsp;`self.cell(0, 10, "Title", align="C")` | Overrides `FPDF`'s built-in empty `header()` method to automatically print a header on every new page. |
----
 
 ## Making Your Own Modules and Packages
 Create a **folder** for the **Package**: 

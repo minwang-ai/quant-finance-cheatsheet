@@ -1,3 +1,5 @@
+[TOC]
+
 # Quant Finance Cheatsheet
 
 Welcome to the notes repository.

@@ -1,4 +1,6 @@
 
+[TOC]
+
 ## Table of Contents
 * [Table: Overview of the Linear Regression Project Setup](#overview-of-the-linear-regression-project-setup)
 * OLS Regression
@@ -17,7 +19,6 @@
 |**3. Check relationship between Y (dependent) and X (independent) variables**|use scatter plot; use Pearson Correlation | For **scatter plot:** <br> • If draw a straight line where most of the points will be around the line (oval shape) <br> => linear relationship  <br> •  if the straight line drawn is either a horizontal line or a vertical line  <br> => The exogenous variable is independent of the endogenous variable <br> => we should drop this exogenous variable from the model.<br> • If find extreme points that are well-separated from the other points., <br> e.g., 1. An outlier is a point that doesn't follow the general trend of the other points. <br> 2. A leverage point has extreme value for exogenous variables. Both types may or may not impact the estimated result of the regression model. <br> =>Try to run one model with them and another model without them.<br> => Then, compare the two model results to see if these extreme points are crucial to the final model result. <br> For **Pearson Correlation [-1, 1]:**  <br> • If the value of two variables tends to move in the **same direction**, the correlation is **positive**. A correlation towards **$1$** means the two variables have a **perfectly** positive linear relationship, while towards 0 means less and less linear relationship. <br> • If the two variables tend to move in **opposite directions**, the number is **negative**.  |
 |**4. build the regression model.** |||
 |**5. Assess the Model fit**  |||
----
 
 **Note:**
 * Why excess return? 
@@ -31,7 +32,6 @@
 |--------|------------------------|---------|
 | **Simple OLS model** | $ Y = \beta_0 + \beta_1 X + \varepsilon $ | Estimate Y using one factor X |
 | **Multiple OLS model** | $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \epsilon $ | Estimate Y using several factors. <br> $\beta$ are called parameters or coefficients. Once the values of the parameters are obtained from the OLS calculation, we call these values estimates.|
----
 
 
 ### OLS Assumptions
@@ -43,7 +43,6 @@
 | **4. Normality of Errors** | Errors normally distributed:  $\epsilon \sim \mathcal{N}(\mu, \sigma^2)$ | if n is small, unreliable standard errors  |  <br> • histogram  (not bell shape) <br> •  QQ-plot(deviates from the line)  <br> •  Shapiro-Wilk test  <br> •  Komologorov-Smirnov test  <br> • Anderson-Darling test |  <br> • change functional form|
 | **5. Zero Mean of Errors** (omiited variables) | $E[\epsilon] = 0$ <br> The error term accounts for the variation in the dependent variable that the independent variables do not explain. A non-zero average error indicates that our model systematically underpredicts the observed values and we should add that information to the regression model.  | Model can only be used for predictive purpose (cannot infer causation) | Residual mean not near zero | • using instrumental variables |
 | **6. Homoscedasticity (Constant Variance)** | The variances of error terms are constant:  $\text{Var}(Y\|X) = \text{Var}(\epsilon\|X) = \sigma^2$ |  The error terms are not constant (**Heteroscedasticity**) →  coefficients remain unbiased, but standard errors are unreliable | <br> • Residual plot shows one or more fan/ cone/ megaphone shapes (Residuals are either concentrated and spread out for different values of X variable), but sometimes difficult to detect <br>  **tests:** (same rule: **p-value < 0.05**) <br> • **White test** (preferred, any form of heteroscedasticity) <br> •  Breusch-Pagan(BP) test (only linear)  |   • **Weighted Least Squares (WLS)**   <br> • White's standard errors |
----
 
 **Footnote**
 * **Residuals** are the differences between measured values of the dependent variables and predicted values of dependent variables from the OLS regression model.

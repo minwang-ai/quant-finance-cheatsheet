@@ -1,3 +1,5 @@
+[TOC]
+
 # Market Mechanics
 ## Stock Trading
 
@@ -54,7 +56,6 @@ In financial markets, buy side and sell side are terms used to describe two dist
 | **Examples**          | - **Mutual Funds**: pooled investments in diversified portfolios<br>- **Hedge Funds**: high-risk, high-return strategies<br>- **Pension Funds**: retirement-focused institutional investors<br>- **Individual Investors**: self-directed portfolios | - **Brokers**: execute trades and charge commissions<br>- **Investment Banks**: underwrite IPOs, advise M&A<br>- **Market Makers**: quote bid/ask prices to provide liquidity and earn the spread (not all sell-side firms do this) |
 | **Revenue Sources**   | - Management fees <br>- Performance/incentive fees (especially for hedge funds)<br>- Consulting or advisory fees | - Commissions (brokers)<br>- Underwriting/spread fees (investment banks)<br>- Bid-ask spread profits (market makers) |
 | **Investment Horizon**| Medium to long-term (build and hold portfolios).                                                       | Generally short-term: focus on trade execution, liquidity, and market turnover.                                 |
----
 
 
 

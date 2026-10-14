@@ -1,3 +1,5 @@
+[TOC]
+
 # Quantitative Trading — Table of Contents
 
 ## Notes

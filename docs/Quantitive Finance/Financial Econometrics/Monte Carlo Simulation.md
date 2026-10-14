@@ -1,3 +1,5 @@
+[TOC]
+
 ## Table of Content
 * [Table: Deterministic Models vs Stochastic Models](#deterministic-models-vs-stochastic-models)
 * Monte Carlo Simulation
@@ -22,7 +24,6 @@
 | **Central Limit Theorem (CLT)** | The CDF of standardized sample mean $Z_n$ converges to the CDF of a standard normal distribution <br> (Not about statement about convergence of PDFs or PMFs). | $Z_n = \frac{(M_n - \mu)}{\frac{\sigma}{\sqrt{n}}} $ <br> For every c: $P(Z_n \le c) \to P(Z\le c)$ <br> where $Z \sim N(0,1)$.  | Gives the approximate distribution of the sample mean, which we use to build confidence intervals for the unknown expected value of the stochastic model.|
 | **Confidence intervals (CIs)**| A range of values along with a secified confidence level, which is used to estimate an unknown statistical parameter, such as a population mean. Provide the distribution of estimated $\hat{\Theta}_n$, how likely are they to fall on top of the true value $\theta$ (typically 95%), as opposed to how likely they are to fall outside. | A random interval $[\hat{\Theta}_n^+, \hat{\Theta}_n^-]$ s.t. $P(\hat{\Theta}_n^+ \le \theta \le \hat{\Theta}_n^-) \ge 1-\alpha$ where $\alpha$ is the probability of a large error, typically $\alpha = 0.05$, $1-\alpha = 0.95$ <br> **Example: CI in estimation of the population mean:** <br> $\Phi(z) = 1-\alpha /2$ where The number $z$, we get from the normal table by looking up the probability $(1-\alpha)/2$ <br> Apply CLT we have: $P(\frac{\|\hat{\Theta}_n - \theta\|}{\sigma/\sqrt{n}} \le z) \approx 1-\alpha $<br> **The CI:**  <br> $[\hat{\Theta}_n - \frac{z\sigma}{\sqrt{n}}, \hat{\Theta}_n + \frac{z\sigma}{\sqrt{n}}]$ <br> For 95% confidence interval for the unknown mean $z=1.96$| Quantify the precision of the Monte-Carlo estimate: narrow CI → more precise. <br> To increase the precision of the Monte Carlo simulation, we can either **increase the number of simulations or reduce the variance of the outcome variable**. |
 |**Estimate the unknown variance $\sigma$**| unbiased |$\frac{1}{n-1}\sum_{i=1}^n(X_i - \hat{\Theta}_n) \to \sigma^2$| When variance is unknown in the CI formula|
----
 
 
 
@@ -32,7 +33,6 @@
 | **What Monte Carlo Simulation Is** | A method that uses repeated random sampling to estimate the expected value and distribution of a model's output. Applicable when the model contains randomness or uncertain inputs. |
 | **Why MC Is Needed** | Real-world models often produce different outcomes due to randomness. MC captures the distribution of possible outcomes by running the model many times. |
 | **Key Idea** | Simulate the model repeatedly using independently drawn random inputs → collect many outcomes → use sample statistics (mean, variance, CI) to estimate the true unknown quantity. |
----
 
 
 ### Monte Carlo Simulation — Steps
@@ -45,7 +45,6 @@
 | **5. Collect outputs** | Store all simulated outcomes. These outcomes form an empirical distribution. |
 | **6. Summarize outcomes** | Compute sample mean, variance, construct confidence interval and examine distribution (histogram, density). |
 | **7. Interpret results** | A narrow CI indicates high precision; a wide CI suggests either high model variance or insufficient simulations. Increase n if needed. |
----
 
 ## code
 ```
