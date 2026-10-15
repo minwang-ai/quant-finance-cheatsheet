@@ -1,5 +1,7 @@
 
-# CS50P Lecture 4: Libraries 
+# Libraries 
+> Course source: CS50P Lecture 04
+
 Instead of copying and pasting code from an old project of yours or others, you can **share** functions or features by **creating modules** and **import** modules/functions to your new project. 
 
 ## [Import Functions, Classes, Variables](https://www.pythontutorials.net/blog/from-import-vs-import/#key-differences-a-side-by-side-comparison)

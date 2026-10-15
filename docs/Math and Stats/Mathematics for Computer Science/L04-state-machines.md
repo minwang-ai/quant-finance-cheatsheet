@@ -1,5 +1,6 @@
 
-#  6.1200J Lecture 04: State Machines  
+# State Machines  
+> Course source: 6.1200J Lecture 04
 
 | Aspects | Explanation | Note|
 |:--:|:--|:--|

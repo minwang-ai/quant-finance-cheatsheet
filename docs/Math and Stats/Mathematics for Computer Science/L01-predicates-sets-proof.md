@@ -1,5 +1,7 @@
 
-# 6.1200J Lecture 01: Predicates, Sets, and Proofs
+# Predicates, Sets, and Proofs
+> Course source: 6.1200J Lecture 01
+
 ## Collab policy：
 
 Write solutions **on your own**: 

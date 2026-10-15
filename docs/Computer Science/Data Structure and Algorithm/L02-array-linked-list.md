@@ -1,5 +1,7 @@
 
-# 6.006 Lecture 2: Data Structure  
+# Data Structure
+> Course source: 6.006 Lecture 02
+
 ## Interfaces vs Data Structures 
 | Aspects | Interface (API) | Data Structures |
 |:--:|:--:|:--:|

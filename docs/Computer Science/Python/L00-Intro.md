@@ -1,5 +1,6 @@
 
-# CS50P Lecture 0: Introduction
+# Introduction
+> Course source: CS50P Lecture 00
 
 ## Environment & Workflow
 

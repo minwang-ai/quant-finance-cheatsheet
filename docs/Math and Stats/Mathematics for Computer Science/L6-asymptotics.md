@@ -1,5 +1,6 @@
 
-#  6.1200J Lecture 06: Asymptotics
+# Asymptotics
+> Course source: 6.1200J Lecture 06
 
 **Approximating Products** by 
 

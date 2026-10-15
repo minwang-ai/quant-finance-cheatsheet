@@ -1,5 +1,6 @@
 
-# CS50P Lecture 2: Loops
+# Loops
+> Course source: CS50P Lecture 02
 
 ## Loop Fundamental Types
 Loops allow you to execute a block of code **repeatedly**.

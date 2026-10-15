@@ -1,5 +1,6 @@
 
-# CS50P Lecture 9: Et Cetera
+# Et Cetera
+> Course source: CS50P Lecture 09
 
 ## Functional Programming
 **Functions** themselves can be **passed** around as arguments/values.

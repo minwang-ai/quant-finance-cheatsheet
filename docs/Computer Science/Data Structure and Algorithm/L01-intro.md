@@ -1,5 +1,7 @@
 
-# 6.006 Lecture 1: Introduction
+# Introduction
+> Course source: 6.006 Lecture 01
+
 ## Goal
 **solve** computation problems, and **communicate** that our solutions are **correct** and **efficient**.   
  

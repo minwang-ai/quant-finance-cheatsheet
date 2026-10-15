@@ -1,5 +1,7 @@
 
-# CS50P Lecture 1: Conditionals
+# Conditionals
+> Course source: CS50P Lecture 01
+
 Conditions allows us to ask questions and take different paths depending on the answers to those questions.
 <br> Conditions are **Boolean** values (`True` or `False` from evaluating a **function call (return value)** or a **boolean expression**)  which is used to decide whether or not to execute code in one path over another. 
 

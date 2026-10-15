@@ -1,5 +1,6 @@
 
-# Lecture 8: Object-Oriented Programming (OOP) 
+# Object-Oriented Programming (OOP) 
+> Course source: CS50P Lecture 08
 
 Object-Oriented Programming is a programming paradigm where you transition from writing code step-by-step (procedurally) to **creating custom blueprints and data types** (classes) .
 

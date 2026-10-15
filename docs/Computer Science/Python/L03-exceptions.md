@@ -1,5 +1,7 @@
 
-# CS50P Lecture 3: [Exceptions](https://docs.python.org/3/tutorial/errors.html)
+# [Exceptions](https://docs.python.org/3/tutorial/errors.html)
+> Course source: CS50P Lecture 03
+
 Handle **something out of the ordinary** (exceptional).
 All errors in Python are dealt with using exceptions, but **not all exceptions are errors**.
 

@@ -1,5 +1,6 @@
 
-# CS50P Lecture 6: File I/O 
+# File I/O 
+> Course source: CS50P Lecture 06
 
 File I/O (Input/Output) allows programs to **read from and write to files**, enabling **persistent storage** so that data is not lost and can be **used later** when the program ends. 
 

@@ -1,6 +1,6 @@
 
-#  6.1200J Lecture 05: Sums 
-
+#  Sums 
+> Course source: 6.1200J Lecture 05
 
 
 | Methods | Idea | Example/ Theorem|
