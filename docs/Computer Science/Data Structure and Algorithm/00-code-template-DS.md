@@ -177,11 +177,11 @@ struct ListNode {
 
 int main() {
     // Dynamically allocate nodes on heap memory
-    LinkedListNode* one = new LinkedListNode(1);  
-    LinkedListNode* two = new LinkedListNode(2); 
-    LinkedListNode* three = new LinkedListNode(3);
+    ListNode* one = new ListNode(1);  
+    ListNode* two = new ListNode(2); 
+    ListNode* three = new ListNode(3);
 
-    LinkedListNode* head = one; // head points to the first node (one)
+    ListNode* head = one; // head points to the first node (one)
     // Connecting the nodes to form: one -> two -> three
     one->next = two; // memory address assignment    
     two->next = three;      
@@ -201,7 +201,7 @@ int main() {
 
 struct ListNode {
     int val;
-    std::unique_ptr<LinkedListNode> next; // unique ownership
+    std::unique_ptr<ListNode> next; // unique ownership
     // constructor overloading
     ListNode() : val(0), next(nullptr) {}
     ListNode(int val) : val(val), next(nullptr) {}
@@ -210,8 +210,8 @@ struct ListNode {
 
 int main() {
     // no raw pointers or manual deletion
-    auto one = std::make_unique<LinkedListNode>(1); // create ListNode object, smart unique pointer own this node 1.
-    auto two = std::make_unique<LinkedListNode>(2);
+    auto one = std::make_unique<ListNode>(1); // create ListNode object, smart unique pointer own this node 1.
+    auto two = std::make_unique<ListNode>(2);
     one->next = std::move(two); // ownership transferred (then previous pointer two becomes nullptr)
 
     // No need for manual delete, smart pointers handle it automatically
@@ -282,7 +282,7 @@ Using **dummy pointers** `curr` **without losing** a reference to the **head**.
 
 ```python 
 def get_sum(head):
-    # ans = 0
+    ans = 0
     curr = head
     
     while curr: # The final node's next pointer is null. Therefore, after the final node, the while loop ends.
@@ -300,7 +300,7 @@ def get_sum(head):
 
 ```cpp
 int getSum(ListNode* head) {
-    //int ans = 0;
+    int ans = 0;
     ListNode* curr = head;
     while (curr != nullptr) {
         // ans += curr->val;
