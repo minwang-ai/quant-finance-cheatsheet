@@ -1,27 +1,16 @@
-[TOC]
 
 # Stock Price
-
-## Table of Contents
-1. [Stock](#stock)
-2. [Security](#security)
-
-
-## Table List
-1. [Table: Two Types of Stock](#two-types-of-stock)
-2. [Table: Three Types of Securities](#three-types-of-securities)
-
-
-
 
 ## Stock
 ### What it is: 
 An asset that represents fractional ownership in a company.  
+
 - Companies split their stock into N shares; if you own one share of company stock and you own 1/N of the company as a shareholder.
 ### Purpose: 
 Companies issue stock to raise funds for expansion, debt repayment, etc.
 ### Limited liability: 
 as a shareholder (whether you own common or preferred stock), your financial risk is limited to the amount of money you invested in the stock.
+
 - **Example**: If a company goes bankrupt, shareholders are not responsible for paying the company’s debts. The worst thing that can happen to a shareholder is losing the amount they invested in the stock.
 ### Two types of Stock
 | **Concept**          | **Common Stock**                                                            | **Preferred Stock**                                                   |
@@ -52,19 +41,20 @@ A security is a financial asset that represents ownership, debt, or the right to
 
 
 ### Example for Securities with Price Fluctuation Scenarios
+
 1. **Equity Securities:**
  - **Common Stock**
 
     Scenario: 
     You own 100 shares of Apple stock at $150 per share. <br>
-    Price Increase: If Apple’s stock price rises to $180, you could sell the shares and profit $30 per share (capital gains), resulting in a total profit of $3,000 (100 shares x $30).<br>
-    Price Decrease: If Apple’s stock price drops to $120, your shares lose value. You would have a paper loss of $3,000 if you sold them at this lower price.
+    Price Increase: If Apple’s stock price rises to  $180, you could sell the shares and profit  $30 per share (capital gains), resulting in a total profit of  $3,000 (100 shares x  $30).<br>
+    Price Decrease: If Apple’s stock price drops to  $120, your shares lose value. You would have a paper loss of  $3,000 if you sold them at this lower price.
  
  - **Preferred Stock**
 
     Scenario: 
     You own 100 shares of Preferred stock in a company, each paying a fixed dividend of $5 per share annually.<br>
-    Price Fluctuations: Preferred stock is less volatile. Whether the company’s stock price rises to $120 or drops to $80, you still receive your fixed dividend of $500 per year (100 shares x $5 dividend).<br>
+    Price Fluctuations: Preferred stock is less volatile. Whether the company’s stock price rises to  $120 or drops to  $80, you still receive your fixed dividend of  $500 per year (100 shares x  $5 dividend).<br>
     Price Drop: Even if the stock price drops significantly, you still receive dividends, but the value of your shares could fall if the company faces trouble.
  
  - **Private Equity**
@@ -76,27 +66,26 @@ A security is a financial asset that represents ownership, debt, or the right to
 2. **Derivative Securities:**
  - **Call Option (Right to Buy)**
 
-    Scenario: You buy a call option on Tesla stock with a strike price of $500 and pay a $10 premium for 100 shares.<br>
+    Scenario: You buy a call option on Tesla stock with a strike price of  $500 and pay a  $10 premium for 100 shares.<br>
     Price Increase: Tesla’s stock rises to $600. You exercise your option and buy 100 shares for $500 each. You sell them at $600, making a $10,000 profit (before subtracting the $1,000 premium).<br>
-    Price Decrease: Tesla’s stock stays below $500. You do not exercise the option, and you lose only the $1,000 premium paid.
+    Price Decrease: Tesla’s stock stays below  $500. You do not exercise the option, and you lose only the  $1,000 premium paid.
 
  - **Put Option (Right to Sell)**
 
-    Scenario: You buy a put option on Apple stock with a strike price of $150, paying a $5 premium for 100 shares.<br>
-    Price Decrease: Apple’s stock falls to $120. You exercise your option and sell 100 shares for $150 each, making a $3,000 profit (before subtracting the $500 premium).<br>
-    Price Increase: Apple’s stock stays above $150. You don’t exercise the option, and your maximum loss is the $500 premium.
+    Scenario: You buy a put option on Apple stock with a strike price of  $150, paying a  $5 premium for 100 shares.<br>
+    Price Decrease: Apple’s stock falls to  $120. You exercise your option and sell 100 shares for  $150 each, making a  $3,000 profit (before subtracting the  $500 premium).<br>
+    Price Increase: Apple’s stock stays above  $150. You don’t exercise the option, and your maximum loss is the  $500 premium.
 
  - **Futures**
 
     Scenario: You enter a futures contract to buy 100 barrels of oil at $70 per barrel in 3 months.<br>
-    Price Increase: If the price of oil rises to $90 per barrel, you buy at $70, making a $20 profit per barrel ($2,000 total).<br>
-    Price Decrease: If the price drops to $60 per barrel, you are still obligated to buy at $70, leading to a $10 loss per barrel ($1,000 total).
+    Price Increase: If the price of oil rises to  $90 per barrel, you buy at  $70, making a  $20 profit per barrel ($2,000 total).<br>
+    Price Decrease: If the price drops to  $60 per barrel, you are still obligated to buy at  $70, leading to a  $10 loss per barrel ($1,000 total).
 
 3. **Debt Securities:**
  - **Bonds**
 
     Scenario: You buy a corporate bond for $10,000 with a 5% annual interest rate, maturing in 10 years.<br>
-    Price Stability: You receive $500 interest annually, and at the end of 10 years, you get back the $10,000 principal.<br>
+    Price Stability: You receive  $500 interest annually, and at the end of 10 years, you get back the  $10,000 principal.<br>
     Risk of Default: If the company goes bankrupt, there’s a risk that you may not receive the full amount of interest or principal.
-
 

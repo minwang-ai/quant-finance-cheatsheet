@@ -1,4 +1,3 @@
-[TOC]
 
 # CS50P Lecture 3: [Exceptions](https://docs.python.org/3/tutorial/errors.html)
 Handle **something out of the ordinary** (exceptional).
@@ -102,6 +101,7 @@ For example, an ArithmeticError exception will catch itself and all FloatingPoin
 | **`AssertionError`**| Raised when an `assert` statement's boolean condition evaluates to `False`. | Raised during unit testing when checking if a function's returned value is not equal to its expectations |
 
 ## When to Use Exception
+
 * Error Handling:
     * Handle Common Error Exceptions:
     * Graceful Degradation: Allow the program to continue running with reduced functionality rather than crashing.
@@ -122,6 +122,7 @@ There is a whole suite of exceptions that already exist and we can also create o
 | **`raise`** | **Alter programmers and users** when something is **wrong** or they use it in an incorrect way.| Manually triggers a specific exception. | `raise SpecificErrorType("ErrorMessage")` | `raise ValueError("Invalid age")` |
 
 ### Why use `raise`?
+
 *   **Enforce Our Own Logic**: Python doesn't mind if an age is `-5`, but your program should. 
 *   **Better Debugging**: It provides specific error messages that help you find bugs faster.
 

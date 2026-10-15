@@ -1,4 +1,3 @@
-[TOC]
 
 # Hashing (hash map and sets)
 

@@ -1,4 +1,3 @@
-[TOC]
 
 # Numbers
 ## Numbers 
@@ -34,4 +33,3 @@
 | `max()` | Return the largest item in an iterable or the largest of multiple arguments. | `max(iterable, *[, key, default])`<br>`max(arg1, arg2, *args, key=None)` | `iterable`: iterable to inspect<br>`arg1, arg2, ...`: values to compare<br>`key` (optional): function for comparison key<br>`default` (optional): fallback for empty iterable | Largest item | Time: `O(n)`<br>Space: `O(1)` | `max([3, 1, 9]) -> 9` |
 | `min()` | Return the smallest item in an iterable or the smallest of multiple arguments. | `min(iterable, *[, key, default])`<br>`min(arg1, arg2, *args, key=None)` | `iterable`: iterable to inspect<br>`arg1, arg2, ...`: values to compare<br>`key` (optional): function for comparison key<br>`default` (optional): fallback for empty iterable | Smallest item | Time: `O(n)`<br>Space: `O(1)` | `min([3, 1, 9]) -> 1` |
 | `sum()` | Adds items of an iterable from left to right, starting from an optional initial value. | `sum(iterable[, start])` | `iterable`: iterable of numbers<br>`start` (optional): initial value, default `0` | Total sum | Time: `O(n)`<br>Space: `O(1)` | `sum([1, 2, 3]) -> 6` |
-----

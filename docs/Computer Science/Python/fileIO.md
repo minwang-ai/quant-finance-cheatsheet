@@ -1,4 +1,3 @@
-[TOC]
 
 # CS50P Lecture 6: File I/O 
 
@@ -15,6 +14,7 @@ with open(filepath, mode) as file:
   
 * `filepath`: "/path/file_name.file_extension" 
     (or simplely "file_name.file_extension" if it is in the current path)
+
 * `mode` (optional)
 * as `file`: the name of the variable that should be assigned the return value of `open`
 * we can actually **open multiple files at once** (use case: read one file and write another at the same time)
@@ -76,6 +76,7 @@ for name in sorted(names):
 | **`readlines()`** | Read **all the lines** of the file | `lines = file.readlines()` | **`n`** *(Optional)*: If `n` is not provided then all lines of the file are returned. If `n` provided, characters are read up to `n` but rounded up so that an entire line is returned. (Note: Ignored in the browser version). | A **list of strings**, where each item represents **a single line of the file**. | + Gives you a standard list you can **manipulate** with list operations immediately.<br><br>- **Unsafe for large files** as it loads all lines into RAM simultaneously. |When you specifically need the lines stored in a list structure for sorting, reversing, indexing, or checking the list length. |
 
 Note:
+
 - **Adjust index** for slicing because txt file lines are **1-indexed** (conventionally), while Python lists/sequences are **0-indexed**.
 - Use **`line.strip()`** on strings when reading from a file to **remove any leading or trailing whitespace, including newline character `\n`** before processing or printing(because print will automatically add a newline character `\n`).
 
@@ -88,15 +89,19 @@ Note:
 **automatically** parse and deal with **corner cases** (such as handling extra commas embedded inside quoted strings)
 
 `import csv`
+
 ### Reading CSV Files
 within `with open("file_name.csv") as file:`
+
 | Method | Syntax  | Purpose | Return Value |
 | :--- | :--- | :--- | :--- |
 | **`csv.reader()`** |  `reader = csv.reader(file)` | Reads a CSV file. | Returns a reader object that yields **each row as a list of strings** accessed by index where each value in the list corresponds to an element in that row, e.g., `row[0]` is the first element of the given row, `row[1]` is the second element. |
 | **[`csv.DictReader()`](https://docs.python.org/3/library/csv.html#csv.DictReader)** | `reader = csv.DictReader(file)` | Reads a CSV file with **header rows** dynamically, making your program much more **flexible and robust if columns are added or reordered**. | Returns a reader object that yields **each row as a dictionary**, mapping header titles to row values (e.g., `row["header_1"]`. |
 
 ### Writing CSV Files
+
 within `with open("file_name.csv", mode) as file:`
+
 | Method  | Syntax | Purpose | Parameters | Return Value |
 | :--- | :--- | :--- | :--- |:--- |
 | **`csv.writer()`** | `writer = csv.writer(file)`  | Creates a writer object to write data to a CSV file.| **`file`**: An opened file object (typically in `"w"` or `"a"` mode). | Returns a standard writer object. |

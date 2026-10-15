@@ -1,4 +1,3 @@
-[TOC]
 
 # CS50P Lecture 2: Loops
 
@@ -43,6 +42,7 @@ for index, value in enumerate(sequence):
 ```
 
 Note:
+
 - Yields `(index, item)` tuples during iteration. 
 - for loop will only iterate through all the keys of dictionary,  use `dict[key]`  to find its value.
 ```python
@@ -66,6 +66,7 @@ Each item/ sample could be the element of the list.
 Nested lists (**A list of** list/ dictionary/ tuple/ function) can be make up of any data types but to make your debug process easier, make sure **only use one type of datatype**. 
 
 Note: **Structuring Nested Data**
+
 * **Do not mix types in nested data**, i.e., keep the structure consistent across each level. 
     * e.g., if you have a list of dictionaries, then each dictionary should have the **same structure**, meaning the same keys and the same type of value associated with a particular key in all the dictionaries.
 * If other programmer use mix types, we can add additional if statement to deal with special cases.

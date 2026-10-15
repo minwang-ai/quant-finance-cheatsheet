@@ -1,4 +1,3 @@
-[TOC]
 
 # CS50P Lecture 9: Et Cetera
 
@@ -7,6 +6,7 @@
 
 
 taken a list and produced another list from it that contains either a subset of the items or a transformed version of each item. 
+
 * When each item is **transformed**, we say that the operation is a mapping, or just a map of the original list. 
 * When some items are **omitted**, we call it a **filter**.
 
@@ -15,7 +15,9 @@ taken a list and produced another list from it that contains either a subset of 
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **[`map()`](https://docs.python.org/3/library/functions.html#map)** (**not preferred**) | Applies a specified **function** to **every element** across a sequence. | `map(transform_function, iterable)` | - **`transform_function`**: The function to apply to each element to transform each element to a new element.<br> - **`iterable`**: One or more iterable objects (list, tuple, etc.) whose elements will be processed. | A **`map` iterator** containing the transformed items. | `words = ["this", "is", "cs50"]`<br>`uppercased = map(str.upper, words)` |
 | **[`filter()`](https://docs.python.org/3/library/functions.html#filter)**(**not preferred**)  | Extracts a **subset** of a sequence for which a conditional function returns `True`. | `filter(filter_function, iterable)` | - **`filter_function`**: A function or `lambda` expression returning **boolean `True`/`False`** for each item.<br> - **`iterable`**: The target sequence to filter. | A **`filter` iterator** containing only the matching items. | `students = [{"name": "Harry", "house": "Gryffindor"}, ...]`<br>`gryffindors = filter(lambda s: s["house"] == "Gryffindor", students)`  |
+
 Note that:
+
 - Only **pass the function name without ()**, because we do not call the functions there; the functions will be called for each items later.
 - Return a **iterator** -> we need to **cast** it to **list** , e.g., `list(map())` or `list(filter())`
 
@@ -25,6 +27,7 @@ a concise way to **create new lists from other lists** in one elegant one-liner,
 ```python
 my_list = [transform_expression for item in iterable if filter_condition]
 ```
+
 * The `if` clause (optional) is for a **filter** operation.
 * The `transformer_expression` is for **mapping** operation.
 
@@ -38,6 +41,7 @@ a concise way to **create a new dictionary from other lists**, optionally combin
 ```python
 my_dict = {key_expression : value_expression for item in iterable if filter_condition}
 ```
+
 * The `if` clause (optional) is for a **filter** operation.
 * The `key_expression` and ` value_expressionis`  are for **mapping** operation.
 * e.g., `

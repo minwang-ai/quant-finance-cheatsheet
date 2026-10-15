@@ -1,6 +1,5 @@
 
 
-[TOC]
 
 # Chapter 2: What is a Socket? 
 
@@ -103,7 +102,6 @@ Use every combination of these:
 | `struct sockaddr_in6` | IPv6-specific socket address struct. | Used for IPv6 `connect()/bind()` (cast to `struct sockaddr *`). | |IPv6 only |
 | `struct in6_addr` | Holds a 16-byte IPv6 address value. | access IPv6 address  | |IPv6 only |
 | `struct sockaddr_storage` | Generic, large storage for either IPv4 or IPv6 socket address (Similar to `struct sockaddr` except larger)| Used when we don’t know in  advance if it’s going to fill out struct sockaddr with an IPv4 or IPv6 address. <br> pass in this parallel structure, check ss_family field to see  if it’s AF_INET or AF_INET6 (for IPv4 or IPv6), then we can cast it to a `struct sockaddr_in` or `struct sockaddr_in6 `| | Both |
--------
 
 ### `struct addrinfo` 
 
@@ -126,6 +124,7 @@ Use every combination of these:
 | `char[14]` | `sa_data` | contains a destination address and port number for the socket (tedious) |
 **Notes:**
 generic and somewhat unwieldy to fill manually; usually use **family-specific structs** to reference elements of the socket address easily and **cast**. 
+
 - `struct sockaddr_in` (IPv4) 
 - `struct sockaddr_in6` (IPv6)
 
@@ -139,6 +138,7 @@ Here "in” for  “Internet”
 | `struct in_addr` | `sin_addr` | IPv4 Ingernet address | see `struct in_addr` (IPv4)  |
 | `unsigned char[8]` | `sin_zero` | to pad the structure to the length of a `struct sockaddr`| should be set to all zeros with the function `memset()` |
 **Notes:**
+
 - a pointer to a `struct sockaddr_in`(IP specific) can be cast to a pointer to a `struct sockaddr` (generic) and vice-versa.  So we can use a `struct sockaddr_in` and **cast** it to `struct sockaddr*` at last minute.
     - `struct sockaddr*` is needed by function connect().
 - same idea for IPv6 below.
@@ -193,6 +193,7 @@ No need to figure them out by hand
 | **my devices** can use private 24M IP address allocated just for me||**static** IPv4 addresses **allocated** to me by the **DSL company**|
 
 #### Reserved private ranges 
+
 - IPv4:
     - `10.x.x.x` 
     - `192.168.x.x` 
@@ -348,6 +349,7 @@ int bind(int sockfd, struct sockaddr *my_addr, int addrlen);
 | Return value | Result of bind operation. | - `0` on success <br> - `-1` on error and sets `errno` to the error's value. |
 
 ### Common pitfall and solutions
+
 - Don’t go underboard with port numbers. 
     - All ports below 1024 are RESERVED (unless you’re the superuser)! 
     - You can have any port number **above 1024**, up to 65535 (provided they aren’t already being used by another program).  
@@ -444,6 +446,7 @@ bind();
 listen();
 // accept() goes there
 ```
+
 - Call `bind()` before `listen()` so that the server  is running on a specific port and then clients know which port to connect to.
 
 ## Section 5.6: `accept()` — “Thank you for calling port 3490.”
@@ -512,9 +515,11 @@ int main(void)
 
 ## Section 5.7: `send()` and `recv()` — Talk to me!
 `send()` and `recv()` are for data transfer on **stream sockets (TCP)**  or connected datagram sockets. 
+
 - For unconnected datagram sockets (UDP), use `sendto()` / `recvfrom()` instead.
 
 They are blocking calls:
+
 - `recv()` will **block (sleep)** until there is some data ready to receive.
 - `send()` can also block if the stuff you’re sending is all jammed up somehow, but that’s rarer. 
 
@@ -594,6 +599,7 @@ close(sockfd);        // finally release descriptor
 
 ## Section 5.10: `getpeername()` — Who are you?
 `getpeername()` tells you the remote endpoint (IP/port) on the **other end of a connected stream socket**.
+
 - Once you have peer address, you can use inet_ntop(), getnameinfo(), or gethostbyaddr() to print or get more information.
 
 ```c
@@ -623,6 +629,7 @@ if (getpeername(sockfd, (struct sockaddr *)&their_addr, &len) == -1) {
 
 ## Section 5.11: `gethostname()` — Who am I?
 `gethostname()` Return the host name of the machine running your program.
+
 - The name can then be passed to `getaddrinfo()` to determine  the IP address of your local machine
 
 ```c
@@ -920,7 +927,6 @@ int main(int argc, char *argv[])
 
 ## Section 6.3: Datagram Sockets
 > Skipped for Project 1 scope (as requested).
-
 
 
 

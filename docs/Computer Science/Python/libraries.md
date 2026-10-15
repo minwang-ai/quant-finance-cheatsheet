@@ -1,4 +1,3 @@
-[TOC]
 
 # CS50P Lecture 4: Libraries 
 Instead of copying and pasting code from an old project of yours or others, you can **share** functions or features by **creating modules** and **import** modules/functions to your new project. 
@@ -8,7 +7,9 @@ Instead of copying and pasting code from an old project of yours or others, you 
 | :--- | :--- | :--- | :--- | :--- | :--- | 
 | **`import`** (**preferred**)| import the entire module (**all** the functions, classes, variables)  into the current namespace | `import <module>` <br> optional:<br> `import <module> as <alias>`| When we call the functions, we need to **specify the module name as a prefix** `module.function()`| + **Clarify the origin of names** of functions and variables to the module. Keep namespace clean, as it **prevents potential naming conflicts**. <br> + **Avoid ImportError** in case of **circular imports** <br> <br>- **Calling multiple times** of `module.function` makes the code **longer, ugly and annoying** |- not use the functions/classes/variables frequently <br> - want to clarify the origin of names|
 | **`from ... import ...`**|  Case 1. only import some **specific functions/classes/variables** of a module into the current namespace <br><br> Case 2. import **submodules**| `from <module> import <function>,<class>, <variable>` <br> <br> ` from <module> import <submodule>` | When we call the functions, we simply call the function `function()` **without** specifying the module name as a prefix<br><br> Note:<br> **Avoid** using  `from <module> import *` because they make it unclear which names are present in the namespace (hide the origin of names, and risk overwriting built-in functions), confusing both readers and many automated tools. |- Without the module prefix leads to **cleaner code** when using that function multiple times <br> - We **cannot use** the same name for the variable or functions name as the one from the libraries, otherwise cause potential **naming conflicts**. | - Use a name **frequently** <br> - The **module name is long**|
+
 Note:
+
 - **Both** methods load the **entire module**.
 - Group Imports Logically:
     - Standard library imports (e.g., `import os`).
@@ -30,6 +31,7 @@ Note:
 | **`random.shuffle()`** | **Reorder** a **list** randomly **in-place**. | `random.shuffle(x)` | `x` (a list) | `None` Modifies the original list |
 
 ### [`statistics`](https://docs.python.org/3/library/statistics.html)
+
 | Method | Purpose | Syntax | Parameters | Return Value | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **`statistics.mean()`** | Calculate the arithmetic mean (average). | `statistics.mean(data)` | `data` (list of numbers) | `float` |  |
@@ -47,7 +49,9 @@ Note:
 | **`date.fromisoformat()`** | Parses an ISO 8601 formatted date string (`YYYY-MM-DD`). | `d = date.fromisoformat(date_str)` | **`date_str`**: String in `YYYY-MM-DD` format. | A **`date` object** if valid; automatically; raises a **`ValueError`** if invalid. |
 
 ### [timedelta objects](https://docs.python.org/3/library/datetime.html#timedelta-objects)
+
 `from datetime import timedelta`
+
 | Method / Class / Attribute | Purpose | Syntax | Parameters  | Return Value |
 | :--- | :--- | :--- | :--- | :--- |
 | **Date Subtraction (`-`)** | Computes the difference between two `date` objects (operator overloading via `__sub__`). | `delta = date2 - date1` | - **`date2`**: End date object.<br>- **`date1`**: Starting date object. | a **`timedelta` object** representing the duration between the two dates, which itself comes with several (read-only) "instance attributes" |
@@ -152,10 +156,11 @@ for **generating natural language plurals, ordinals, and converting numbers to w
 The `FPDF` class is the primary engine for creating and exporting PDF documents.
 
 The canvas uses a standard 2D millimeter-based coordinate system 
-- Origin $(0,0)$: Located at the **top-left corner** of the PDF page
-- $X$-Axis (Horizontal): Measures distance from the left edge ($0\text{ mm}$) to the right edge ($210\text{ mm}$).
-- $Y$-Axis (Vertical): Measures distance from the top edge ($0\text{ mm}$) down to the bottom edge ($297\text{ mm}$).
-- **Internal Cursor**: fpdf2 maintains an internal drawing cursor $(x, y)$ that tracks where the next text or image will be placed automatically unless we override it.
+
+- Origin  $(0,0)$: Located at the **top-left corner** of the PDF page
+-  $X$-Axis (Horizontal): Measures distance from the left edge ($0\text{ mm}$) to the right edge ($210\text{ mm}$).
+-  $Y$-Axis (Vertical): Measures distance from the top edge ($0\text{ mm}$) down to the bottom edge ($297\text{ mm}$).
+- **Internal Cursor**: fpdf2 maintains an internal drawing cursor  $(x, y)$ that tracks where the next text or image will be placed automatically unless we override it.
 
 
 | Method / Constructor | Purpose | Syntax Example | Parameters / Options | Return Value / Behavior |
@@ -180,6 +185,7 @@ The canvas uses a standard 2D millimeter-based coordinate system
 
 ## Making Your Own Modules and Packages
 Create a **folder** for the **Package**: 
+
 - `__init__.py`: An **empty file**, just helps Python realize this folder is a package including multiple modules.
 - `module.py` files: about functionalities
 

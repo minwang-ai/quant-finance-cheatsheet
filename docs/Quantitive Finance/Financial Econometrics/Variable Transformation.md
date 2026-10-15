@@ -1,10 +1,3 @@
-[TOC]
-
-## Table of Contents
-* [Table: Variable Transformation](#variable-transformation)
-* [Code: Variable Transformation]
-
-
 
 ## Variable Transformation
 **Variable transformation is an iterative process.**  <br> Examine scatter plots and/or histograms <br> → apply a transformation <br>  → use the transformed variable in the model <br> → re-check model fit <br>  → try another transformation until the model result is good.
@@ -28,14 +21,17 @@
 | Methods | Explanation |
 |-----------------------------------|-------------|
 | **Method 1: Transformation for Linear Relationship** | Apply transformations (log, square root, cube root) to make the relationship between X and Y more **linear**. These transformations: (1) preserve the order of data points, (2) reduce the impact of outliers.|
-| **Method 2: Transformation for Normal Distribution** | Used when a model requires a variable to be **normally distributed**. Apply transformations (log, sqrt, cube root) or **remove outliers** on the tail. <br> use **Box–Cox Transformation** to systematicly transform a non-normal variable into a more normally distributed one. Formula: 
-$$
+| **Method 2: Transformation for Normal Distribution** | Used when a model requires a variable to be **normally distributed**. Apply transformations (log, sqrt, cube root) or **remove outliers** on the tail. <br> Use **Box–Cox Transformation** to systematically transform a non-normal variable into a more normally distributed one. See the formula below. |
+
+The Box–Cox transformation is:
+
+\[
 \text{newY} =
 \begin{cases}
-\dfrac{Y^\lambda - 1}{\lambda}, & \text{if } \lambda \neq 0 \\
-\log(Y), & \text{if } \lambda = 0
+\dfrac{Y^\lambda - 1}{\lambda}, & \text{if } \lambda \ne 0, \\
+\log(Y), & \text{if } \lambda = 0.
 \end{cases}
-$$|
+\]
 
 
 
@@ -66,11 +62,11 @@ print("Optimal Box-Cox transformation lambda:", best_lambda)
 plt.figure(figsize=(14, 5))
 ax1 = plt.subplot(121)
 sns.histplot(Y, kde=True, ax=ax1)
-plt.title("Histogram of $Y$")
+plt.title("Histogram of  $Y$")
 
 # Plot distribution of transformed data
 ax2 = plt.subplot(122)
 sns.histplot(new_Y, kde=True, ax=ax2)
-plt.title("Histogram of $newY$")
+plt.title("Histogram of  $newY$")
 plt.show()
 ```

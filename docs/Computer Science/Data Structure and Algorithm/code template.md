@@ -1,9 +1,13 @@
 # Code Template - Data Structure
-[TOC]
-# Array & String
-## Two Pointers
+
+## Array & String
+
+### Two Pointers
+
 Having two **integer variables** that both move along an **iterable**, each representing an **index** of the array or string, usually named something like `i` and `j`, or `left` and `right`.
-### Two pointers - case 1: one input, opposite ends -> squeeze
+
+#### Two pointers - case 1: one input, opposite ends -> squeeze
+
 Figure: **Two Pointers** - Case 1
 
 ![Two Pointers - Case 1](figures/two-pointers-case1.jpg)
@@ -13,16 +17,17 @@ Figure: **Two Pointers** - Case 1
 |:---|:---|
 | **Idea**| Start the pointers at the **first and last indices** and **move** them **towards each other** until they **meet**.|
 | **When to use** | **reverse** array/string **in place** (e.g., check palindrome - after reversing, stay the same)|
-| **Complexity** | - Time: $\color{blue}O(n)$ if we can keep the work **inside each iteration** at $O(1)$<br> because the pointers start $n$ away from each other and move at least one step closer in every iteration -> we will never have more than $O(n)$ **iterations** <br> - Space: $\color{blue}O(1)$ because we only use two integer variables. |
+| **Complexity** | - Time:  $\color{blue}O(n)$ if we can keep the work **inside each iteration** at  $O(1)$<br> because the pointers start  $n$ away from each other and move at least one step closer in every iteration -> we will never have more than  $O(n)$ **iterations** <br> - Space:  $\color{blue}O(1)$ because we only use two integer variables. |
 
 
 
 <details>
 <summary>Python</summary>
 
+For array input:
+
 ```python
 def fn(arr):
-    arr = list(s) # Optional: convert to list if input is a string (inmutable)
     ans = INIT
     
     # Step 1. init two pointers: point to first and last element 
@@ -33,7 +38,7 @@ def fn(arr):
     while left < right:  # Time: O(n)
         # do some logic here， depending on the problem
         
-        # move two pointers closer: choose one of the three options   
+        # move two pointers closer: choose one or more from three options
         if CONDITION:  
             left += 1    # Option 1. increment the left pointer
         if CONDITION:
@@ -44,7 +49,33 @@ def fn(arr):
             right -= 1
     
     return ans
-    return ''.join(arr)   # Optional: convert back to string if input and output are string
+```
+
+For string input, extra steps: <strong>convert</strong> the string to a <strong>list</strong> before processing and <strong>join</strong> the list back to <strong>string</strong> before returning:
+
+```python
+def fn(s):
+    arr = list(s)   # convert the string to a list
+    ans = INIT
+
+    # Step 1. init two pointers: point to first and last element
+    left = 0
+    right = len(arr) - 1
+
+    # Step 2. loop: at each iteration, move two pointers towards each other
+    while left < right:
+        # do some logic here depending on the problem
+
+        # move two pointers closer: choose one or more from three options
+        if CONDITION:
+            left += 1
+        if CONDITION:
+            right -= 1
+        if CONDITION:
+            left += 1
+            right -= 1
+
+    return ''.join(arr) # join the list back to string
 ```
 </details>
 
@@ -74,12 +105,16 @@ int fn(vector<int>& arr) {
 </details>
 
 
-# Linked List
+## Linked List
+
 Tips:
 It's important to build an intuition behind how to correctly **re-assign pointers**. The best way is to see the process visually through **examples**. 
-## Singly-Linked List
 
-### Definition - Singly-Linked List - Use Raw Pointer
+### Singly-Linked List
+
+
+#### Definition - Singly-Linked List - Use Raw Pointer
+
 
 <details>
 <summary>Python</summary>
@@ -156,7 +191,8 @@ int main() {
 ```
 </details>
 
-### Definition - Singly-Linked List - Use Modern C++ Smart Pointer
+#### Definition - Singly-Linked List - Use Modern C++ Smart Pointer
+
 <details>
 <summary>C++</summary>
 
@@ -183,8 +219,9 @@ int main() {
 ```
 </details>
 
-### Add/Delete Node - Singly-Linked List
-At first, obtain the **reference** to the **previous node** `prev` (the node at position $i - 1$) by iterating from the head.
+#### Add/Delete Node - Singly-Linked List
+
+At first, obtain the **reference** to the **previous node** `prev` (the node at position  $i - 1$) by iterating from the head.
 Typically we do these operations **on the fly**, when iterating through the list (these functions are just demonstration). 
 
 Figure: **Singly Linked List** - **insert** at **random** position: `node_to_add.next`  points to `preNode.next`, then change `preNode.next` points to `node_to_add`
@@ -228,10 +265,13 @@ void deleteNode(ListNode* prevNode) {
 </details>
 
 
-## Traverse the Linked List 
+### Traverse the Linked List
+
 Example: 
 get the sum of all values from an integer linked list.
-### Traverse - Iterative
+
+#### Traverse - Iterative
+
 Using **dummy pointers** `curr` **without losing** a reference to the **head**.
 
 
@@ -272,7 +312,8 @@ int getSum(ListNode* head) {
 ```
 </details>
 
-### Traverse - Recursive
+#### Traverse - Recursive
+
 
 
 <details>
@@ -304,12 +345,14 @@ int getSum(ListNode* curr) {
 
 
 
-## Doubly linked list
+### Doubly linked list
+
 Figure: **Doubly linked list** - similar to singly linked list, but each node also contains a pointer to the **previous** node `prev`, and it allows iteration in **both directions**.
 
 ![Doubly linked list](figures/doubly-linked-list.png)
 
-### Definition - Doubly linked list
+#### Definition - Doubly linked list
+
 
 <details>
 <summary>Python</summary>
@@ -342,8 +385,9 @@ struct ListNode {
 </details>
 
 
-### Add/Delete Node - Doubly-Linked List
-With a doubly linked list, we only need a reference to the **current node** at $i$, because we can simply reference the `prev` pointer of that node to get the node at $i - 1$, and `next` pointer of that node to get the node at $i + 1$,
+#### Add/Delete Node - Doubly-Linked List
+
+With a doubly linked list, we only need a reference to the **current node** at  $i$, because we can simply reference the `prev` pointer of that node to get the node at  $i - 1$, and `next` pointer of that node to get the node at  $i + 1$,
 
 Extra work: **update** the **`prev`** pointers
 
@@ -418,7 +462,8 @@ void deleteNode(ListNode* currNode) {
 ```
 </details>
 
-### Add/Delete First/Last node using sentinel nodes(`head`, `tail`) - Doubly-Linked lists 
+#### Add/Delete First/Last node using sentinel nodes(`head`, `tail`) - Doubly-Linked lists
+
 To easily add and remove at the end or tail of the linked list. No need to judge the edge cases if `head` or `tail` `== nullptr`
 
 
@@ -525,7 +570,8 @@ tail->prev = head;
 </details>
 
 
-## Reversing a singly-linked list 
+### Reversing a singly-linked list
+
 a typical **problem** or an **intermediate step**
 
 
@@ -546,5 +592,3 @@ def reverse_list(head):
     return prev               # After the final iteration, prev points to the original tail, which is the new head
 ``` 
 </details>
-
-

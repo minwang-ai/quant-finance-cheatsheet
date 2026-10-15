@@ -1,4 +1,3 @@
-[TOC]
 
 # String (`str`)
 
@@ -13,6 +12,7 @@
 prefixing a string with `f`, expressions inside {} are evaluated at runtime, making it simple to embed variable values and expressions directly within string literals. 
 
 `f"{value:format}"`
+
 | Parts | Meaning|
 | :--- | :--- |
 | value | The variable or expression we want to print.|
@@ -49,9 +49,9 @@ prefixing a string with `f`, expressions inside {} are evaluated at runtime, mak
 | **`.startswith()`** | Check if a string **starts** with a specified prefix. | `str.startswith(prefix[, start[, end]]` | -`prefix`: Prefix to check. It can also be a **tuple** of prefixes to look for. <br> - `start`: (optional) test string beginning at that position. <br> - `end`: (optional) stop comparing string at that position.| Return `True` if it starts with prefix, otherwise `False`. | `'Python'.startswith('Py')`<br> True <br>`'a tuple of prefixes'.startswith(('at', 'a'))` <br>True <br> `'Python is amazing'.startswith('is', 7)` <br>True |
 | **`.endswith()`** | Check if a string **ends** with a specified suffix. | `str.endswith(suffix[, start[, end]])` | -`suffix`: Suffix to check. It can also be a **tuple** of suffixes to look for. <br> - `start`: (optional) test string beginning at that position. <br> - `end`: (optional) stop comparing string at that position. Note: Using start and end is equivalent to `str[start:end].endswith(suffix)`| Return `True` if it ends with suffix, otherwise `False`. |  `'Python'.endswith('on')` <br> True <br> `'a tuple of suffixes'.endswith(('at', 'in'))`  <br> False <br>`'a tuple of suffixes'.endswith(('at', 'es'))` <br> True <br> `'Python is amazing'.endswith('is', 0, 9)` <br> True <br> |
 | **`.count()`** | Count occurrences of a substring. | `str.count(sub, start, end)` | `sub`: Substring to count. `start`, `end` (optional): Index range to search. | Return the number of occurrences of `sub`. |  |
-| **`.isupper()`** | Check if **all** cased **characters** in the string are **uppercase**.  | `str.isupper()` | None | `bool`: Return True if all cased characters in the string are uppercase and there is **at least one cased character**, `False` otherwise. | $O(n)$ | `"BANANA".isupper()` True <br> `' '.isupper()` False|
-| **`.islower()`** | Check if all cased characters in the string are **lowercase**. | `str.islower()` | None | `bool`: Return True if all cased characters in the string are lowercase and there is **at least one cased character**, `False` otherwise. | $O(n)$ | `"hello".islower()` True |
-| `.isspace()` | Check if the string contains only whitespace characters. | `str.isspace()` | None | `bool`: Return `True` if all characters are whitespace, otherwise `False`.  | $O(n)$ | `"   ".isspace()` |
+| **`.isupper()`** | Check if **all** cased **characters** in the string are **uppercase**.  | `str.isupper()` | None | `bool`: Return True if all cased characters in the string are uppercase and there is **at least one cased character**, `False` otherwise. |  $O(n)$ | `"BANANA".isupper()` True <br> `' '.isupper()` False|
+| **`.islower()`** | Check if all cased characters in the string are **lowercase**. | `str.islower()` | None | `bool`: Return True if all cased characters in the string are lowercase and there is **at least one cased character**, `False` otherwise. |  $O(n)$ | `"hello".islower()` True |
+| `.isspace()` | Check if the string contains only whitespace characters. | `str.isspace()` | None | `bool`: Return `True` if all characters are whitespace, otherwise `False`.  |  $O(n)$ | `"   ".isspace()` |
 | **`.isdigit()`** | Check if **all** characters are numeric **digits (0-9)** . | `str.isdigit()` | None | Return `True` if all characters are digits, otherwise `False`. |  |
 | **`.isalpha()`** | Check if **all character**s** in the string are **letters (English (`A-Z`, `a-z`)**, also including Unicode letters for other languages). | `str.isalpha()` | None | Return `True` if every character in the string is a letter; `False` if the string contains any numbers, spaces, or special characters. | Time: `O(n)`, Space: `O(1)` |
 | **`.isalnum()`** | Check if **all** characters are alphanumeric **(letters or digits)**. | `str.isalnum()` | None | Return `True` if all characters are alphanumeric, otherwise `False`. |  |

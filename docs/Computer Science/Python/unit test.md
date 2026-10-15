@@ -1,4 +1,3 @@
-[TOC]
 
 # CS50P Lecture 5: Unit Tests
 Best practice: write a little extra code to test the code we wrote, testing individual units or functions.  
@@ -10,6 +9,7 @@ Best practice: write a little extra code to test the code we wrote, testing indi
 | :--- | :--- | :--- | :--- |
 | **Manual Testing** | Running your program manually and typing in inputs to check if the outputs are correct. | `python filename.py` | Slow, error-prone, and doesn't scale as codebases grow. |
 | **Unit Testing** (best practice) | Writing separate program(s) that call your individual functions with specific inputs and test if the returned values match expectations. | `python test_filename.py` | Most common in industry; allows you to **automate testing and catch "corner cases"**. |
+
 Note:
 Ensuring `if __name__ == "__main__": main()` so that testing file or program don't execute  the `main()` in the tested file when imported. 
 

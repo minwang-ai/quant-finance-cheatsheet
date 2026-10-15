@@ -1,4 +1,3 @@
-[TOC]
 
 # Tuples
 
@@ -17,6 +16,6 @@ Python tuple uses **0-based indexing**, meaning the first item is at position 0.
 
 | Action | Purpose | Syntax|
 | :--- | :--- | :--- |
-| **index** | Retrieves the value at the $i$-th position | `tuple[i]`|
+| **index** | Retrieves the value at the  $i$-th position | `tuple[i]`|
 | **unpack** (preferred) | unpack the tuple into n distinct variables| `element_1, ... , element_n = tuple`  | 
 | **adding new value** by | perform `+` operation |

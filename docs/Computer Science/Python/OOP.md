@@ -1,4 +1,3 @@
-[TOC]
 
 # Lecture 8: Object-Oriented Programming (OOP) 
 
@@ -8,6 +7,7 @@ Object-Oriented Programming is a programming paradigm where you transition from 
 
 ## Core OOP Terminology
 OOP is based on the concept of objects, defined by and associated with two things:
+
 * Attributes: data
 * Methods: functions
 

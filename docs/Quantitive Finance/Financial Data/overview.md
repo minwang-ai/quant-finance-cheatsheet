@@ -1,14 +1,5 @@
-[TOC]
 
 # Best Practice
-
-## Table of Contents
-* [The Evolution and Importance of Data in Finance](#the-evolution-and-importance-of-data-in-finance)
-    * [Table: Tools](#tools)
-* [Types of Financial Data](#types-of-financial-data)
-* [Table: Data Sources](#data-sources)
-* [Table: Data Descriptors and Identifiers](#data-descriptors-and-identifiers)
-    * [Table:  Fungible Asset VS Infungible Asset](#fungible-asset-vs-infungible-asset) 
 
 ## The Evolution and Importance of Data in Finance
 Financial data has evolved from traditional market data & corporate financial statements to increasingly valuable real-time **alternative datasets** (e.g., health, satellite images, climate, pullution, education, etc.), because economics is intertwined with society and any data produced can be seen from an economic perspective. 
@@ -22,7 +13,6 @@ Financial data has evolved from traditional market data & corporate financial st
 |numerical environments| MATLAB & Mathematica| research|
 |statistical software|<br> • SAS <br> • Stata <br> • EViews|data analysis, econometric modeling, and forecasting|
 |protocols| <br> • WebSocket Protocol <br> • Financial Information Exchange (FIX) <br> •  Protocol Precision Time Protocol (PTP) | <br> • WebSocket: continuous, bidirectional, and persistent connection between the client and the server <br> • FIX: vendor-agnostic messaging standard between financial institutions. <br> •  PTP: time synchronization across networks to ensure that trades are accurately time-stamped to the microsecond.|
--------
 
 
 ## Types of Financial Data
@@ -46,6 +36,7 @@ Financial data has evolved from traditional market data & corporate financial st
 
 
 ### note
+
 - **Quote = bid + ask prices**, showing willingness to trade.  
 - **Trade = executed transaction** once bid = ask.  
 - **OTC (Over-the-Counter)** markets are decentralized networks (e.g., bonds, derivatives) traded directly between parties, not on an exchange.
@@ -53,6 +44,7 @@ Financial data has evolved from traditional market data & corporate financial st
 
 ## Data Descriptors and Identifiers
 allow you to link data precisely to specific securities.  
+
 | **Identifier / Concept** | **Full Name & Meaning** | **Used For / Scope** | **Format & Structure** | **Key Notes** |
 |---------------------------|--------------------------|----------------------|------------------------|----------------|
 | **Ticker** | Short symbol used to identify publicly traded companies on exchanges. | Stocks, ETFs | Typically 1–5 letters (e.g., AAPL, IBM). |<br> • most popularly known identifiers;  <br> • often resembles company name or type.  <br> • not used for bonds. |
@@ -85,9 +77,9 @@ Always verify *when* data was recorded before calculating correlations, returns,
 
 
 ### 💡 Takeaways
+
 - Always check **timestamp, time zone, and trading-day definitions** before comparing markets.  
 - Even daily or closing-price data require **time alignment** to avoid misleading results.  
 - **Don’t mix data from different local days** — otherwise, you may introduce **look-ahead bias**.  
 - **OTC and crypto markets** complicate this further because they lack a universal close time.  
 - Consistency is more important than local convention — pick one time reference (e.g., GMT) and apply it to all data.
-

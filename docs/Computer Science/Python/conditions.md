@@ -1,4 +1,3 @@
-[TOC]
 
 # CS50P Lecture 1: Conditionals
 Conditions allows us to ask questions and take different paths depending on the answers to those questions.

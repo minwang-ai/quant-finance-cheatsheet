@@ -1,4 +1,3 @@
-[TOC]
 
 # CS50P Lecture 0: Introduction
 
@@ -43,7 +42,7 @@ Treats the next character as a literal (e.g., `\"` for quotes `"`).
 | **Readability** and **simplicity**| prioritize readability over brevity.  use comments to clarify logic. | Do not nest too much with multiple parentheses `((()))` |
 | **Consistency**| use a consistent coding style | We can use either double quotes `" "`  or single quotes `' '` as long as it is consistent. Sometimes though it is necessary to alterante, if we are already **using double quotes for outer layer**, to avoid confusion and syntax errors, use **single quotes for inner layer**.|
 | **naming** | **snake_case** (words are separated by underscores `_`, with all letters in lowercase. )|
-----
+
 
 ## Function Terminology 
 | Term | Definition | Notes |

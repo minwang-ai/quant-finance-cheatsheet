@@ -8,6 +8,45 @@
   font-weight: 700;
 }
 
+.md-typeset h1 {
+  font-size: 2.15rem;
+}
+
+.md-typeset h2 {
+  font-size: 1.65rem;
+}
+
+.md-typeset h3 {
+  font-size: 1.35rem;
+}
+
+.md-typeset h4 {
+  font-size: 1.15rem;
+}
+
+.md-typeset h5 {
+  font-size: 1rem;
+}
+
+.md-typeset h6 {
+  font-size: 0.9rem;
+}
+
+/* Give the document more room on desktop by narrowing both sidebars. */
+@media screen and (min-width: 76.25em) {
+  .md-grid {
+    max-width: 100rem;
+  }
+
+  .md-sidebar {
+    width: 10rem;
+  }
+
+  .md-sidebar--secondary {
+    width: 12rem;
+  }
+}
+
 /* Visually group captions with the image that follows them. */
 .md-typeset p:has(+ p > img) {
   margin: 1.5rem 0 0;
