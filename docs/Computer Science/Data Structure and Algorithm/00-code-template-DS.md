@@ -17,7 +17,7 @@ Figure: **Two Pointers** - Case 1
 |:---|:---|
 | **Idea**| Start the pointers at the **first and last indices** and **move** them **towards each other** until they **meet**.|
 | **When to use** | **reverse** array/string **in place** (e.g., check palindrome - after reversing, stay the same)|
-| **Complexity** | - Time:  $\color{blue}O(n)$ if we can keep the work **inside each iteration** at  $O(1)$<br> because the pointers start  $n$ away from each other and move at least one step closer in every iteration -> we will never have more than  $O(n)$ **iterations** <br> - Space:  $\color{blue}O(1)$ because we only use two integer variables. |
+| **Complexity** | - Time:  $\color{blue}O(n)$ (where n = arr.length) if we can keep the work **inside each iteration** at  $O(1)$<br> because the pointers start  $n$ away from each other and move at least one step closer in every iteration -> we will never have more than  $O(n)$ **iterations** <br> - Space:  $\color{blue}O(1)$ because we only use two integer variables. |
 
 
 
@@ -44,7 +44,7 @@ def fn(arr):
         if CONDITION:
             right -= 1   # Option 2. decrement the right pointer
         if CONDITION:
-            # do some logic here depending on the problem
+            # do some logic here
             left += 1   # Option 3. move both pointers at the same time
             right -= 1
     
@@ -104,6 +104,93 @@ int fn(vector<int>& arr) {
 ```
 </details>
 
+
+#### Two pointers - case 2: two inputs, exhaust both
+
+Figure: **Two Pointers** - Case 2
+
+![Two Pointers - Case 2](figures/two-pointers-case2.jpeg)
+
+
+| Aspect | Details |
+|:---|:---|
+| **Idea**| start at the same first index 0, then **move along both inputs simultaneously** until all elements have been checked. |
+| **When to use** | - Check subsequence <br> - Combine two arrays |
+| **Complexity** | - Time:  $\color{blue}O(m+n)$ (where $m = \text{arr1.length}$, $n = \text{arr2.length}$) if we can keep the work **inside each iteration** at  $O(1)$<br> because at every iteration, we move at least one pointer forward, and the pointers cannot be moved forward more than $n + m$ times <br> - Space:  $\color{blue}O(1)$ because we only use two integer variables. |
+
+
+<details>
+<summary>Python</summary>
+
+```python
+def fn(arr1, arr2):
+    i = j = 0   # Step 1. create two pointers: each pointer for each iterable, each start at the first index 0.
+    ans = INIT
+
+    # Step 2. loop: at each iteration, move one or two pointers forward, until one of the pointers reaches the end of its iterable (==).
+    while i < len(arr1) and j < len(arr2): 
+        # do some logic here depending on the problem
+        
+        # Step 3. incrementing either one of the pointers, or both. 
+        if CONDITION:
+            # do some logic here
+            i += 1   
+        if CONDITION:
+            j += 1
+    
+    # Step 4. Optional: loop: iterate through the rest of the elements to make sure both iterables are exhausted, because when the above while loop finishes, one point is at the end, the other pointer might not be at the end. 
+    # Note that only one of the following loops would run in reality.
+    while i < len(arr1):
+        # Do some logic here
+        i += 1
+    
+    while j < len(arr2):
+        # Do some logic here
+        j += 1
+    
+    return ans
+```
+</details>
+
+<details>
+<summary>C++</summary>
+
+```cpp
+int fn(vector<int>& arr1, vector<int>& arr2) {
+    int i = 0, j = 0
+    Type ans = INIT;
+
+    while (i < arr1.size() && j < arr2.size()) {
+        // do some logic here
+        if (CONDITION) {
+            i++;
+        } else {
+            j++;
+        }
+    }
+
+    while (i < arr1.size()) {
+        // do logic
+        i++;
+    }
+
+    while (j < arr2.size()) {
+        // do logic
+        j++;
+    }
+
+    return ans;
+}
+```
+</details>
+
+####  Two pointers - other cases
+
+| Cases| When to use|
+|:---|:---|
+| starting the pointers at **different indices**, instead of first and last index|	
+| only be **one input** array/string, but we still initialize both pointers at the first index and move both forward, e.g., fast slow pointer |
+| three pointers|
 
 ## Linked List
 
