@@ -1,0 +1,3546 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal notes for quantitative finance, computer science, math and statistics.">
+      
+      
+      
+        <link rel="canonical" href="https://minwang-ai.github.io/quant-finance-cheatsheet/Computer%20Science/Data%20Structure%20and%20Algorithm/00-code-template-DS/">
+      
+      
+        <link rel="prev" href="../../C%2B%2B/%3Ccctype%3E/">
+      
+      
+        <link rel="next" href="../L01-intro/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Code Template - Data Structure - Quant Finance Cheatsheet</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#code-template-data-structure" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Quant Finance Cheatsheet" class="md-header__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quant Finance Cheatsheet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Code Template - Data Structure
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Quant Finance Cheatsheet" class="md-nav__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Quant Finance Cheatsheet
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quant Finance Cheatsheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C++
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/%3Ccctype%3E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    #include &lt;cctype&gt;
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure and Algorithm
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Structure and Algorithm
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Template - Data Structure
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Template - Data Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#array-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Array &amp; String
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Array &amp; String">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-pointers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two Pointers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two Pointers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-pointers-case-1-one-input-opposite-ends-squeeze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two pointers - case 1: one input, opposite ends -&gt; squeeze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-pointers-case-2-two-inputs-exhaust-both" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two pointers - case 2: two inputs, exhaust both
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-pointers-other-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two pointers - other cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linked List
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linked List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#singly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Singly-Linked List
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Singly-Linked List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-singly-linked-list-use-raw-pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition - Singly-Linked List - Use Raw Pointer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-singly-linked-list-use-modern-c-smart-pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition - Singly-Linked List - Use Modern C++ Smart Pointer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adddelete-node-singly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add/Delete Node - Singly-Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traverse-the-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traverse the Linked List
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Traverse the Linked List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#traverse-iterative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traverse - Iterative
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traverse-recursive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traverse - Recursive
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#doubly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Doubly linked list
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Doubly linked list">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-doubly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition - Doubly linked list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adddelete-node-doubly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add/Delete Node - Doubly-Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adddelete-firstlast-node-using-sentinel-nodeshead-tail-doubly-linked-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add/Delete First/Last node using sentinel nodes(head, tail) - Doubly-Linked lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reversing-a-singly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reversing a singly-linked list
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L01-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L02-array-linked-list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hashtable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hashing (hash map and sets)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operating System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operating System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/process%20management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/threads%20and%20concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Threads and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Socket Programming
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Socket Programming
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/Socket%20Programming/socket%20programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2: What is a Socket?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L00-Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L01-conditions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L02-loops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Loops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L03-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L04-libraries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L05-unit-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit Tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L06-file-IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L08-OOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Programming (OOP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L09-others/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Et Cetera
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/N-IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input / Output (I/O)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/N-methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_12" id="__nav_2_5_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Data Structure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python Data Structure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20Data%20Structure/dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20Data%20Structure/iterables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Iterables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20Data%20Structure/list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lists
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20Data%20Structure/numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20Data%20Structure/set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    set
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20Data%20Structure/string/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String (str)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20Data%20Structure/tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tuples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Math and Stats
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Math and Stats
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics for Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics for Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L01-predicates-sets-proof/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Predicates, Sets, and Proofs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L02-contradiction-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contradiction and Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L04-state-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L05-sums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sums
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L6-asymptotics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asymptotics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitive Finance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitive Finance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Data/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Econometrics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Econometrics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Correlation%20and%20Multicollinearity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Correlation and Multicollinearity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Linear%20Regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Regression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Monte%20Carlo%20Simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monte Carlo Simulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Variable%20Transformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variable Transformation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Market
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Market
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_1" id="__nav_4_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cridit Risk and Financing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cridit Risk and Financing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/BUYING%20AND%20SELLING%20SHORT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Buying and Selling Short
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/COUNTERPARTIES%20AND%20CREDIT%20RISK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Risk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/SAVING%20AND%20BORROWING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitative Trading
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitative Trading
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Quantitative%20Trading/market_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Market Mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Quantitative%20Trading/stock_price/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stock Price
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#array-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Array &amp; String
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Array &amp; String">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-pointers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two Pointers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two Pointers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-pointers-case-1-one-input-opposite-ends-squeeze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two pointers - case 1: one input, opposite ends -&gt; squeeze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-pointers-case-2-two-inputs-exhaust-both" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two pointers - case 2: two inputs, exhaust both
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-pointers-other-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two pointers - other cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linked List
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linked List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#singly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Singly-Linked List
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Singly-Linked List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-singly-linked-list-use-raw-pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition - Singly-Linked List - Use Raw Pointer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-singly-linked-list-use-modern-c-smart-pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition - Singly-Linked List - Use Modern C++ Smart Pointer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adddelete-node-singly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add/Delete Node - Singly-Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traverse-the-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traverse the Linked List
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Traverse the Linked List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#traverse-iterative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traverse - Iterative
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traverse-recursive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traverse - Recursive
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#doubly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Doubly linked list
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Doubly linked list">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-doubly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition - Doubly linked list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adddelete-node-doubly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add/Delete Node - Doubly-Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adddelete-firstlast-node-using-sentinel-nodeshead-tail-doubly-linked-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add/Delete First/Last node using sentinel nodes(head, tail) - Doubly-Linked lists
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reversing-a-singly-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reversing a singly-linked list
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="code-template-data-structure">Code Template - Data Structure<a class="headerlink" href="#code-template-data-structure" title="Permanent link">&para;</a></h1>
+<h2 id="array-string">Array &amp; String<a class="headerlink" href="#array-string" title="Permanent link">&para;</a></h2>
+<h3 id="two-pointers">Two Pointers<a class="headerlink" href="#two-pointers" title="Permanent link">&para;</a></h3>
+<p>Having two <strong>integer variables</strong> that both move along an <strong>iterable</strong>, each representing an <strong>index</strong> of the array or string, usually named something like <code>i</code> and <code>j</code>, or <code>left</code> and <code>right</code>.</p>
+<h4 id="two-pointers-case-1-one-input-opposite-ends-squeeze">Two pointers - case 1: one input, opposite ends -&gt; squeeze<a class="headerlink" href="#two-pointers-case-1-one-input-opposite-ends-squeeze" title="Permanent link">&para;</a></h4>
+<p>Figure: <strong>Two Pointers</strong> - Case 1</p>
+<p><img alt="Two Pointers - Case 1" src="../figures/two-pointers-case1.jpg" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Aspect</th>
+<th style="text-align: left;">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Idea</strong></td>
+<td style="text-align: left;">Start the pointers at the <strong>first and last indices</strong> and <strong>move</strong> them <strong>towards each other</strong> until they <strong>meet</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>When to use</strong></td>
+<td style="text-align: left;"><strong>reverse</strong> array/string <strong>in place</strong> (e.g., check palindrome - after reversing, stay the same)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Complexity</strong></td>
+<td style="text-align: left;">- Time:  <span class="arithmatex">\(\color{blue}O(n)\)</span> (where n = arr.length) if we can keep the work <strong>inside each iteration</strong> at  <span class="arithmatex">\(O(1)\)</span><br> because the pointers start  <span class="arithmatex">\(n\)</span> away from each other and move at least one step closer in every iteration -&gt; we will never have more than  <span class="arithmatex">\(O(n)\)</span> <strong>iterations</strong> <br> - Space:  <span class="arithmatex">\(\color{blue}O(1)\)</span> because we only use two integer variables.</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Python</summary>
+
+For array input:
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="n">INIT</span>
+
+    <span class="c1"># Step 1. init two pointers: point to first and last element </span>
+    <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span>     
+    <span class="n">right</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>   
+
+    <span class="c1"># Step 2. loop: at each iteration, move two pointers towards each other, until they meet or cross (== or &gt;)</span>
+    <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>  <span class="c1"># Time: O(n)</span>
+        <span class="c1"># do some logic here， depending on the problem</span>
+
+        <span class="c1"># move two pointers closer: choose one or more from three options</span>
+        <span class="k">if</span> <span class="n">CONDITION</span><span class="p">:</span>  
+            <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>    <span class="c1"># Option 1. increment the left pointer</span>
+        <span class="k">if</span> <span class="n">CONDITION</span><span class="p">:</span>
+            <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>   <span class="c1"># Option 2. decrement the right pointer</span>
+        <span class="k">if</span> <span class="n">CONDITION</span><span class="p">:</span>
+            <span class="c1"># do some logic here</span>
+            <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>   <span class="c1"># Option 3. move both pointers at the same time</span>
+            <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">ans</span>
+</code></pre></div>
+
+For string input, extra steps: <strong>convert</strong> the string to a <strong>list</strong> before processing and <strong>join</strong> the list back to <strong>string</strong> before returning:
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>   <span class="c1"># convert the string to a list</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="n">INIT</span>
+
+    <span class="c1"># Step 1. init two pointers: point to first and last element</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="c1"># Step 2. loop: at each iteration, move two pointers towards each other</span>
+    <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>
+        <span class="c1"># do some logic here depending on the problem</span>
+
+        <span class="c1"># move two pointers closer: choose one or more from three options</span>
+        <span class="k">if</span> <span class="n">CONDITION</span><span class="p">:</span>
+            <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">CONDITION</span><span class="p">:</span>
+            <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">CONDITION</span><span class="p">:</span>
+            <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="c1"># join the list back to string</span>
+</code></pre></div>
+</details>
+
+<details>
+<summary>C++</summary>
+
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">arr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// convert to int because std::vector::size() returns an unsigned integer type std::size_t, if arr is empty, std::size_t cannot represent -1 and will leads to a super big number</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do some logic here with left and right pointers, depending on the problem</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">CONDITION</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">left</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">CONDITION</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">right</span><span class="o">--</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ans</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+
+<h4 id="two-pointers-case-2-two-inputs-exhaust-both">Two pointers - case 2: two inputs, exhaust both<a class="headerlink" href="#two-pointers-case-2-two-inputs-exhaust-both" title="Permanent link">&para;</a></h4>
+<p>Figure: <strong>Two Pointers</strong> - Case 2</p>
+<p><img alt="Two Pointers - Case 2" src="../figures/two-pointers-case2.jpeg" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Aspect</th>
+<th style="text-align: left;">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Idea</strong></td>
+<td style="text-align: left;">start at the same first index 0, then <strong>move along both inputs simultaneously</strong> until all elements have been checked.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>When to use</strong></td>
+<td style="text-align: left;">- Check subsequence <br> - Combine two arrays</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Complexity</strong></td>
+<td style="text-align: left;">- Time:  <span class="arithmatex">\(\color{blue}O(m+n)\)</span> (where <span class="arithmatex">\(m = \text{arr1.length}\)</span>, <span class="arithmatex">\(n = \text{arr2.length}\)</span>) if we can keep the work <strong>inside each iteration</strong> at  <span class="arithmatex">\(O(1)\)</span><br> because at every iteration, we move at least one pointer forward, and the pointers cannot be moved forward more than <span class="arithmatex">\(n + m\)</span> times <br> - Space:  <span class="arithmatex">\(\color{blue}O(1)\)</span> because we only use two integer variables.</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>Python</summary>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">arr1</span><span class="p">,</span> <span class="n">arr2</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># Step 1. create two pointers: each pointer for each iterable, each start at the first index 0.</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="n">INIT</span>
+
+    <span class="c1"># Step 2. loop: at each iteration, move one or two pointers forward, until one of the pointers reaches the end of its iterable (==).</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr2</span><span class="p">):</span> 
+        <span class="c1"># do some logic here depending on the problem</span>
+
+        <span class="c1"># Step 3. incrementing either one of the pointers, or both. </span>
+        <span class="k">if</span> <span class="n">CONDITION</span><span class="p">:</span>
+            <span class="c1"># do some logic here</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>   
+        <span class="k">if</span> <span class="n">CONDITION</span><span class="p">:</span>
+            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># Step 4. Optional: loop: iterate through the rest of the elements to make sure both iterables are exhausted, because when the above while loop finishes, one point is at the end, the other pointer might not be at the end. </span>
+    <span class="c1"># Note that only one of the following loops would run in reality.</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr1</span><span class="p">):</span>
+        <span class="c1"># Do some logic here</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr2</span><span class="p">):</span>
+        <span class="c1"># Do some logic here</span>
+        <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">ans</span>
+</code></pre></div>
+</details>
+
+<details>
+<summary>C++</summary>
+
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">arr1</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">arr2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">Type</span><span class="w"> </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">INIT</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">arr1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">arr2</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do some logic here</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">CONDITION</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">i</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">j</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">arr1</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do logic</span>
+<span class="w">        </span><span class="n">i</span><span class="o">++</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">arr2</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// do logic</span>
+<span class="w">        </span><span class="n">j</span><span class="o">++</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ans</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+
+<h4 id="two-pointers-other-cases">Two pointers - other cases<a class="headerlink" href="#two-pointers-other-cases" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Cases</th>
+<th style="text-align: left;">When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">starting the pointers at <strong>different indices</strong>, instead of first and last index</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">only be <strong>one input</strong> array/string, but we still initialize both pointers at the first index and move both forward, e.g., fast slow pointer</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">three pointers</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="linked-list">Linked List<a class="headerlink" href="#linked-list" title="Permanent link">&para;</a></h2>
+<p>Tips:
+It's important to build an intuition behind how to correctly <strong>re-assign pointers</strong>. The best way is to see the process visually through <strong>examples</strong>. </p>
+<h3 id="singly-linked-list">Singly-Linked List<a class="headerlink" href="#singly-linked-list" title="Permanent link">&para;</a></h3>
+<h4 id="definition-singly-linked-list-use-raw-pointer">Definition - Singly-Linked List - Use Raw Pointer<a class="headerlink" href="#definition-singly-linked-list-use-raw-pointer" title="Permanent link">&para;</a></h4>
+<details>
+<summary>Python</summary>
+
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ListNode</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>        <span class="c1"># O(1)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># get the node with specific offset away</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">later_node_recursion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">offset</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>     <span class="c1"># base case</span>
+            <span class="k">return</span> <span class="bp">self</span>
+
+        <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"offset must be non-negative"</span><span class="p">)</span>   
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">"offset exceeds list length"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">later_node_recursion</span><span class="p">(</span><span class="n">offset</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>   <span class="c1"># time complexity: O(offset), space: O(offset)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">later_node_iterative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"offset must be non-negative"</span><span class="p">)</span>
+
+        <span class="n">curr_node</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">offset</span><span class="p">):</span> <span class="c1"># time complexity: O(offset), space: O(1)</span>
+            <span class="k">if</span> <span class="n">curr_node</span><span class="o">.</span><span class="n">next</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">"offset exceeds list length"</span><span class="p">)</span>
+            <span class="n">curr_node</span> <span class="o">=</span> <span class="n">curr_node</span><span class="o">.</span><span class="n">next</span>
+
+        <span class="k">return</span> <span class="n">curr_node</span>
+
+<span class="c1"># example linked list</span>
+<span class="n">one</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">two</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">three</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">head</span> <span class="o">=</span> <span class="n">one</span>
+<span class="n">one</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">two</span>
+<span class="n">two</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">three</span>
+</code></pre></div>
+</details>
+
+<details>
+<summary>C++</summary>
+
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">ListNode</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
+<span class="w">      </span><span class="n">ListNode</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="w">      </span><span class="c1">// constructor overloading</span>
+<span class="w">      </span><span class="n">ListNode</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">val</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">      </span><span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span><span class="w"> </span><span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">      </span><span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="n">ListNode</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span><span class="w"> </span><span class="n">next</span><span class="p">(</span><span class="n">next</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">  </span><span class="p">};</span>
+
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Dynamically allocate nodes on heap memory</span>
+<span class="w">    </span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ListNode</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w">  </span>
+<span class="w">    </span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ListNode</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="w"> </span>
+<span class="w">    </span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">three</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ListNode</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one</span><span class="p">;</span><span class="w"> </span><span class="c1">// head points to the first node (one)</span>
+<span class="w">    </span><span class="c1">// Connecting the nodes to form: one -&gt; two -&gt; three</span>
+<span class="w">    </span><span class="n">one</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">two</span><span class="p">;</span><span class="w"> </span><span class="c1">// memory address assignment    </span>
+<span class="w">    </span><span class="n">two</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">three</span><span class="p">;</span><span class="w">      </span>
+
+<span class="w">    </span><span class="c1">// In practice, we need to delete these nodes using `delete` to avoid memory leaks.</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+
+<h4 id="definition-singly-linked-list-use-modern-c-smart-pointer">Definition - Singly-Linked List - Use Modern C++ Smart Pointer<a class="headerlink" href="#definition-singly-linked-list-use-modern-c-smart-pointer" title="Permanent link">&para;</a></h4>
+<details>
+<summary>C++</summary>
+
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">ListNode</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">&gt;</span><span class="w"> </span><span class="n">next</span><span class="p">;</span><span class="w"> </span><span class="c1">// unique ownership</span>
+<span class="w">    </span><span class="c1">// constructor overloading</span>
+<span class="w">    </span><span class="n">ListNode</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">val</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span><span class="w"> </span><span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="n">ListNode</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span><span class="w"> </span><span class="n">next</span><span class="p">(</span><span class="n">next</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// no raw pointers or manual deletion</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// create ListNode object, smart unique pointer own this node 1.</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="w">    </span><span class="n">one</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">two</span><span class="p">);</span><span class="w"> </span><span class="c1">// ownership transferred (then previous pointer two becomes nullptr)</span>
+
+<span class="w">    </span><span class="c1">// No need for manual delete, smart pointers handle it automatically</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+
+<h4 id="adddelete-node-singly-linked-list">Add/Delete Node - Singly-Linked List<a class="headerlink" href="#adddelete-node-singly-linked-list" title="Permanent link">&para;</a></h4>
+<p>At first, obtain the <strong>reference</strong> to the <strong>previous node</strong> <code>prev</code> (the node at position  <span class="arithmatex">\(i - 1\)</span>) by iterating from the head.
+Typically we do these operations <strong>on the fly</strong>, when iterating through the list (these functions are just demonstration). </p>
+<p>Figure: <strong>Singly Linked List</strong> - <strong>insert</strong> at <strong>random</strong> position: <code>node_to_add.next</code>  points to <code>preNode.next</code>, then change <code>preNode.next</code> points to <code>node_to_add</code></p>
+<p><img alt="linked list Insert" src="../figures/singly-linked-list-insert-random.png" /></p>
+<p>Figure: <strong>Singly Linked List</strong> - <strong>Delete</strong> at <strong>random</strong> position: change <code>preNode.next</code> pointer to <code>preNode.next.next</code></p>
+<p><img alt="linked list Insert" src="../figures/singly-linked-list-delete-random.png" /></p>
+<details>
+<summary>Python</summary>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Obtain the reference by iterating from the head - time: O(n)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_node</span><span class="p">(</span><span class="n">prev_node</span><span class="p">,</span> <span class="n">node_to_add</span><span class="p">):</span>   <span class="c1"># Time: O(1)</span>
+    <span class="n">node_to_add</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">prev_node</span><span class="o">.</span><span class="n">next</span>
+    <span class="n">prev_node</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">node_to_add</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">delete_node</span><span class="p">(</span><span class="n">prev_node</span><span class="p">):</span>
+    <span class="n">prev_node</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">prev_node</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span>
+</code></pre></div>
+</details>
+
+<details>
+<summary>C++</summary>
+
+<div class="highlight"><pre><span></span><code><span class="c1">// Obtain the reference by iterating from the head - time: O(n)</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">addNode</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">prevNode</span><span class="p">,</span><span class="w"> </span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">nodeToAdd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">nodeToAdd</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prevNode</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span><span class="w">   </span><span class="c1">// Time: O(1)</span>
+<span class="w">    </span><span class="n">prevNode</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nodeToAdd</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">deleteNode</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">prevNode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">prevNode</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prevNode</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+
+<h3 id="traverse-the-linked-list">Traverse the Linked List<a class="headerlink" href="#traverse-the-linked-list" title="Permanent link">&para;</a></h3>
+<p>Example: 
+get the sum of all values from an integer linked list.</p>
+<h4 id="traverse-iterative">Traverse - Iterative<a class="headerlink" href="#traverse-iterative" title="Permanent link">&para;</a></h4>
+<p>Using <strong>dummy pointers</strong> <code>curr</code> <strong>without losing</strong> a reference to the <strong>head</strong>.</p>
+<details>
+<summary>Python</summary>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_sum</span><span class="p">(</span><span class="n">head</span><span class="p">):</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">curr</span> <span class="o">=</span> <span class="n">head</span>
+
+    <span class="k">while</span> <span class="n">curr</span><span class="p">:</span> <span class="c1"># The final node's next pointer is null. Therefore, after the final node, the while loop ends.</span>
+        <span class="c1"># ans += curr.val</span>
+        <span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="n">next</span>   
+
+    <span class="k">return</span> <span class="n">ans</span>
+</code></pre></div>
+</details>
+
+<details>
+<summary>C++</summary>
+
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">getSum</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">head</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">curr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">curr</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ans += curr-&gt;val;</span>
+<span class="w">        </span><span class="n">curr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ans</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+
+<h4 id="traverse-recursive">Traverse - Recursive<a class="headerlink" href="#traverse-recursive" title="Permanent link">&para;</a></h4>
+<details>
+<summary>Python</summary>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_sum</span><span class="p">(</span><span class="n">curr</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">curr</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="n">curr</span><span class="o">.</span><span class="n">val</span> <span class="o">+</span> <span class="n">get_sum</span><span class="p">(</span><span class="n">curr</span><span class="o">.</span><span class="n">next</span><span class="p">)</span>
+</code></pre></div>
+</details>
+
+<details>
+<summary>C++</summary>
+
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">getSum</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">curr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">curr</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">val</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">getSum</span><span class="p">(</span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+
+<h3 id="doubly-linked-list">Doubly linked list<a class="headerlink" href="#doubly-linked-list" title="Permanent link">&para;</a></h3>
+<p>Figure: <strong>Doubly linked list</strong> - similar to singly linked list, but each node also contains a pointer to the <strong>previous</strong> node <code>prev</code>, and it allows iteration in <strong>both directions</strong>.</p>
+<p><img alt="Doubly linked list" src="../figures/doubly-linked-list.png" /></p>
+<h4 id="definition-doubly-linked-list">Definition - Doubly linked list<a class="headerlink" href="#definition-doubly-linked-list" title="Permanent link">&para;</a></h4>
+<details>
+<summary>Python</summary>
+
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ListNode</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+</details>
+
+<details>
+<summary>C++</summary>
+
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">ListNode</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ListNode</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ListNode</span><span class="w"> </span><span class="o">*</span><span class="n">prev</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">ListNode</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">val</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">),</span><span class="w"> </span><span class="n">prev</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span><span class="w"> </span><span class="n">next</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">),</span><span class="w"> </span><span class="n">prev</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">next</span><span class="p">,</span><span class="w"> </span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">prev</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">val</span><span class="p">(</span><span class="n">val</span><span class="p">),</span><span class="w"> </span><span class="n">next</span><span class="p">(</span><span class="n">next</span><span class="p">),</span><span class="w"> </span><span class="n">prev</span><span class="p">(</span><span class="n">prev</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div>
+</details>
+
+<h4 id="adddelete-node-doubly-linked-list">Add/Delete Node - Doubly-Linked List<a class="headerlink" href="#adddelete-node-doubly-linked-list" title="Permanent link">&para;</a></h4>
+<p>With a doubly linked list, we only need a reference to the <strong>current node</strong> at  <span class="arithmatex">\(i\)</span>, because we can simply reference the <code>prev</code> pointer of that node to get the node at  <span class="arithmatex">\(i - 1\)</span>, and <code>next</code> pointer of that node to get the node at  <span class="arithmatex">\(i + 1\)</span>,</p>
+<p>Extra work: <strong>update</strong> the <strong><code>prev</code></strong> pointers</p>
+<p>Figure: <strong>Doubly Linked List</strong> - <strong>insert</strong> at <strong>random</strong> position: <code>node_to_add.next</code> points to <code>curr_node</code>, <code>node_to_add.prev</code> points to <code>prev_node</code>, <code>prev_node.next</code> points to <code>curr_node</code>, <code>curr_node.prev</code> points to <code>curr_node</code></p>
+<p><img alt="linked list Insert" src="../figures/doubly-linked-list-insert-random.png" /></p>
+<details>
+<summary>Python</summary>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_node</span><span class="p">(</span><span class="n">curr_node</span><span class="p">,</span> <span class="n">node_to_add</span><span class="p">):</span>
+    <span class="c1"># get prev node reference</span>
+    <span class="n">prev_node</span> <span class="o">=</span> <span class="n">curr_node</span><span class="o">.</span><span class="n">prev</span>  
+    <span class="c1"># relink</span>
+    <span class="n">node_to_add</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">curr_node</span>
+    <span class="n">node_to_add</span><span class="o">.</span><span class="n">prev</span> <span class="o">=</span> <span class="n">prev_node</span>
+    <span class="n">prev_node</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">node_to_add</span>
+    <span class="n">curr_node</span><span class="o">.</span><span class="n">prev</span> <span class="o">=</span> <span class="n">node_to_add</span>
+</code></pre></div>
+</details>
+
+<details>
+<summary>C++</summary>
+
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">addNode</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">currNode</span><span class="p">,</span><span class="w"> </span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">nodeToAdd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">prevNode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">currNode</span><span class="o">-&gt;</span><span class="n">prev</span><span class="p">;</span>
+<span class="w">    </span><span class="n">nodeToAdd</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">currNode</span><span class="p">;</span>
+<span class="w">    </span><span class="n">nodeToAdd</span><span class="o">-&gt;</span><span class="n">prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prevNode</span><span class="p">;</span>
+<span class="w">    </span><span class="n">prevNode</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nodeToAdd</span><span class="p">;</span>
+<span class="w">    </span><span class="n">currNode</span><span class="o">-&gt;</span><span class="n">prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nodeToAdd</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+
+<p>Figure: <strong>Doubly Linked List</strong> - <strong>delete</strong> at <strong>random</strong> position: <code>prev_node_next</code>  points to <code>next_node</code>, then change <code>next_node.prev</code> points to <code>prev_node</code></p>
+<p><img alt="Doubly linked list Delete" src="../figures/doubly-linked-list-delete-random.png" /></p>
+<details>
+<summary>Python</summary>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">delete_node</span><span class="p">(</span><span class="n">curr_node</span><span class="p">):</span>
+    <span class="c1"># get prev, next node reference</span>
+    <span class="n">prev_node</span> <span class="o">=</span> <span class="n">curr_node</span><span class="o">.</span><span class="n">prev</span>
+    <span class="n">next_node</span> <span class="o">=</span> <span class="n">curr_node</span><span class="o">.</span><span class="n">next</span>  
+    <span class="c1"># relink</span>
+    <span class="n">prev_node</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">next_node</span>
+    <span class="n">next_node</span><span class="o">.</span><span class="n">prev</span> <span class="o">=</span> <span class="n">prev_node</span>
+</code></pre></div>
+</details>
+
+<details>
+<summary>C++</summary>
+
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">deleteNode</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">currNode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">prevNode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">currNode</span><span class="o">-&gt;</span><span class="n">prev</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">nextNode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">currNode</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="w">    </span><span class="n">prevNode</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nextNode</span><span class="p">;</span>
+<span class="w">    </span><span class="n">nextNode</span><span class="o">-&gt;</span><span class="n">prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prevNode</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+
+<h4 id="adddelete-firstlast-node-using-sentinel-nodeshead-tail-doubly-linked-lists">Add/Delete First/Last node using sentinel nodes(<code>head</code>, <code>tail</code>) - Doubly-Linked lists<a class="headerlink" href="#adddelete-firstlast-node-using-sentinel-nodeshead-tail-doubly-linked-lists" title="Permanent link">&para;</a></h4>
+<p>To easily add and remove at the end or tail of the linked list. No need to judge the edge cases if <code>head</code> or <code>tail</code> <code>== nullptr</code></p>
+<p>Figure: <strong>Doubly Linked List</strong> - with <strong>sentinel nodes</strong>(<code>head</code>, <code>tail</code>). Even when there are no nodes in a linked list, you still keep a head and tail. The real head node of the linked list is <strong><code>head.next</code></strong> and the real tail node is <strong><code>tail.prev</code></strong>. The sentinel nodes themselves are not part of linked list.</p>
+<p><img alt="Doubly linked list with sentinel" src="../figures/doubly-linked-list-w-sentinel-nodes.png" /></p>
+<p>Figure: <strong>Doubly Linked List</strong> - with <strong>sentinel nodes</strong>(<code>head</code>, <code>tail</code>). <strong>insert</strong> at start/end</p>
+<p><img alt="Doubly linked list with sentinel insert" src="../figures/doubly-linked-list-w-sentinel-nodes-insert-start-end.png" /></p>
+<p>Figure: <strong>Doubly Linked List</strong> - with <strong>sentinel nodes</strong>(<code>head</code>, <code>tail</code>). <strong>delete</strong> at start/end</p>
+<p><img alt="Doubly linked list with sentinel delete" src="../figures/doubly-linked-list-w-sentinel-nodes-delete-start-end.png" /></p>
+<details>
+<summary>Python</summary>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add_to_start</span><span class="p">(</span><span class="n">node_to_add</span><span class="p">):</span>
+    <span class="n">node_to_add</span><span class="o">.</span><span class="n">prev</span> <span class="o">=</span> <span class="n">head</span>
+    <span class="n">node_to_add</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span>
+    <span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">prev</span> <span class="o">=</span> <span class="n">node_to_add</span>
+    <span class="n">head</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">node_to_add</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">add_to_end</span><span class="p">(</span><span class="n">node_to_add</span><span class="p">):</span>
+    <span class="n">node_to_add</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">tail</span>
+    <span class="n">node_to_add</span><span class="o">.</span><span class="n">prev</span> <span class="o">=</span> <span class="n">tail</span><span class="o">.</span><span class="n">prev</span>
+    <span class="n">tail</span><span class="o">.</span><span class="n">prev</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">node_to_add</span>
+    <span class="n">tail</span><span class="o">.</span><span class="n">prev</span> <span class="o">=</span> <span class="n">node_to_add</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">remove_from_start</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span> <span class="o">==</span> <span class="n">tail</span><span class="p">:</span>   <span class="c1"># special case: empty </span>
+        <span class="k">return</span>
+    <span class="c1"># get reference</span>
+    <span class="n">node_to_remove</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span>  
+    <span class="c1"># relink</span>
+    <span class="n">node_to_remove</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">prev</span> <span class="o">=</span> <span class="n">head</span>
+    <span class="n">head</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">node_to_remove</span><span class="o">.</span><span class="n">next</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">remove_from_end</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span> <span class="o">==</span> <span class="n">tail</span><span class="p">:</span>   <span class="c1"># special case: empty</span>
+        <span class="k">return</span>
+    <span class="c1"># get reference</span>
+    <span class="n">node_to_remove</span> <span class="o">=</span> <span class="n">tail</span><span class="o">.</span><span class="n">prev</span>
+    <span class="c1"># relink</span>
+    <span class="n">node_to_remove</span><span class="o">.</span><span class="n">prev</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">tail</span>
+    <span class="n">tail</span><span class="o">.</span><span class="n">prev</span> <span class="o">=</span> <span class="n">node_to_remove</span><span class="o">.</span><span class="n">prev</span>
+
+<span class="c1"># create empty linked list with sentinel nodes</span>
+<span class="n">head</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">tail</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">head</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">tail</span>
+<span class="n">tail</span><span class="o">.</span><span class="n">prev</span> <span class="o">=</span> <span class="n">head</span>
+</code></pre></div>
+</details>
+
+<details>
+<summary>C++</summary>
+
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">addToStart</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">nodeToAdd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">nodeToAdd</span><span class="o">-&gt;</span><span class="n">prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
+<span class="w">    </span><span class="n">nodeToAdd</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="w">    </span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nodeToAdd</span><span class="p">;</span>
+<span class="w">    </span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nodeToAdd</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">addToEnd</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">nodeToAdd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">nodeToAdd</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tail</span><span class="p">;</span>
+<span class="w">    </span><span class="n">nodeToAdd</span><span class="o">-&gt;</span><span class="n">prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tail</span><span class="o">-&gt;</span><span class="n">prev</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tail</span><span class="o">-&gt;</span><span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nodeToAdd</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tail</span><span class="o">-&gt;</span><span class="n">prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nodeToAdd</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">removeFromStart</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">tail</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">nodeToRemove</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="w">    </span><span class="n">nodeToRemove</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
+<span class="w">    </span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nodeToRemove</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">removeFromEnd</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">tail</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">nodeToRemove</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tail</span><span class="o">-&gt;</span><span class="n">prev</span><span class="p">;</span>
+<span class="w">    </span><span class="n">nodeToRemove</span><span class="o">-&gt;</span><span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tail</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tail</span><span class="o">-&gt;</span><span class="n">prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nodeToRemove</span><span class="o">-&gt;</span><span class="n">prev</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ListNode</span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span>
+<span class="n">ListNode</span><span class="o">*</span><span class="w"> </span><span class="n">tail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ListNode</span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span>
+<span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tail</span><span class="p">;</span>
+<span class="n">tail</span><span class="o">-&gt;</span><span class="n">prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">;</span>
+</code></pre></div>
+</details>
+
+<h3 id="reversing-a-singly-linked-list">Reversing a singly-linked list<a class="headerlink" href="#reversing-a-singly-linked-list" title="Permanent link">&para;</a></h3>
+<p>a typical <strong>problem</strong> or an <strong>intermediate step</strong></p>
+<details>
+<summary>Python</summary>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">reverse_list</span><span class="p">(</span><span class="n">head</span><span class="p">):</span>
+    <span class="n">prev</span> <span class="o">=</span> <span class="kc">None</span>               <span class="c1"># to track the previous node</span>
+    <span class="n">curr</span> <span class="o">=</span> <span class="n">head</span>               <span class="c1"># to track the current node </span>
+
+    <span class="k">while</span> <span class="n">curr</span><span class="p">:</span>               <span class="c1"># traverse until the tail </span>
+        <span class="n">next_node</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="n">next</span> <span class="c1"># 1. keep a reference to the original next node, make sure we don't lose it</span>
+        <span class="n">curr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">prev</span>      <span class="c1"># 2. reverse the direction of the next pointer</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span>           <span class="c1"># 3. Update prev for the next iteration</span>
+        <span class="n">curr</span> <span class="o">=</span> <span class="n">next_node</span>      <span class="c1"># 4. Update curr for the next iteration</span>
+
+    <span class="k">return</span> <span class="n">prev</span>               <span class="c1"># After the final iteration, prev points to the original tail, which is the new head</span>
+</code></pre></div>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>

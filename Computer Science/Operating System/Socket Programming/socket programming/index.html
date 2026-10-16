@@ -1,0 +1,4096 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal notes for quantitative finance, computer science, math and statistics.">
+      
+      
+      
+        <link rel="canonical" href="https://minwang-ai.github.io/quant-finance-cheatsheet/Computer%20Science/Operating%20System/Socket%20Programming/socket%20programming/">
+      
+      
+        <link rel="prev" href="../../threads%20and%20concurrency/">
+      
+      
+        <link rel="next" href="../../../Python/L00-Intro/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Chapter 2: What is a Socket? - Quant Finance Cheatsheet</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-2-what-is-a-socket" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Quant Finance Cheatsheet" class="md-header__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quant Finance Cheatsheet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 2: What is a Socket?
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Quant Finance Cheatsheet" class="md-nav__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Quant Finance Cheatsheet
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quant Finance Cheatsheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C++
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../C%2B%2B/%3Ccctype%3E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    #include &lt;cctype&gt;
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure and Algorithm
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Structure and Algorithm
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Data%20Structure%20and%20Algorithm/00-code-template-DS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Template - Data Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Data%20Structure%20and%20Algorithm/L01-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Data%20Structure%20and%20Algorithm/L02-array-linked-list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Data%20Structure%20and%20Algorithm/hashtable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hashing (hash map and sets)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Data%20Structure%20and%20Algorithm/recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operating System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operating System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../process%20management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../threads%20and%20concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Threads and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Socket Programming
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Socket Programming
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2: What is a Socket?
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2: What is a Socket?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#section-21-two-types-of-internet-sockets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section 2.1: Two Types of Internet Sockets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-22-network-theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section 2.2: Network Theory
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/L00-Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/L01-conditions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/L02-loops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Loops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/L03-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/L04-libraries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/L05-unit-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit Tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/L06-file-IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/L08-OOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Programming (OOP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/L09-others/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Et Cetera
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/N-IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input / Output (I/O)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/N-methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_12" id="__nav_2_5_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Data Structure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python Data Structure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/Python%20Data%20Structure/dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/Python%20Data%20Structure/iterables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Iterables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/Python%20Data%20Structure/list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lists
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/Python%20Data%20Structure/numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/Python%20Data%20Structure/set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    set
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/Python%20Data%20Structure/string/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String (str)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python/Python%20Data%20Structure/tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tuples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Math and Stats
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Math and Stats
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics for Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics for Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L01-predicates-sets-proof/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Predicates, Sets, and Proofs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L02-contradiction-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contradiction and Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L04-state-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L05-sums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sums
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L6-asymptotics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asymptotics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitive Finance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitive Finance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Quantitive%20Finance/Financial%20Data/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Econometrics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Econometrics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Quantitive%20Finance/Financial%20Econometrics/Correlation%20and%20Multicollinearity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Correlation and Multicollinearity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Quantitive%20Finance/Financial%20Econometrics/Linear%20Regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Regression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Quantitive%20Finance/Financial%20Econometrics/Monte%20Carlo%20Simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monte Carlo Simulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Quantitive%20Finance/Financial%20Econometrics/Variable%20Transformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variable Transformation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Market
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Market
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_1" id="__nav_4_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cridit Risk and Financing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cridit Risk and Financing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/BUYING%20AND%20SELLING%20SHORT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Buying and Selling Short
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/COUNTERPARTIES%20AND%20CREDIT%20RISK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Risk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/SAVING%20AND%20BORROWING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitative Trading
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitative Trading
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Quantitive%20Finance/Quantitative%20Trading/market_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Market Mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Quantitive%20Finance/Quantitative%20Trading/stock_price/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stock Price
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#section-21-two-types-of-internet-sockets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section 2.1: Two Types of Internet Sockets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-22-network-theory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section 2.2: Network Theory
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="chapter-2-what-is-a-socket">Chapter 2: What is a Socket?<a class="headerlink" href="#chapter-2-what-is-a-socket" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Core idea</td>
+<td>A socket is a way for programs to <strong>communicate over a network</strong> using standard Unix file descriptors.</td>
+</tr>
+<tr>
+<td>Underlying Unix model</td>
+<td>In Unix, everything is a file. <br> When Unix programs do I/O, they do it by reading  or writing to a <strong>file descriptor</strong> (an <strong>integer</strong> associated with an open file).</td>
+</tr>
+<tr>
+<td>How you <strong>create a socket</strong></td>
+<td>Call <code>socket()</code> to obtain a socket descriptor.</td>
+</tr>
+<tr>
+<td>How you <strong>communicate</strong></td>
+<td>Use <code>send()</code> / <code>recv()</code> socket calls.</td>
+</tr>
+<tr>
+<td>Why it matters</td>
+<td>It gives a standard programming interface for network communication, independent of underlying hardware details.</td>
+</tr>
+</tbody>
+</table>
+<p>Figure: socket metaphor : post delivery</p>
+<p><img alt="metaphor" src="../figures/socket-post-metaphor.png" /></p>
+<p>Figure: TCP</p>
+<p><img alt="TCP" src="../figures/socket-tcp.png" /></p>
+<p>Figure: UDP</p>
+<p><img alt="UDP" src="../figures/socket-udp.png" /></p>
+<h2 id="section-21-two-types-of-internet-sockets">Section 2.1: Two Types of Internet Sockets<a class="headerlink" href="#section-21-two-types-of-internet-sockets" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th><code>SOCK_STREAM</code> (TCP)</th>
+<th><code>SOCK_DGRAM</code> (UDP)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Common name</td>
+<td>Stream socket</td>
+<td>Datagram socket</td>
+</tr>
+<tr>
+<td>Connection model</td>
+<td>Connection-oriented</td>
+<td>Connectionless by default</td>
+</tr>
+<tr>
+<td>Communication Channel</td>
+<td>Yes, reliable <strong>two-way connected communication streams</strong>.</td>
+<td>No, <strong>don’t have to maintain an open connection</strong></td>
+</tr>
+<tr>
+<td>Error handling</td>
+<td>TCP makes sure data arrives <strong>sequentially and error-free</strong>.</td>
+<td>No. <br> App may add its own ACK/retry logic if reliability is needed</td>
+</tr>
+<tr>
+<td>Reliability</td>
+<td>Reliable delivery</td>
+<td>Best-effort delivery</td>
+</tr>
+<tr>
+<td>Ordering</td>
+<td>Preserves order</td>
+<td>May arrive out of order</td>
+</tr>
+<tr>
+<td><strong>Speed/overhead</strong></td>
+<td>More overhead, generally <strong>slower</strong></td>
+<td>Lower overhead, generally <strong>faster</strong></td>
+</tr>
+<tr>
+<td>Typical use cases</td>
+<td><code>ssh</code>, <code>telnet</code>, HTTP/web traffic, chat</td>
+<td>When a TCP stack  is unavailable or when a few dropped packets are acceptable, e.g., <br> tftp (trivial file transfer protocol, a little brother to FTP), dhcpcd (a DHCP client), Real-time multiplayer games, audio/video streaming, DHCP/TFTP-style workflows</td>
+</tr>
+<tr>
+<td>Key tradeoff</td>
+<td><strong>Correctness</strong> and delivery guarantees</td>
+<td><strong>Low Latency</strong> and throughput with possible packet loss</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-22-network-theory">Section 2.2: Network Theory<a class="headerlink" href="#section-22-network-theory" title="Permanent link">&para;</a></h2>
+<p>How packets are built:</p>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Encapsulation flow</td>
+<td>App data is wrapped layer-by-layer (e.g., TFTP → UDP → IP → Ethernet) before sending; <br> receiver unwraps in reverse order and finally gets the data.</td>
+</tr>
+<tr>
+<td>Why layering helps</td>
+<td>Socket code stays mostly the same even if hardware/topology changes; lower layers abstract details away.</td>
+</tr>
+<tr>
+<td>Layered Network Model (ISO/OSI 7-layer)</td>
+<td>Application, Presentation, Session, Transport, Network, Data Link, Physical.</td>
+</tr>
+<tr>
+<td>Layered model consistent with Unix (simplified)</td>
+<td>Application (telnet, ftp, etc) <br> → Host-to-Host Transport (TCP/UDP)<br>  → Internet (IP/routing) <br> → Network Access (Ethernet/Wi-Fi).</td>
+</tr>
+<tr>
+<td>Programmer responsibility</td>
+<td>Use <code>send()</code> for stream sockets or <code>sendto()</code> for datagrams; kernel/hardware handle most lower-layer header work.</td>
+</tr>
+</tbody>
+</table>
+<p>Figure: Data Encapsulation</p>
+<p><img alt="Data Encapsulation" src="../figures/socket-data-encapsulation.png" /></p>
+<p>a packet is born, the packet is wrapped (“encapsulated”) in a header (rarely a footer) by the first protocol (TFTP protocol), then the whole thing (TFTP header included) is encapsulated again by the next protocol (UDP), then again by the next (IP), then again by the final protocol on the hardware (physical) layer (Ethernet).</p>
+<h1 id="chapter-3-ip-addresses-structs-and-data-munging">Chapter 3: IP Addresses, structs, and Data  Munging<a class="headerlink" href="#chapter-3-ip-addresses-structs-and-data-munging" title="Permanent link">&para;</a></h1>
+<h2 id="section-31-ip-addresses-versions-4-and-6">Section 3.1: IP Addresses, versions 4 and 6<a class="headerlink" href="#section-31-ip-addresses-versions-4-and-6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IPv4</td>
+<td>32-bit address, decimal + dot notation</td>
+<td><code>192.0.2.33</code> <br> its IPv6-compatible form is <code>::ffff:192.0.2.33</code>.</td>
+</tr>
+<tr>
+<td>IPv6</td>
+<td>128-bit address, hexadecimal + colon notation, created to solve IPv4 exhaustion. <br> <br> shorthand: Leading zeros can be omitted and long runs of zero groups can be compressed with <code>::</code> (once per address).</td>
+<td><code>2001:0db8:ab00:0000:0000:0000:0000:0000</code> <br> =<code>2001:db8:ab00::</code></td>
+</tr>
+<tr>
+<td>Loopback address</td>
+<td>It always means “this machine I’m running on now”. <br> - IPv4 loopback is <code>127.0.0.1</code><br> - IPv6 loopback is <code>::1</code>.</td>
+<td></td>
+</tr>
+<tr>
+<td>Subnet concept</td>
+<td>Address = <strong>network</strong> part + <strong>host</strong> part, determined by a netmask (outdated). <br> <br> New style (Written as <code>address/the number of network bits (can be arbitrary) in decimal</code></td>
+<td>for IPv4: <code>192.0.2.12/30</code>, <br> for IPv6: <code>2001:db8::/32</code></td>
+</tr>
+<tr>
+<td>Port numbers</td>
+<td>16-bit transport-layer endpoint identifier; same IP can host multiple services by different ports. <br> <br> Metaphor: Think of the IP address as the street address of a hotel, and the port number as the room number.</td>
+<td>HTTP <code>80</code>, telnet <code>23</code>, SMTP <code>25</code>; ports <code>&lt;1024</code> are often special, and usually require special OS privileges to use.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-32-byte-order">Section 3.2: Byte Order<a class="headerlink" href="#section-32-byte-order" title="Permanent link">&para;</a></h2>
+<p>if you want to represent the two-byte hex number.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Network Byte Order <br>(<strong>Big-Endian</strong>)</th>
+<th>Host Byte Order (depends on architechture)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where it is used</td>
+<td>Standard byte order used on the wire for <strong>network</strong> protocols.</td>
+<td>Native byte order used internally by the <strong>local computer</strong>.</td>
+</tr>
+<tr>
+<td>Byte layout example (<code>0xb34f</code>)</td>
+<td>Stored as <code>b3 4f</code> (big end byte first).</td>
+<td>Could be <code>b3 4f</code> (big-endian hosts) or <code>4f b3</code> (little-endian hosts).</td>
+</tr>
+<tr>
+<td><strong>Conversion</strong> needed?</td>
+<td>No</td>
+<td><strong>Convert</strong> to Network Byte Order before sending out on the wire and <strong>convert</strong> back to Host Byte Order after receiving.</td>
+</tr>
+</tbody>
+</table>
+<p>Convension
+Use every combination of these: 
+<br> - “n” for "network" <br> - “h” for "host" <br> -  “s” for "short"(two bytes)  <br> - “l" for "long" (four bytes) <br> - "to" for direction</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>htons()</td>
+<td>host to network short</td>
+</tr>
+<tr>
+<td>htonl()</td>
+<td>host to network long</td>
+</tr>
+<tr>
+<td>ntohs()</td>
+<td>network to host short</td>
+</tr>
+<tr>
+<td>ntohl()</td>
+<td>network to host long</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-33-structs">Section 3.3: Structs<a class="headerlink" href="#section-33-structs" title="Permanent link">&para;</a></h2>
+<h3 id="struct-overview">Struct Overview<a class="headerlink" href="#struct-overview" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type Name</th>
+<th>What it is for</th>
+<th>when/How to use</th>
+<th>Common function/API usage</th>
+<th>IPv4 / IPv6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>int socket descriptor</code></td>
+<td>a regular <code>int</code> as the socket file descriptor</td>
+<td>Returned by <code>socket()</code>, <br> used by <code>connect()</code>, <code>bind()</code>, <code>send()</code>, <code>recv()</code>, etc.</td>
+<td></td>
+<td>Both</td>
+</tr>
+<tr>
+<td><code>struct addrinfo</code></td>
+<td>Helper struct to prep the socket address structures for subsequent use; also used in host name lookups, and service name lookups</td>
+<td>it’s one  of the first things we’ll call when making a connection: Call <code>getaddrinfo()</code> to fill out this <code>struct addrinfo</code>. (often it is all we need)</td>
+<td>Both <br> - IPv4:<code>AF_INET</code>, <br> - IPv6: <code>AF_INET6</code>, <br> - IP version-agnostic: <code>AF_UNSPEC</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>struct sockaddr</code></td>
+<td>Generic struct holds socket address information, used by many socket calls.</td>
+<td></td>
+<td>Parameter type for <code>connect()</code>, <code>bind()</code>, <code>accept()</code>, etc. (often via <strong>cast</strong>).</td>
+<td>Both</td>
+</tr>
+<tr>
+<td><code>struct sockaddr_in</code></td>
+<td>IPv4-specific Internet socket address struct.</td>
+<td>Used for IPv4 <code>connect()/bind()</code> (cast to <code>struct sockaddr *</code>).</td>
+<td></td>
+<td>IPv4 only</td>
+</tr>
+<tr>
+<td><code>struct in_addr</code></td>
+<td>Holds an IPv4 address value.</td>
+<td>access IPv4 address</td>
+<td></td>
+<td>IPv4 only</td>
+</tr>
+<tr>
+<td><code>struct sockaddr_in6</code></td>
+<td>IPv6-specific socket address struct.</td>
+<td>Used for IPv6 <code>connect()/bind()</code> (cast to <code>struct sockaddr *</code>).</td>
+<td></td>
+<td>IPv6 only</td>
+</tr>
+<tr>
+<td><code>struct in6_addr</code></td>
+<td>Holds a 16-byte IPv6 address value.</td>
+<td>access IPv6 address</td>
+<td></td>
+<td>IPv6 only</td>
+</tr>
+<tr>
+<td><code>struct sockaddr_storage</code></td>
+<td>Generic, large storage for either IPv4 or IPv6 socket address (Similar to <code>struct sockaddr</code> except larger)</td>
+<td>Used when we don’t know in  advance if it’s going to fill out struct sockaddr with an IPv4 or IPv6 address. <br> pass in this parallel structure, check ss_family field to see  if it’s AF_INET or AF_INET6 (for IPv4 or IPv6), then we can cast it to a <code>struct sockaddr_in</code> or <code>struct sockaddr_in6</code></td>
+<td></td>
+<td>Both</td>
+</tr>
+</tbody>
+</table>
+<h3 id="struct-addrinfo"><code>struct addrinfo</code><a class="headerlink" href="#struct-addrinfo" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Field</th>
+<th>Meaning / how to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>int</code></td>
+<td><code>ai_flags</code></td>
+<td>Behavior flags: <br> - <code>AI_PASSIVE</code>: tells <code>getaddrinfo()</code> to assign the address of my local  host to the socket structures. <br> - <code>AI_CANONNAME</code>:</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>ai_family</code></td>
+<td>Specify IP version for address family ("AF"): <br> - IPv4:<code>AF_INET</code>, <br> - IPv6: <code>AF_INET6</code>, <br> - IP version-agnostic: <code>AF_UNSPEC</code></td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>ai_socktype</code></td>
+<td>Specify socket type  <code>SOCK_STREAM</code> or <code>SOCK_DGRAM</code>.</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>ai_protocol</code></td>
+<td>Usually <code>0</code> for “any suitable protocol”.</td>
+</tr>
+<tr>
+<td><code>size_t</code></td>
+<td><code>ai_addrlen</code></td>
+<td>Size of `ai_addr in bytes.</td>
+</tr>
+<tr>
+<td><code>struct sockaddr *</code></td>
+<td><code>ai_addr</code></td>
+<td>Pointer to socket address <br> - IPv4: <code>struct sockaddr_in</code> <br> or - IPv6: <code>struct sockaddr_in6</code>.</td>
+</tr>
+<tr>
+<td><code>char *</code></td>
+<td><code>ai_canonname</code></td>
+<td>Full canonical host name</td>
+</tr>
+<tr>
+<td><code>struct addrinfo *</code></td>
+<td><code>ai_next</code></td>
+<td>pointer points to the next node in result linked list.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="struct-sockaddr"><code>struct sockaddr</code><a class="headerlink" href="#struct-sockaddr" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Field</th>
+<th>Meaning / how to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>unsigned short</code></td>
+<td><code>sa_family</code></td>
+<td>Specify IP version: <br> - IPv4:<code>AF_INET</code>, <br> - IPv6: <code>AF_INET6</code>,</td>
+</tr>
+<tr>
+<td><code>char[14]</code></td>
+<td><code>sa_data</code></td>
+<td>contains a destination address and port number for the socket (tedious)</td>
+</tr>
+<tr>
+<td><strong>Notes:</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>generic and somewhat unwieldy to fill manually; usually use <strong>family-specific structs</strong> to reference elements of the socket address easily and <strong>cast</strong>.</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>struct sockaddr_in</code> (IPv4) </li>
+<li><code>struct sockaddr_in6</code> (IPv6)</li>
+</ul>
+<h4 id="struct-sockaddr_in-ipv4"><code>struct sockaddr_in</code> (IPv4)<a class="headerlink" href="#struct-sockaddr_in-ipv4" title="Permanent link">&para;</a></h4>
+<p>Here "in” for  “Internet”</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Field</th>
+<th>Meaning</th>
+<th>how to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>short int</code></td>
+<td><code>sin_family</code></td>
+<td>corresponds to <code>sa_family</code> in a <code>struct sockaddr</code></td>
+<td>must be <strong><code>AF_INET</code>(IPv4)</strong>.</td>
+</tr>
+<tr>
+<td><code>unsigned short int</code></td>
+<td><code>sin_port</code></td>
+<td>must be <strong>Network Byte Order</strong>.</td>
+<td>using <code>htons()</code> for conversion</td>
+</tr>
+<tr>
+<td><code>struct in_addr</code></td>
+<td><code>sin_addr</code></td>
+<td>IPv4 Ingernet address</td>
+<td>see <code>struct in_addr</code> (IPv4)</td>
+</tr>
+<tr>
+<td><code>unsigned char[8]</code></td>
+<td><code>sin_zero</code></td>
+<td>to pad the structure to the length of a <code>struct sockaddr</code></td>
+<td>should be set to all zeros with the function <code>memset()</code></td>
+</tr>
+<tr>
+<td><strong>Notes:</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>a pointer to a <code>struct sockaddr_in</code>(IP specific) can be cast to a pointer to a <code>struct sockaddr</code> (generic) and vice-versa.  So we can use a <code>struct sockaddr_in</code> and <strong>cast</strong> it to <code>struct sockaddr*</code> at last minute.<ul>
+<li><code>struct sockaddr*</code> is needed by function connect().</li>
+</ul>
+</li>
+<li>same idea for IPv6 below.</li>
+</ul>
+<h5 id="struct-in_addr-ipv4"><code>struct in_addr</code> (IPv4)<a class="headerlink" href="#struct-in_addr-ipv4" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Field</th>
+<th>Meaning</th>
+<th>how to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>uint32_t</code></td>
+<td><code>s_addr</code></td>
+<td>The 32-bit (4 byte) IPv4 address value (in network byte order).</td>
+<td>If you  have declared ina to be of type <code>struct sockaddr_in</code>, then accessed by <code>ina.sin_addr.s_addr</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="struct-sockaddr_in6-ipv6"><code>struct sockaddr_in6</code> (IPv6)<a class="headerlink" href="#struct-sockaddr_in6-ipv6" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Field</th>
+<th>Meaning</th>
+<th>how to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>u_int16_t</code></td>
+<td><code>sin6_family</code></td>
+<td>corresponds to <code>sa_family</code> in a <code>struct sockaddr</code></td>
+<td>Must be <code>AF_INET6</code> (IPv6).</td>
+</tr>
+<tr>
+<td><code>u_int16_t</code></td>
+<td><code>sin6_port</code></td>
+<td>16-bit port in <strong>Network Byte Order</strong>.</td>
+<td>using <code>htons()</code> for conversion</td>
+</tr>
+<tr>
+<td><code>u_int32_t</code></td>
+<td><code>sin6_flowinfo</code></td>
+<td>IPv6 flow information.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>struct in6_addr</code></td>
+<td><code>sin6_addr</code></td>
+<td>IPv6 address</td>
+<td>see <code>struct in6_addr</code></td>
+</tr>
+<tr>
+<td><code>u_int32_t</code></td>
+<td><code>sin6_scope_id</code></td>
+<td>Scope ID</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="struct-in6_addr-ipv6"><code>struct in6_addr</code> (IPv6)<a class="headerlink" href="#struct-in6_addr-ipv6" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Field</th>
+<th>Meaning</th>
+<th>how to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>unsigned char[16]</code></td>
+<td><code>s6_addr</code></td>
+<td>Raw 16-byte IPv6 address.</td>
+<td>If you  have declared ina to be of type <code>struct sockaddr_in</code>, then accessed by <code>ina.sin6_addr.s6_addr</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="struct-sockaddr_storage-family-agnostic-large"><code>struct sockaddr_storage</code> (Family-Agnostic, large)<a class="headerlink" href="#struct-sockaddr_storage-family-agnostic-large" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Field</th>
+<th>Meaning / how to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sa_family_t</code></td>
+<td><code>ss_family</code></td>
+<td>Address family indicator (<code>AF_INET</code> or <code>AF_INET6</code>) used to decide final cast.</td>
+</tr>
+<tr>
+<td><code>char[_SS_PAD1SIZE]</code></td>
+<td><code>__ss_pad1</code></td>
+<td>Implementation padding; ignore in normal use.</td>
+</tr>
+<tr>
+<td><code>int64_t</code></td>
+<td><code>__ss_align</code></td>
+<td>Implementation alignment field; ignore in normal use.</td>
+</tr>
+<tr>
+<td><code>char[_SS_PAD2SIZE]</code></td>
+<td><code>__ss_pad2</code></td>
+<td>Implementation padding; ignore in normal use.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-34-ip-addresses-part-deux">Section 3.4: IP Addresses, Part Deux<a class="headerlink" href="#section-34-ip-addresses-part-deux" title="Permanent link">&para;</a></h2>
+<h3 id="ip-address-manipulation-functions">IP address manipulation functions<a class="headerlink" href="#ip-address-manipulation-functions" title="Permanent link">&para;</a></h3>
+<p>No need to figure them out by hand
+| Function Name | Name Naming | Function | Note | Example |
+|---|---|---|---|---|
+| <code>inet_pton()</code> | <strong>p</strong>resentation <strong>to</strong> <strong>n</strong>etwork (<code>pton</code>) | Converts numeric string IP address into binary network address representation either <code>struct in_addr</code> (IPv4) or <code>struct in6_addr</code> (IPv6). | make sure to do <strong>error checking (result is greater than 0)</strong> before using. <br> Return <br> - <code>-1</code> on error, <br> - <code>0</code> if the address text is invalid, <br> - <code>&gt;0</code> on success. | - IPv4: <code>struct sockaddr_in sa; inet_pton(AF_INET, "10.12.110.57", &amp;(sa.sin_addr));</code> <br> -IPv6:<code>struct sockaddr_in6 sa6; inet_pton(AF_INET6, "2001:db8:63b3:1::3490", &amp;(sa6.sin6_addr));</code> |
+| <code>inet_ntop()</code> <br> (reverse direction)| <strong>n</strong>etwork <strong>to</strong> <strong>p</strong>resentation (<code>ntop</code>)  | Converts binary network address representation to string IP address | Two macros (<code>INET_ADDRSTRLEN</code>/<code>INET6_ADDRSTRLEN</code>) conveniently hold <strong>the size of the string</strong> that we’ll need to hold the <strong>largest IPv4 or IPv6 address</strong>. <br> Numeric addresses only; no DNS lookup on a hostname like <code>www.example.com</code>. | - IPv4: <code>char ip4[INET_ADDRSTRLEN]; // space to hold the IPv4 string  struct sockaddr_in sa; // pretend this is loaded with something inet_ntop(AF_INET, &amp;(sa.sin_addr), ip4, INET_ADDRSTRLEN);</code> <br> - IPv6:<code>char ip6[INET6_ADDRSTRLEN]; // space to hold the IPv6 string struct sockaddr_in6 sa6; // pretend this is loaded with something  inet_ntop(AF_INET6, &amp;(sa6.sin6_addr), ip6, INET6_ADDRSTRLEN);</code> |</p>
+<h3 id="section-341-private-or-disconnected-networks">Section 3.4.1: Private (Or Disconnected) Networks<a class="headerlink" href="#section-341-private-or-disconnected-networks" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Private Network <br></th>
+<th>firewall &rarr;</th>
+<th>Public Network</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Internal</strong> IP addresses</td>
+<td><strong>firewall</strong> translates using <strong>Network Address Translation (NAT)</strong></td>
+<td><strong>external</strong> (everyone knows) IP addresses</td>
+</tr>
+<tr>
+<td><strong>my devices</strong> can use private 24M IP address allocated just for me</td>
+<td></td>
+<td><strong>static</strong> IPv4 addresses <strong>allocated</strong> to me by the <strong>DSL company</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="reserved-private-ranges">Reserved private ranges<a class="headerlink" href="#reserved-private-ranges" title="Permanent link">&para;</a></h4>
+<ul>
+<li>IPv4:<ul>
+<li><code>10.x.x.x</code> </li>
+<li><code>192.168.x.x</code> </li>
+<li><code>172.16.x.x</code> to <code>172.31.x.x</code></li>
+</ul>
+</li>
+<li><strong>NAT and IPv6 don’t generally mix</strong>, in normal design (except gateway scenarios outside this guide’s scope).<ul>
+<li>in theory IPv6 has so many addresses that we won’t need to use NAT any longer.</li>
+<li>But if you want to allocate addresses for yourself on a network that won’t route outside?   </li>
+</ul>
+</li>
+</ul>
+<h2 id="section-4-jumping-from-ipv4-to-ipv6">Section 4: Jumping from IPv4 to IPv6<a class="headerlink" href="#section-4-jumping-from-ipv4-to-ipv6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Rule / Change</th>
+<th>summary</th>
+<th>Quick example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Rule 1 (IP-version agnostic)</strong></td>
+<td>Use <code>getaddrinfo()</code> instead of manually packing socket address structs <code>struct sockaddr</code>; this removes many IPv4-only assumptions.</td>
+<td><code>getaddrinfo(host, service, &amp;hints, &amp;res)</code></td>
+</tr>
+<tr>
+<td><strong>Rule 2 (IP-version agnostic)</strong></td>
+<td>Wrap <strong>IP-version-specific logic</strong> in <strong>helper functions</strong>. Do not  hard-coding anything related to the IP version.</td>
+<td></td>
+</tr>
+<tr>
+<td>Change 1</td>
+<td><code>AF_INET</code> → <br><code>AF_INET6</code></td>
+<td><code>socket(AF_INET6, SOCK_STREAM, 0)</code></td>
+</tr>
+<tr>
+<td>Change 2</td>
+<td><code>PF_INET</code> → <br> <code>PF_INET6</code></td>
+<td><code>hints.ai_family = PF_INET6</code></td>
+</tr>
+<tr>
+<td>Change 3</td>
+<td>assignment <code>INADDR_ANY</code> → <br> <code>in6addr_any</code></td>
+<td><code>struct sockaddr_in sa; sa.sin_addr.s_addr = INADDR_ANY;</code> <br> → <br>  <code>struct sockaddr_in6 sa6; sa6.sin6_addr = in6addr_any;</code> <br> <br> Also, the value <code>IN6ADDR_ANY_INIT</code> can be used as an initializer when the <code>struct in6_addr</code> is declared, e.g., <br>  <code>struct in6_addr ia6 = IN6ADDR_ANY_INIT;</code></td>
+</tr>
+<tr>
+<td>Change 4</td>
+<td><code>struct sockaddr_in</code> → <br> <code>struct sockaddr_in6</code>; <br> <br> Note: no <code>sin6_zero</code> field</td>
+<td><code>struct sockaddr_in6 addr6;</code></td>
+</tr>
+<tr>
+<td>Change 5</td>
+<td><code>struct in_addr</code> → <br><code>struct in6_addr</code></td>
+<td><code>struct in6_addr ip6;</code></td>
+</tr>
+<tr>
+<td>Change 6</td>
+<td><code>inet_aton()</code> / <code>inet_addr()</code> → <code>inet_pton()</code></td>
+<td><code>inet_pton(AF_INET6, txt, &amp;addr6.sin6_addr)</code></td>
+</tr>
+<tr>
+<td>Change 7</td>
+<td><code>inet_ntoa()</code> → <br><code>inet_ntop()</code></td>
+<td><code>inet_ntop(AF_INET6, &amp;addr6.sin6_addr, buf, INET6_ADDRSTRLEN)</code></td>
+</tr>
+<tr>
+<td>Change 8</td>
+<td><code>gethostbyname()</code> → <br><code>getaddrinfo()</code> (preferred/superior)</td>
+<td><code>getaddrinfo("example.com", "80", &amp;hints, &amp;res)</code></td>
+</tr>
+<tr>
+<td>Change 9</td>
+<td><code>gethostbyaddr()</code> → <br> <code>getnameinfo()</code> (preferred/superior)</td>
+<td><code>getnameinfo(sa, salen, host, hostlen, svc, svclen, 0)</code></td>
+</tr>
+<tr>
+<td>Change 10</td>
+<td><code>INADDR_BROADCAST</code> does not apply in IPv6; use <strong>IPv6 multicast</strong> patterns instead.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="chapter-5-system-calls-or-bust">Chapter 5: System Calls or Bust<a class="headerlink" href="#chapter-5-system-calls-or-bust" title="Permanent link">&para;</a></h1>
+<p>call these functions, the kernel takes over and  does all the work for us automagically.  </p>
+<h2 id="section-51-getaddrinfo-prepare-to-launch">Section 5.1: <code>getaddrinfo()</code> — Prepare to launch<a class="headerlink" href="#section-51-getaddrinfo-prepare-to-launch" title="Permanent link">&para;</a></h2>
+<p>Functions: DNS and service name lookups, and <strong>fills out the structs</strong> we need. </p>
+<p>We can <strong>use the results to pass to other socket functions</strong> to get our network connection established.
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/socket.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;netdb.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">getaddrinfo</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">node</span><span class="p">,</span><span class="w">   </span>
+<span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">service</span><span class="p">,</span><span class="w">  </span>
+<span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">addrinfo</span><span class="w"> </span><span class="o">*</span><span class="n">hints</span><span class="p">,</span>
+<span class="w">                </span><span class="k">struct</span><span class="w"> </span><span class="nc">addrinfo</span><span class="w"> </span><span class="o">**</span><span class="n">res</span><span class="p">);</span>
+</code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*node</code> (input)</td>
+<td>- For <strong>server</strong>: the local bind <strong>IP address</strong> <br> - For <strong>client</strong>: the remote server target (<strong>hostname</strong> e.g. "www.example.com") or <strong>IP address</strong>) the client wants to connect to</td>
+<td>- <strong>Server</strong> setup for listening:  <br> - often set it as <code>NULL</code> when setting <code>AI_PASSIVE</code> in <code>hints</code> to <strong><code>bind()</code>to the local host IP address</strong>. <br> <br> - <strong>Client</strong>: If  you want to bind to a specific local IP address, drop the <code>AI_PASSIVE</code> in <code>hints</code> and put the IP address.</td>
+</tr>
+<tr>
+<td><code>*service</code> (input)</td>
+<td><strong>Port number</strong> (e.g., <code>"80"</code>,<code>"3490"</code>) <br> or <strong>service name</strong> (e.g., <code>"http"</code>, <code>"ftp</code>, <code>"telnet"</code> or <code>"smtp"</code>  etc).</td>
+<td>found in The IANA Port List1 or the  <code>/etc/services</code> file on our Unix machine)</td>
+</tr>
+<tr>
+<td><code>*hints</code> (input)</td>
+<td><strong>pointer</strong> <code>&amp;hints</code> points to a defined struct addrinfo <code>hints</code> that we’ve already filled out with relevant  information.</td>
+<td>Example: <br> <code>struct addrinfo hints;</code> <br><code>hints.ai_family = AF_UNSPEC; // IPv4 or IPv6 agnostic</code> <br> <code>hints.ai_socktype = SOCK_STREAM; // TCP stream sockets</code> <br> <code>hints.ai_flags = AI_PASSIVE;     // fill in my IP for me automatically</code></td>
+</tr>
+<tr>
+<td><code>**res</code> (output)</td>
+<td>address of a pointer which points to <strong>a Linked list</strong> <code>res</code>, where each node is <code>struct addrinfo</code></td>
+<td>Define pointer <code>struct addrinfo *res</code> and pass the address <code>&amp;res</code> as output parameter</td>
+</tr>
+<tr>
+<td><code>int status</code> Return value</td>
+<td>- <code>0</code> : success <br> - <strong>non-zero : error</strong></td>
+<td>error handling: print error using <code>gai_strerror(status)</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="server-setup-code-example">Server setup code example<a class="headerlink" href="#server-setup-code-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">addrinfo</span><span class="w"> </span><span class="n">hints</span><span class="p">;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">addrinfo</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">;</span><span class="w">  </span><span class="c1">// a pointer will point to the results (linked list head)</span>
+
+<span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">hints</span><span class="p">);</span><span class="w"> </span><span class="c1">// make sure the struct is empty</span>
+<span class="c1">// 1. Fill in struct addrinfo hints:</span>
+<span class="n">hints</span><span class="p">.</span><span class="n">ai_family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AF_UNSPEC</span><span class="p">;</span><span class="w">     </span><span class="c1">// don't care IPv4 or IPv6</span>
+<span class="n">hints</span><span class="p">.</span><span class="n">ai_socktype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SOCK_STREAM</span><span class="p">;</span><span class="w"> </span><span class="c1">// TCP stream sockets</span>
+<span class="n">hints</span><span class="p">.</span><span class="n">ai_flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AI_PASSIVE</span><span class="p">;</span><span class="w">     </span><span class="c1">// fill in my IP for me</span>
+
+<span class="c1">// 2. Error handling: If there’s an error (getaddrinfo() Return non-zero), we can print it out using the function gai_strerror()</span>
+<span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getaddrinfo</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="s">"3490"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">res</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">"gai error: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">gai_strerror</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 3. If everything works properly: servinfo now poinst to  a linked list of struct addrinfos, each of which contains a struct sockaddr </span>
+
+<span class="c1">// ... do everything until you don't need servinfo anymore ....</span>
+
+<span class="n">freeaddrinfo</span><span class="p">(</span><span class="n">res</span><span class="p">);</span><span class="w"> </span><span class="c1">// 4. Free the linked-list that getaddrinfo() allocated </span>
+</code></pre></div>
+<h3 id="client-setup-code-example">Client setup code example<a class="headerlink" href="#client-setup-code-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="err">`</span><span class="kt">int</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">addrinfo</span><span class="w"> </span><span class="n">hints</span><span class="p">;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">addrinfo</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">;</span><span class="w">  </span><span class="c1">// will point to the results</span>
+
+<span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">hints</span><span class="p">);</span><span class="w"> </span><span class="c1">// make sure the struct is empty</span>
+<span class="c1">// 1. Fill in struct addrinfo hints:</span>
+<span class="n">hints</span><span class="p">.</span><span class="n">ai_family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AF_UNSPEC</span><span class="p">;</span><span class="w">     </span>
+<span class="n">hints</span><span class="p">.</span><span class="n">ai_socktype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SOCK_STREAM</span><span class="p">;</span><span class="w"> </span>
+
+<span class="c1">// 2. get ready to connect</span>
+<span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getaddrinfo</span><span class="p">(</span><span class="s">"www.example.net"</span><span class="p">,</span><span class="w"> </span><span class="s">"3490"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">res</span><span class="p">);</span>
+
+<span class="c1">// 3. If everything works properly: servinfo now poinst to  a linked list of struct addrinfos</span>
+
+<span class="c1">// etc.</span>
+</code></pre></div>
+<h2 id="section-52-socket-get-the-file-descriptor">Section 5.2: <code>socket()</code> — Get the File Descriptor<a class="headerlink" href="#section-52-socket-get-the-file-descriptor" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/socket.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">socket</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">domain</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">protocol</span><span class="p">);</span><span class="w"> </span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameters / Return</th>
+<th>Description</th>
+<th>Values</th>
+<th>notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>domain</code> (input)</td>
+<td>Protocol Family (PF) used by the socket.</td>
+<td>- <code>PF_INET</code> (IPv4) <br> - <code>PF_INET6</code> (IPv6).</td>
+<td>People used to hardcode these input values and we can still do that but <strong>using results from <code>getaddrinfo()</code></strong> is better.  <br> <br><code>PF_INET</code> thing is close related to <code>AF_INET</code> that they actually have the same value. <br> Use <code>AF_INET</code> in your <code>struct sockaddr_in</code> and <code>PF_INET</code> in your call to <code>socket()</code>.</td>
+</tr>
+<tr>
+<td><code>type</code> (input)</td>
+<td>Communication type.</td>
+<td>- <code>SOCK_STREAM</code> (TCP) <br> - <code>SOCK_DGRAM</code> (UDP).</td>
+<td></td>
+</tr>
+<tr>
+<td><code>protocol</code> (input)</td>
+<td>Specific protocol.</td>
+<td>- Usually <code>0</code> to auto-select the proper protocol for the given <code>type</code>.  <br> - Or call <code>getprotobyname()</code> to look up the protocol you want, “tcp”  or “udp”.</td>
+<td></td>
+</tr>
+<tr>
+<td>Return value</td>
+<td>Socket file descriptor</td>
+<td>- <code>int sockfd</code> on success <br> - <code>-1</code> on error</td>
+<td>The global variable <code>errno</code> is set to the error’s value</td>
+</tr>
+</tbody>
+</table>
+<h3 id="code-example">code example<a class="headerlink" href="#code-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">sockfd</span><span class="p">;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">addrinfo</span><span class="w"> </span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">;</span>
+
+<span class="c1">// do the lookup</span>
+<span class="c1">// [pretend we already filled out the "hints" struct]</span>
+<span class="n">getaddrinfo</span><span class="p">(</span><span class="s">"www.example.com"</span><span class="p">,</span><span class="w"> </span><span class="s">"http"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">res</span><span class="p">);</span>
+
+<span class="c1">// You should do error-checking on getaddrinfo(), and walk the "res" linked list looking for valid entries instead of just assuming the first one is good. See the section on client/server for real examples.</span>
+
+<span class="n">sockfd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socket</span><span class="p">(</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_family</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_socktype</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_protocol</span><span class="p">);</span><span class="w"> </span><span class="c1">// Feed the values from the results of getaddrinfo() into socket() directly</span>
+</code></pre></div>
+<h2 id="section-53-bind-what-port-am-i-on">Section 5.3: <code>bind()</code> — What port am I on?<a class="headerlink" href="#section-53-bind-what-port-am-i-on" title="Permanent link">&para;</a></h2>
+<p>associate that <strong>socket</strong> with a <strong>port</strong> on your local machine if you’re going to <code>listen()</code> for incoming connections on a specific port. The port number is  used by the kernel to match incoming packets to a certain process’s socket descriptor.</p>
+<ul>
+<li><strong>Server</strong>: usually <strong>must call</strong> <code>bind()</code> to claim a known local port before <code>listen()</code>.<ul>
+<li>Typical server flow: <code>getaddrinfo()</code> → <code>socket()</code> → <code>bind()</code> → <code>listen()</code></li>
+</ul>
+</li>
+<li><strong>Client</strong>: usually <strong>skip</strong> <code>bind()</code> but calls <code>connect()</code> to connect to a remote machine.<ul>
+<li>The kernel’ll check if the socket is unbound, and will bind it to an unused local port automatically if necessary.  </li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/socket.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">bind</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="n">my_addr</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">addrlen</span><span class="p">);</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sockfd</code> (input)</td>
+<td>Socket file descriptor (fd) returned by <code>socket()</code>.</td>
+<td>This is the local socket you want to attach to a local address/port.</td>
+</tr>
+<tr>
+<td><code>my_addr</code> (input)</td>
+<td>a pointer to a <code>struct sockaddr</code> that  contains information about your address, namely, port and IP address</td>
+<td>Typically use <code>res-&gt;ai_addr</code> from <code>res</code>  output of <code>getaddrinfo()</code></td>
+</tr>
+<tr>
+<td><code>addrlen</code> (input)</td>
+<td>Length (bytes) of the address passed in <code>my_addr</code>.</td>
+<td>Usually <code>res-&gt;ai_addrlen</code></td>
+</tr>
+<tr>
+<td>Return value</td>
+<td>Result of bind operation.</td>
+<td>- <code>0</code> on success <br> - <code>-1</code> on error and sets <code>errno</code> to the error's value.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="common-pitfall-and-solutions">Common pitfall and solutions<a class="headerlink" href="#common-pitfall-and-solutions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Don’t go underboard with port numbers. <ul>
+<li>All ports below 1024 are RESERVED (unless you’re the superuser)! </li>
+<li>You can have any port number <strong>above 1024</strong>, up to 65535 (provided they aren’t already being used by another program).  </li>
+</ul>
+</li>
+<li>If <code>bind()</code> fails with “Address already in use”, add codes:
+    <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">yes</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="c1">//char yes='1'; // Solaris people use this</span>
+
+<span class="c1">// lose the pesky "Address already in use" error message</span>
+<span class="n">setsockopt</span><span class="p">(</span><span class="n">listener</span><span class="p">,</span><span class="w"> </span><span class="n">SOL_SOCKET</span><span class="p">,</span><span class="w"> </span><span class="n">SO_REUSEADDR</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">yes</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">yes</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h3 id="code-example-for-server-listening">code example for server listening:<a class="headerlink" href="#code-example-for-server-listening" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">addrinfo</span><span class="w"> </span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">sockfd</span><span class="p">;</span>
+
+<span class="c1">// load up address structs with getaddrinfo():</span>
+<span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">hints</span><span class="p">);</span>
+<span class="n">hints</span><span class="p">.</span><span class="n">ai_family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AF_UNSPEC</span><span class="p">;</span><span class="w">  </span>
+<span class="n">hints</span><span class="p">.</span><span class="n">ai_socktype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SOCK_STREAM</span><span class="p">;</span>
+<span class="n">hints</span><span class="p">.</span><span class="n">ai_flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AI_PASSIVE</span><span class="p">;</span><span class="w">     </span>
+
+<span class="n">getaddrinfo</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="s">"3490"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">res</span><span class="p">);</span><span class="w"> </span><span class="c1">// use port ablove 1024 (up to 65535)</span>
+
+<span class="c1">// make a socket:</span>
+<span class="n">sockfd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socket</span><span class="p">(</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_family</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_socktype</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_protocol</span><span class="p">);</span>
+
+<span class="c1">// bind it to the port we passed in to getaddrinfo():</span>
+<span class="n">bind</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_addr</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_addrlen</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="section-54-connect-client-initiate-a-connection-to-a-remote-host">Section 5.4: <code>connect()</code> — <strong>client</strong> initiate a connection to a <strong>remote host</strong>.<a class="headerlink" href="#section-54-connect-client-initiate-a-connection-to-a-remote-host" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Typical <strong>client</strong> flow: <code>getaddrinfo()</code> → <code>socket()</code> → <code>connect()</code></li>
+<li>Usually no <code>bind()</code> needed on the client side; kernel auto-picks a local port.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/socket.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="n">serv_addr</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">addrlen</span><span class="p">);</span><span class="w"> </span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sockfd</code> (input)</td>
+<td>Socket file descriptor</td>
+<td>returned by <code>socket()</code></td>
+</tr>
+<tr>
+<td><code>serv_addr</code> (input)</td>
+<td>Pointer to <code>struct sockaddr</code> (containing the destination port and IP address)</td>
+<td>Usually pass info from <code>getaddrinfo()</code>, i.e., <code>res-&gt;ai_addr</code></td>
+</tr>
+<tr>
+<td><code>addrlen</code> (input)</td>
+<td>Length in bytes of <code>serv_addr</code>.</td>
+<td>Usually pass info from <code>getaddrinfo()</code>, i.e., <code>res-&gt;ai_addrlen</code>.</td>
+</tr>
+<tr>
+<td>Return value</td>
+<td>Result of connection attempt.</td>
+<td>-<code>0</code> on success - <br> <code>-1</code> on error and set <code>errno</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="code-example-for-client-connect-to-remote-host">code example for client connect to remote host:<a class="headerlink" href="#code-example-for-client-connect-to-remote-host" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">addrinfo</span><span class="w"> </span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">sockfd</span><span class="p">;</span>
+
+<span class="c1">// 1. Load up address structs with getaddrinfo():</span>
+<span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">hints</span><span class="p">);</span>
+<span class="n">hints</span><span class="p">.</span><span class="n">ai_family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AF_UNSPEC</span><span class="p">;</span>
+<span class="n">hints</span><span class="p">.</span><span class="n">ai_socktype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SOCK_STREAM</span><span class="p">;</span>
+
+<span class="n">getaddrinfo</span><span class="p">(</span><span class="s">"www.example.com"</span><span class="p">,</span><span class="w"> </span><span class="s">"3490"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">res</span><span class="p">);</span>
+
+<span class="c1">// 2. make a socket:</span>
+<span class="n">sockfd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socket</span><span class="p">(</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_family</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_socktype</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_protocol</span><span class="p">);</span>
+
+<span class="c1">// 3. connect!</span>
+<span class="n">connect</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_addr</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_addrlen</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="section-55-listen-will-somebody-please-call-me">Section 5.5: <code>listen()</code> — Will somebody please call me?<a class="headerlink" href="#section-55-listen-will-somebody-please-call-me" title="Permanent link">&para;</a></h2>
+<p><code>listen()</code> wait for incoming connections and handle them.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">listen</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">backlog</span><span class="p">);</span><span class="w"> </span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sockfd</code> (input)</td>
+<td>Socket file descriptor (fd)</td>
+<td>returned by socket() system call.</td>
+</tr>
+<tr>
+<td><code>backlog</code> (input)</td>
+<td>the limit about <strong>number of  connections</strong> allowed <strong>waiting</strong> in the incoming queue until you <code>accept()</code>.</td>
+<td>Most systems silently limit this number to about <code>20</code>; you can probably get away with setting  it to <code>5</code> or <code>10</code>.</td>
+</tr>
+<tr>
+<td>Return value</td>
+<td>Result of listen setup. - <code>0</code> on success <br> - <code>-1</code> on error and sets <code>errno</code> on error.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="server-setup-flow"><strong>server</strong> setup flow:<a class="headerlink" href="#server-setup-flow" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">getaddrinfo</span><span class="p">();</span>
+<span class="n">socket</span><span class="p">();</span>
+<span class="n">bind</span><span class="p">();</span>
+<span class="n">listen</span><span class="p">();</span>
+<span class="c1">// accept() goes there</span>
+</code></pre></div>
+<ul>
+<li>Call <code>bind()</code> before <code>listen()</code> so that the server  is running on a specific port and then clients know which port to connect to.</li>
+</ul>
+<h2 id="section-56-accept-thank-you-for-calling-port-3490">Section 5.6: <code>accept()</code> — “Thank you for calling port 3490.”<a class="headerlink" href="#section-56-accept-thank-you-for-calling-port-3490" title="Permanent link">&para;</a></h2>
+<p><code>accept()</code> pulls one pending client connection from the listen queue and Return a <strong>new socket descriptor</strong> for that connection.</p>
+<ul>
+<li>The <strong>original</strong> <code>sockfd</code> (listening socket) keeps <strong>listening</strong> for new client connections.</li>
+<li>The <strong>returned <code>new_fd</code></strong> is the socket ready to <strong><code>send()</code> / <code>recv()</code></strong> with this specific client.</li>
+<li>If your server only needs one connection, you can <code>close()</code> the listening socket after <code>accept()</code> to prevent more  incoming connections on the same port.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/socket.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">accept</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="kt">socklen_t</span><span class="w"> </span><span class="o">*</span><span class="n">addrlen</span><span class="p">);</span><span class="w"> </span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sockfd</code> (input)</td>
+<td><strong>Listening</strong> socket descriptor.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>addr</code> (output)</td>
+<td>a pointer to a local <code>struct sockaddr_storage</code></td>
+<td>- Define <code>struct sockaddr_storage their_addr;</code>  <br>  - <strong>cast</strong> it to <code>(struct sockaddr *)</code> by <code>(struct sockaddr *)&amp;their_addr</code> <br> <br> <code>struct sockaddr_storage</code> is where the information about the incoming connection will go (and with it you can determine which host is calling you from which port).</td>
+</tr>
+<tr>
+<td><code>addrlen</code> (input)</td>
+<td>a local integer variable that should be set to <code>sizeof(struct sockaddr_storage)</code> before its address is passed to <code>accept()</code></td>
+<td><code>addr_size = sizeof their_addr;</code></td>
+</tr>
+<tr>
+<td>Return value</td>
+<td>A <strong>new</strong> connected socket descriptor.</td>
+<td>- <code>new_fd &gt;= 0</code> on success <br> - <code>-1</code> on error and sets <code>errno</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="code-example-for-server-accept">code example for server <code>accept()</code>:<a class="headerlink" href="#code-example-for-server-accept" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">s</span><span class="err">#</span><span class="n">include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">string</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/socket.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;netdb.h&gt;</span>
+
+<span class="cp">#define MYPORT "3490"  </span><span class="c1">// the port users will be connecting to</span>
+<span class="cp">#define BACKLOG 10     </span><span class="c1">// how many pending connections queue holds</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_storage</span><span class="w"> </span><span class="n">their_addr</span><span class="p">;</span><span class="w"> </span><span class="c1">// for setting *addr</span>
+<span class="w">    </span><span class="kt">socklen_t</span><span class="w"> </span><span class="n">addr_size</span><span class="p">;</span><span class="w"> </span><span class="c1">// // for setting *addrlen</span>
+
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">addrinfo</span><span class="w"> </span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="n">new_fd</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// !! don't forget your error checking for these calls !!</span>
+
+<span class="w">    </span><span class="c1">// load up address structs with getaddrinfo():</span>
+<span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">hints</span><span class="p">);</span>
+<span class="w">    </span><span class="n">hints</span><span class="p">.</span><span class="n">ai_family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AF_UNSPEC</span><span class="p">;</span><span class="w">  </span>
+<span class="w">    </span><span class="n">hints</span><span class="p">.</span><span class="n">ai_socktype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SOCK_STREAM</span><span class="p">;</span>
+<span class="w">    </span><span class="n">hints</span><span class="p">.</span><span class="n">ai_flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AI_PASSIVE</span><span class="p">;</span><span class="w">     </span>
+
+<span class="w">    </span><span class="n">getaddrinfo</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">MYPORT</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">res</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// make a socket, bind it, and listen on it:</span>
+<span class="w">    </span><span class="n">sockfd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socket</span><span class="p">(</span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_family</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_socktype</span><span class="p">,</span>
+<span class="w">                                                 </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_protocol</span><span class="p">);</span>
+<span class="w">    </span><span class="n">bind</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_addr</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">-&gt;</span><span class="n">ai_addrlen</span><span class="p">);</span>
+<span class="w">    </span><span class="n">listen</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="n">BACKLOG</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Accept an incoming connection:</span>
+<span class="w">    </span><span class="n">addr_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">their_addr</span><span class="p">;</span>
+<span class="w">    </span><span class="n">new_fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accept</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">their_addr</span><span class="p">,</span>
+<span class="w">                                                       </span><span class="o">&amp;</span><span class="n">addr_size</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// ready to communicate on socket descriptor new_fd!</span>
+</code></pre></div>
+<h2 id="section-57-send-and-recv-talk-to-me">Section 5.7: <code>send()</code> and <code>recv()</code> — Talk to me!<a class="headerlink" href="#section-57-send-and-recv-talk-to-me" title="Permanent link">&para;</a></h2>
+<p><code>send()</code> and <code>recv()</code> are for data transfer on <strong>stream sockets (TCP)</strong>  or connected datagram sockets. </p>
+<ul>
+<li>For unconnected datagram sockets (UDP), use <code>sendto()</code> / <code>recvfrom()</code> instead.</li>
+</ul>
+<p>They are blocking calls:</p>
+<ul>
+<li><code>recv()</code> will <strong>block (sleep)</strong> until there is some data ready to receive.</li>
+<li><code>send()</code> can also block if the stuff you’re sending is all jammed up somehow, but that’s rarer. </li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span><span class="w"> </span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">recv</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th><code>send()</code> Parameter / Return</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sockfd</code> (input)</td>
+<td>Socket descriptor to send data to.</td>
+<td>Can be a connected socket returned by <code>socket()</code> or the <code>new_fd</code> returned by <code>accept()</code>.</td>
+</tr>
+<tr>
+<td><code>msg</code> (input)</td>
+<td>a <strong>pointer</strong> to the data you want to send</td>
+<td>Example: <code>char *msg = "Your message";</code></td>
+</tr>
+<tr>
+<td><code>len</code> (input)</td>
+<td>the length  of that data in bytes.</td>
+<td>Usually <code>strlen(msg)</code> for strings (without <code>\0</code>).</td>
+</tr>
+<tr>
+<td><code>flags</code> (input)</td>
+<td>Send flags.</td>
+<td>set to <code>0</code>.</td>
+</tr>
+<tr>
+<td>Return value</td>
+<td>Number of bytes <strong>actually sent</strong>.</td>
+<td><code>-1</code> on error and <code>errno</code> is set to the error number. <br> Note: <br> may send <strong>fewer</strong> bytes than requested. If the value returned by  <code>send()</code> (actually sent) <strong>doesn’t match</strong> the value in len (intend to send), it’s up to you to <strong>send the rest of the string</strong> by looping until all bytes are sent. <br> If the packet is small (less than 1K or so) it will probably manage to send the whole thing all in one go.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>recv()</code> Parameter / Return</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sockfd</code> (input)</td>
+<td>Socket descriptor to receive data from.</td>
+<td>Usually connected stream socket.</td>
+</tr>
+<tr>
+<td><code>buf</code> (output)</td>
+<td>buffer to read the information into</td>
+<td>Must have enough allocated memory.</td>
+</tr>
+<tr>
+<td><code>len</code> (input)</td>
+<td>maximum length of the buffer <code>buf</code>.</td>
+<td>Protects against buffer overflow</td>
+</tr>
+<tr>
+<td><code>flags</code> (input)</td>
+<td>Receive flags.</td>
+<td>set to <code>0</code>.</td>
+</tr>
+<tr>
+<td>Return value</td>
+<td>Number of bytes actually received into buffer.</td>
+<td>- <code>-1</code> on error (<code>errno</code> set) <br> - <code>0</code> means remote side <strong>closed the connection</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="code-example-for-send">code example for <code>send()</code>:<a class="headerlink" href="#code-example-for-send" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Beej was here!"</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="n">bytes_sent</span><span class="p">;</span>
+
+<span class="c1">//...</span>
+
+<span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
+<span class="n">bytes_sent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">send</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="section-58-sendto-recvfrom-talk-to-me-dgram-style">Section 5.8: <code>sendto()</code> / <code>recvfrom()</code> —  Talk to me, DGRAM-style<a class="headerlink" href="#section-58-sendto-recvfrom-talk-to-me-dgram-style" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Skipped for now (not required for the warmup project scope).</p>
+</blockquote>
+<h2 id="section-59-close-and-shutdown">Section 5.9: <code>close()</code> and <code>shutdown()</code><a class="headerlink" href="#section-59-close-and-shutdown" title="Permanent link">&para;</a></h2>
+<p>After communication is done, use these calls to stop socket I/O.</p>
+<ul>
+<li><code>close()</code> <strong>closes the socket file descriptor</strong> completely. <ul>
+<li>Prevents further reads/writes </li>
+<li>frees descriptor resource.</li>
+</ul>
+</li>
+<li><code>shutdown()</code> disables communication in certain direction(s). More control than <code>close()</code>.<ul>
+<li>but does <strong>not</strong> <strong>free</strong> the socket descriptor (need to call <code>close()</code> to fully free it).</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">close</span><span class="p">(</span><span class="n">sockfd</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">shutdown</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">how</span><span class="p">);</span><span class="w"> </span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameters</th>
+<th>Description</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sockfd (input)</td>
+<td>the socket file descriptor you want to shutdown</td>
+<td><code>0</code> on success, <code>-1</code> on error (<code>errno</code> set).</td>
+</tr>
+<tr>
+<td>how (input)</td>
+<td>disable direction control</td>
+<td>- <code>0</code>: Further <strong>receives</strong> are disallowed. <br> - <code>1</code>: Further <strong>sends</strong> are disallowed. <br> - <code>2</code>: Further <strong>sends and receives</strong> are disallowed (similar communication effect to <code>close()</code>).</td>
+</tr>
+<tr>
+<td>Return value</td>
+<td>shundown result</td>
+<td>- <code>0</code> on success <br> - <code>-1</code> on error (<code>errno</code> set)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="code-examples">code examples<a class="headerlink" href="#code-examples" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// fully close socket:</span>
+<span class="n">close</span><span class="p">(</span><span class="n">sockfd</span><span class="p">);</span>
+
+<span class="c1">// or selectively disable communication first:</span>
+<span class="n">shutdown</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">  </span><span class="c1">// no more sends</span>
+<span class="n">close</span><span class="p">(</span><span class="n">sockfd</span><span class="p">);</span><span class="w">        </span><span class="c1">// finally release descriptor</span>
+</code></pre></div>
+<h2 id="section-510-getpeername-who-are-you">Section 5.10: <code>getpeername()</code> — Who are you?<a class="headerlink" href="#section-510-getpeername-who-are-you" title="Permanent link">&para;</a></h2>
+<p><code>getpeername()</code> tells you the remote endpoint (IP/port) on the <strong>other end of a connected stream socket</strong>.</p>
+<ul>
+<li>Once you have peer address, you can use inet_ntop(), getnameinfo(), or gethostbyaddr() to print or get more information.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/socket.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">getpeername</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="n">addr</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">addrlen</span><span class="p">);</span><span class="w"> </span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sockfd</code> (input)</td>
+<td>Connected stream socket descriptor.</td>
+<td>Socket must already be connected.</td>
+</tr>
+<tr>
+<td><code>addr</code> (output)</td>
+<td>a pointer to a<code>struct sockaddr</code> or <code>struct sockaddr_in</code> that will hold the <strong>information about the other side</strong> of the connection</td>
+<td></td>
+</tr>
+<tr>
+<td><code>addrlen</code> (input)</td>
+<td>a pointer to an int</td>
+<td>should be initialized to <code>sizeof *addr</code> or <code>sizeof(struct sockaddr</code></td>
+</tr>
+<tr>
+<td>Return value</td>
+<td>Result of query.</td>
+<td>- <code>0</code> on success <br> - <code>-1</code> on error and sets <code>errno</code> accordingly</td>
+</tr>
+</tbody>
+</table>
+<h3 id="code-example-to-check">code example (to check)<a class="headerlink" href="#code-example-to-check" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_storage</span><span class="w"> </span><span class="n">their_addr</span><span class="p">;</span>
+<span class="kt">socklen_t</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">their_addr</span><span class="p">;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">getpeername</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">their_addr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">len</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">perror</span><span class="p">(</span><span class="s">"getpeername"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="section-511-gethostname-who-am-i">Section 5.11: <code>gethostname()</code> — Who am I?<a class="headerlink" href="#section-511-gethostname-who-am-i" title="Permanent link">&para;</a></h2>
+<p><code>gethostname()</code> Return the host name of the machine running your program.</p>
+<ul>
+<li>The name can then be passed to <code>getaddrinfo()</code> to determine  the IP address of your local machine</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">gethostname</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hostname</code> (output)</td>
+<td>a pointer to an array of chars that will contain the hostname upon the function’s return</td>
+<td></td>
+</tr>
+<tr>
+<td><code>size</code> (input)</td>
+<td>Buffer length in bytes for hostname array</td>
+<td>Ensure buffer is large enough to avoid truncation issues.</td>
+</tr>
+<tr>
+<td>Return value</td>
+<td>Result of call.</td>
+<td>- <code>0</code> on success <br> - <code>-1</code> on error and sets <code>errno</code> accordingly</td>
+</tr>
+</tbody>
+</table>
+<h3 id="code-example-to-check_1">code example (to check)<a class="headerlink" href="#code-example-to-check_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="n">hostname</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">gethostname</span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">hostname</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">perror</span><span class="p">(</span><span class="s">"gethostname"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h1 id="chapter-6-client-server-background">Chapter 6: Client-Server Background<a class="headerlink" href="#chapter-6-client-server-background" title="Permanent link">&para;</a></h1>
+<p>Client processes and server processes communicate in request/response style over the network. Note that the client-server pair can speak <code>SOCK_STREAM</code>, <code>SOCK_DGRAM</code>, or anything else (as long as they’re speaking the <strong>same</strong> thing).</p>
+<p>Figure: Client-Server Interaction</p>
+<p><img alt="Client-Server Interaction" src="../figures/os-socket-client-server-interaction.png" /></p>
+<table>
+<thead>
+<tr>
+<th>aspects</th>
+<th>Client <br> (multiple) <br> (metaphor: caller)</th>
+<th>Server <br>(only one) <br> (metaphor: public phone line)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Role</td>
+<td>Initiates connection to a server and requests data/service.</td>
+<td>listens on a known port, waits for incoming connections and responds to clients.</td>
+</tr>
+<tr>
+<td>Model</td>
+<td></td>
+<td>Parent process keeps waiting for a connection, <code>accept()</code> it, then <code>fork()</code> a child process to handle each client.</td>
+</tr>
+<tr>
+<td>Socket</td>
+<td></td>
+<td>- <code>sockfd</code> listening socket (stays open) <br> - <code>new_fd</code>: connected socket for one client</td>
+</tr>
+<tr>
+<td>Typical stream flow</td>
+<td>resolve server address <code>getaddrinfo()</code><br> -&gt; create socket <code>socket()</code> <br> -&gt; call server <code>connect()</code> <br> -&gt; receive reply <code>recv()</code> <br> -&gt; close socket</td>
+<td><code>getaddrinfo()</code> <br> -&gt; <code>socket()</code> <br> -&gt; <code>bind()</code> <br> -&gt; <code>listen()</code> <br> -&gt; <code>accept()</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-61-a-simple-stream-server">Section 6.1: A Simple Stream Server<a class="headerlink" href="#section-61-a-simple-stream-server" title="Permanent link">&para;</a></h2>
+<p>This demo server accepts TCP connections and sends <code>"Hello, world!"</code> out over the stream connection.</p>
+<h3 id="minimal-server-code-example">minimal server code example<a class="headerlink" href="#minimal-server-code-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cm">/*</span>
+<span class="cm">** server.c -- a stream socket server demo</span>
+<span class="cm">*/</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;errno.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/socket.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;netinet/in.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;netdb.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;arpa/inet.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;signal.h&gt;</span>
+
+<span class="cp">#define PORT "3490"  </span><span class="c1">// server listens on this TCP port,clients will be connecting to this port</span>
+
+<span class="cp">#define BACKLOG 10   </span><span class="c1">// maximum pending connections queue will hold</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">sigchld_handler</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">s</span><span class="p">;</span><span class="w"> </span><span class="c1">// quiet unused variable warning</span>
+
+<span class="w">    </span><span class="c1">// waitpid() might overwrite errno, so we save and restore it:</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">saved_errno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">errno</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="n">waitpid</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">WNOHANG</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">errno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">saved_errno</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="c1">// get sockaddr, IPv4 or IPv6:</span>
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">get_in_addr</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="n">sa</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sa</span><span class="o">-&gt;</span><span class="n">sa_family</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">AF_INET</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(((</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_in</span><span class="o">*</span><span class="p">)</span><span class="n">sa</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">sin_addr</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(((</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_in6</span><span class="o">*</span><span class="p">)</span><span class="n">sa</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">sin6_addr</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// listen on sock_fd, new connection on new_fd</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="n">new_fd</span><span class="p">;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">addrinfo</span><span class="w"> </span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">servinfo</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_storage</span><span class="w"> </span><span class="n">their_addr</span><span class="p">;</span><span class="w"> </span><span class="c1">// connector's address info</span>
+<span class="w">    </span><span class="kt">socklen_t</span><span class="w"> </span><span class="n">sin_size</span><span class="p">;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">sigaction</span><span class="w"> </span><span class="n">sa</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">yes</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="n">INET6_ADDRSTRLEN</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rv</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">hints</span><span class="p">);</span>
+<span class="w">    </span><span class="n">hints</span><span class="p">.</span><span class="n">ai_family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AF_INET</span><span class="p">;</span>
+<span class="w">    </span><span class="n">hints</span><span class="p">.</span><span class="n">ai_socktype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SOCK_STREAM</span><span class="p">;</span>
+<span class="w">    </span><span class="n">hints</span><span class="p">.</span><span class="n">ai_flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AI_PASSIVE</span><span class="p">;</span><span class="w"> </span><span class="c1">// use my IP</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">rv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getaddrinfo</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">PORT</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">servinfo</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">"getaddrinfo: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">gai_strerror</span><span class="p">(</span><span class="n">rv</span><span class="p">));</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// loop through all the results and bind to the first we can</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">servinfo</span><span class="p">;</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_next</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">sockfd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socket</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_family</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_socktype</span><span class="p">,</span>
+<span class="w">                </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_protocol</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">perror</span><span class="p">(</span><span class="s">"server: socket"</span><span class="p">);</span>
+<span class="w">            </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="n">SOL_SOCKET</span><span class="p">,</span><span class="w"> </span><span class="n">SO_REUSEADDR</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">yes</span><span class="p">,</span>
+<span class="w">                </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">perror</span><span class="p">(</span><span class="s">"setsockopt"</span><span class="p">);</span>
+<span class="w">            </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bind</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_addr</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_addrlen</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">close</span><span class="p">(</span><span class="n">sockfd</span><span class="p">);</span>
+<span class="w">            </span><span class="n">perror</span><span class="p">(</span><span class="s">"server: bind"</span><span class="p">);</span>
+<span class="w">            </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">freeaddrinfo</span><span class="p">(</span><span class="n">servinfo</span><span class="p">);</span><span class="w"> </span><span class="c1">// all done with this structure</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w">  </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">"server: failed to bind</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">listen</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="n">BACKLOG</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">perror</span><span class="p">(</span><span class="s">"listen"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">sa</span><span class="p">.</span><span class="n">sa_handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sigchld_handler</span><span class="p">;</span><span class="w"> </span><span class="c1">// reap all dead processes</span>
+<span class="w">    </span><span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sa</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sa</span><span class="p">.</span><span class="n">sa_flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SA_RESTART</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sigaction</span><span class="p">(</span><span class="n">SIGCHLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">perror</span><span class="p">(</span><span class="s">"sigaction"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"server: waiting for connections...</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// main accept() loop</span>
+<span class="w">        </span><span class="n">sin_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">their_addr</span><span class="p">;</span>
+<span class="w">        </span><span class="n">new_fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accept</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">their_addr</span><span class="p">,</span>
+<span class="w">            </span><span class="o">&amp;</span><span class="n">sin_size</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">new_fd</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">perror</span><span class="p">(</span><span class="s">"accept"</span><span class="p">);</span>
+<span class="w">            </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">inet_ntop</span><span class="p">(</span><span class="n">their_addr</span><span class="p">.</span><span class="n">ss_family</span><span class="p">,</span>
+<span class="w">            </span><span class="n">get_in_addr</span><span class="p">((</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">their_addr</span><span class="p">),</span>
+<span class="w">            </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"server: got connection from %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">fork</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// this is the child process</span>
+<span class="w">            </span><span class="n">close</span><span class="p">(</span><span class="n">sockfd</span><span class="p">);</span><span class="w"> </span><span class="c1">// child doesn't need the listener</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">send</span><span class="p">(</span><span class="n">new_fd</span><span class="p">,</span><span class="w"> </span><span class="s">"Hello, world!"</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
+<span class="w">                </span><span class="n">perror</span><span class="p">(</span><span class="s">"send"</span><span class="p">);</span>
+<span class="w">            </span><span class="n">close</span><span class="p">(</span><span class="n">new_fd</span><span class="p">);</span>
+<span class="w">            </span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">close</span><span class="p">(</span><span class="n">new_fd</span><span class="p">);</span><span class="w">  </span><span class="c1">// parent doesn't need this</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="section-62-a-simple-stream-client">Section 6.2: A Simple Stream Client<a class="headerlink" href="#section-62-a-simple-stream-client" title="Permanent link">&para;</a></h2>
+<p>This demo client connects to the host we specify on the command line, port <code>3490</code>, receives the string the server sends.</p>
+<h3 id="minimal-client-code-example">minimal client code example<a class="headerlink" href="#minimal-client-code-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cm">/*</span>
+<span class="cm">** client.c -- a stream socket client demo</span>
+<span class="cm">*/</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;errno.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;netdb.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;netinet/in.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/socket.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;arpa/inet.h&gt;</span>
+
+<span class="cp">#define PORT "3490" </span><span class="c1">// the port client will be connecting to </span>
+
+<span class="cp">#define MAXDATASIZE 100 </span><span class="c1">// max number of bytes we can get at once </span>
+
+<span class="c1">// get sockaddr, IPv4 or IPv6:</span>
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">get_in_addr</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="n">sa</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sa</span><span class="o">-&gt;</span><span class="n">sa_family</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">AF_INET</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(((</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_in</span><span class="o">*</span><span class="p">)</span><span class="n">sa</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">sin_addr</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(((</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_in6</span><span class="o">*</span><span class="p">)</span><span class="n">sa</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">sin6_addr</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="n">numbytes</span><span class="p">;</span><span class="w">  </span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="n">MAXDATASIZE</span><span class="p">];</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">addrinfo</span><span class="w"> </span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">servinfo</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rv</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">s</span><span class="p">[</span><span class="n">INET6_ADDRSTRLEN</span><span class="p">];</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">"usage: client hostname</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">hints</span><span class="p">);</span>
+<span class="w">    </span><span class="n">hints</span><span class="p">.</span><span class="n">ai_family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AF_UNSPEC</span><span class="p">;</span>
+<span class="w">    </span><span class="n">hints</span><span class="p">.</span><span class="n">ai_socktype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SOCK_STREAM</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">rv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getaddrinfo</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">PORT</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">hints</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">servinfo</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">"getaddrinfo: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">gai_strerror</span><span class="p">(</span><span class="n">rv</span><span class="p">));</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// loop through all the results and connect to the first we can</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">servinfo</span><span class="p">;</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_next</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">sockfd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socket</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_family</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_socktype</span><span class="p">,</span>
+<span class="w">                </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_protocol</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">perror</span><span class="p">(</span><span class="s">"client: socket"</span><span class="p">);</span>
+<span class="w">            </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">inet_ntop</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_family</span><span class="p">,</span>
+<span class="w">            </span><span class="n">get_in_addr</span><span class="p">((</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_addr</span><span class="p">),</span>
+<span class="w">            </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"client: attempting connection to %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">connect</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_addr</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_addrlen</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">perror</span><span class="p">(</span><span class="s">"client: connect"</span><span class="p">);</span>
+<span class="w">            </span><span class="n">close</span><span class="p">(</span><span class="n">sockfd</span><span class="p">);</span>
+<span class="w">            </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">"client: failed to connect</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">inet_ntop</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_family</span><span class="p">,</span>
+<span class="w">            </span><span class="n">get_in_addr</span><span class="p">((</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">ai_addr</span><span class="p">),</span>
+<span class="w">            </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"client: connected to %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">freeaddrinfo</span><span class="p">(</span><span class="n">servinfo</span><span class="p">);</span><span class="w"> </span><span class="c1">// all done with this structure</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">numbytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">recv</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">MAXDATASIZE</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">perror</span><span class="p">(</span><span class="s">"recv"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">buf</span><span class="p">[</span><span class="n">numbytes</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'\0'</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"client: received '%s'</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">buf</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">sockfd</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="section-63-datagram-sockets">Section 6.3: Datagram Sockets<a class="headerlink" href="#section-63-datagram-sockets" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Skipped for Project 1 scope (as requested).</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": [], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3465 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal notes for quantitative finance, computer science, math and statistics.">
+      
+      
+      
+        <link rel="canonical" href="https://minwang-ai.github.io/quant-finance-cheatsheet/Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/SAVING%20AND%20BORROWING/">
+      
+      
+        <link rel="prev" href="../COUNTERPARTIES%20AND%20CREDIT%20RISK/">
+      
+      
+        <link rel="next" href="../../../Quantitative%20Trading/market_mechanics/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Interest - Quant Finance Cheatsheet</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#interest" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Quant Finance Cheatsheet" class="md-header__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quant Finance Cheatsheet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Interest
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Quant Finance Cheatsheet" class="md-nav__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Quant Finance Cheatsheet
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quant Finance Cheatsheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C++
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/C%2B%2B/%3Ccctype%3E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    #include &lt;cctype&gt;
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure and Algorithm
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Structure and Algorithm
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Data%20Structure%20and%20Algorithm/00-code-template-DS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Template - Data Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Data%20Structure%20and%20Algorithm/L01-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Data%20Structure%20and%20Algorithm/L02-array-linked-list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Data%20Structure%20and%20Algorithm/hashtable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hashing (hash map and sets)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Data%20Structure%20and%20Algorithm/recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operating System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operating System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Operating%20System/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Operating%20System/process%20management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Operating%20System/threads%20and%20concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Threads and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Socket Programming
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Socket Programming
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Operating%20System/Socket%20Programming/socket%20programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2: What is a Socket?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/L00-Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/L01-conditions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/L02-loops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Loops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/L03-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/L04-libraries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/L05-unit-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit Tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/L06-file-IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/L08-OOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Programming (OOP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/L09-others/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Et Cetera
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/N-IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input / Output (I/O)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/N-methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_12" id="__nav_2_5_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Data Structure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python Data Structure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/Python%20Data%20Structure/dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/Python%20Data%20Structure/iterables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Iterables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/Python%20Data%20Structure/list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lists
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/Python%20Data%20Structure/numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/Python%20Data%20Structure/set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    set
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/Python%20Data%20Structure/string/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String (str)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Computer%20Science/Python/Python%20Data%20Structure/tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tuples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Math and Stats
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Math and Stats
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics for Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics for Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L01-predicates-sets-proof/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Predicates, Sets, and Proofs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L02-contradiction-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contradiction and Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L04-state-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L05-sums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sums
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L6-asymptotics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asymptotics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitive Finance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitive Finance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Financial%20Data/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Econometrics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Econometrics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Financial%20Econometrics/Correlation%20and%20Multicollinearity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Correlation and Multicollinearity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Financial%20Econometrics/Linear%20Regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Regression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Financial%20Econometrics/Monte%20Carlo%20Simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monte Carlo Simulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Financial%20Econometrics/Variable%20Transformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variable Transformation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Market
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Market
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_1" id="__nav_4_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cridit Risk and Financing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cridit Risk and Financing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BUYING%20AND%20SELLING%20SHORT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Buying and Selling Short
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../COUNTERPARTIES%20AND%20CREDIT%20RISK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Risk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interest
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-concept-of-interest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Concept of Interest
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interest-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interest Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interest Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simple-interest-vs-compound-interest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simple Interest VS Compound Interest
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Simple Interest VS Compound Interest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-difference-between-simple-and-compounded-interest-over-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Figure : Difference between simple and compounded interest over time
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compound-interest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compound Interest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yield-curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Yield Curve
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Yield Curve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-financial-terms-of-yield-curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Financial Terms of Yield Curve
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-yield-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of Yield Curves
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yield-curve-essentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Yield Curve Essentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spot-and-forward-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spot and Forward Rate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spot and Forward Rate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spot-rate-vs-forward-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spot Rate VS Forward Rate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spot Rate VS Forward Rate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vistualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vistualization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixed-vs-variable-interest-rates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed vs. Variable Interest Rates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fixed vs. Variable Interest Rates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-factors-you-must-consider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision Factors You Must Consider
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nominal-rates-vs-real-rates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nominal Rates vs. Real Rates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nominal Rates vs. Real Rates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-idea-behind-the-fisher-equation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The idea behind the Fisher Equation:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rate-of-saving-vs-rate-of-borrowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rate of Saving vs. Rate of Borrowing
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitative Trading
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitative Trading
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitative%20Trading/market_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Market Mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitative%20Trading/stock_price/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stock Price
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic-concept-of-interest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Concept of Interest
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interest-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interest Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interest Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simple-interest-vs-compound-interest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simple Interest VS Compound Interest
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Simple Interest VS Compound Interest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-difference-between-simple-and-compounded-interest-over-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Figure : Difference between simple and compounded interest over time
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compound-interest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compound Interest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yield-curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Yield Curve
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Yield Curve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-financial-terms-of-yield-curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Financial Terms of Yield Curve
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-yield-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of Yield Curves
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yield-curve-essentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Yield Curve Essentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spot-and-forward-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spot and Forward Rate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spot and Forward Rate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spot-rate-vs-forward-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spot Rate VS Forward Rate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spot Rate VS Forward Rate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vistualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vistualization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixed-vs-variable-interest-rates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed vs. Variable Interest Rates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fixed vs. Variable Interest Rates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-factors-you-must-consider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision Factors You Must Consider
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nominal-rates-vs-real-rates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nominal Rates vs. Real Rates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nominal Rates vs. Real Rates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-idea-behind-the-fisher-equation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The idea behind the Fisher Equation:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rate-of-saving-vs-rate-of-borrowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rate of Saving vs. Rate of Borrowing
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="interest">Interest<a class="headerlink" href="#interest" title="Permanent link">&para;</a></h1>
+<h2 id="basic-concept-of-interest">Basic Concept of Interest<a class="headerlink" href="#basic-concept-of-interest" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>basic concept</th>
+<th>Meaning</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Time Value of Money</td>
+<td>$100 today is worth more than  $100 in the future.</td>
+<td>Reason: <br> •  Immediate consumption <br> •  Have the opportunity to invest and gain more.</td>
+</tr>
+<tr>
+<td>Interest Rates</td>
+<td>When we take out a loan, we must repay the principal value of that loan and make periodic interest payments to the lender. It is the cost of borrowing money (from the point of view of the borrower), <br> or the return on investment (from the point of view of the lender).  <br> The lenders determine interest in terms of an annual rate.</td>
+<td>1. To compensat for the risks: the longer the duration, the larger the amount of the loan, the worse economic conditions (which makes the borrower less likely to repay), the higher interest will be.  <br> 2. Banks may compete with each other by offering lower interest rates to attract new business.</td>
+</tr>
+<tr>
+<td>Present Value (PV)</td>
+<td>It discounts the future amount of money back to today’s value.</td>
+<td>Essentially asking: <br> If I will get $105 in the future, how much is that worth today?</td>
+</tr>
+<tr>
+<td>Future Value (FV)</td>
+<td>It grows today’s money into the future's value.</td>
+<td>Essentially asking: <br>  If I have $100 today, how much will I have in the future after earning interest?</td>
+</tr>
+<tr>
+<td>Default</td>
+<td>Failure to repay a loan</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="interest-types">Interest Types<a class="headerlink" href="#interest-types" title="Permanent link">&para;</a></h2>
+<h3 id="notation">Notation<a class="headerlink" href="#notation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(P\)</span></td>
+<td>the <strong>principal</strong> amount</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(PV\)</span></td>
+<td><strong>present value</strong></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(FV\)</span></td>
+<td><strong>future (or forward) value</strong></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(n\)</span></td>
+<td>the <strong>number</strong> of years (integer count), used in simple interest</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(t\)</span></td>
+<td><strong>continuous time</strong> of loan or investment in years (decimal/fractional allowed), used in compound interest</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(r\)</span></td>
+<td>the (nominal) annual <strong>interest rate</strong></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(q\)</span></td>
+<td>compound frequency: number of compounding period  <span class="arithmatex">\(q\)</span> times per year</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(qt\)</span></td>
+<td>Total number of compounding periods over the investment</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(r_q\)</span></td>
+<td>nominal annual rate  <span class="arithmatex">\(r\)</span> with  <span class="arithmatex">\(q\)</span> compound frequency</td>
+</tr>
+</tbody>
+</table>
+<h3 id="simple-interest-vs-compound-interest">Simple Interest VS Compound Interest<a class="headerlink" href="#simple-interest-vs-compound-interest" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Concept</th>
+<th>Formula</th>
+<th>note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple <br> Interest</td>
+<td>Interest earned only on principal.</td>
+<td><span class="arithmatex">\(\text{Simple Interest} = P \times r \times n\)</span> <br>  <span class="arithmatex">\(FV = PV \times(1+nr)\)</span></td>
+<td>Usually for Certificates of Deposits. Better when we are borrower.</td>
+</tr>
+<tr>
+<td>Compound Interest</td>
+<td>Interest earned on principal + accumulated previous interest.</td>
+<td><span class="arithmatex">\(\text{Compound Interest} = P \times (1 + r)^t - P\)</span> <br>  <span class="arithmatex">\(FV = PV \times(1+r)^t\)</span> <br>  <span class="arithmatex">\(\Rightarrow PV = \frac{FV}{(1 + r)^t}\)</span>  <br>  <span class="arithmatex">\(\Rightarrow r = \left(\frac{FV}{PV}\right)^{1/t} - 1\)</span></td>
+<td>Most common type. Better when we are depositor/investor. <br> <a href="https://worldquantuniversity.shinyapps.io/wqu_compound_interest_m1_ck/">Growth of investments over time:</a> <br> • the nearly linear growth with low interest rates and fewer compounding periods <br> • an exponential growth pattern when higher interest rates, more frequent compounding periods, and extended time frames are applied.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="figure-difference-between-simple-and-compounded-interest-over-time">Figure : Difference between simple and compounded interest over time<a class="headerlink" href="#figure-difference-between-simple-and-compounded-interest-over-time" title="Permanent link">&para;</a></h4>
+<p><img alt="Difference between the simple and compounded interest" src="../Difference_simple_compounded_interest.png" title="Difference between the simple and compounded interest" /></p>
+<p>Note: the compound interest grows much faster than simple interest over time</p>
+<h3 id="compound-interest">Compound Interest<a class="headerlink" href="#compound-interest" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Explanation</th>
+<th>Note / Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compound Frequency</td>
+<td>How often interest is added to your account.</td>
+<td>monthly = 12 times/year, quarterly = 4 times/year, daily = 365 times/year</td>
+</tr>
+<tr>
+<td>Nominal Annual Rate</td>
+<td>The stated (advertised) yearly interest rate, not accounting for compounding frequency.</td>
+<td>12% annual rate compounded monthly ≠ 12% actual return.</td>
+</tr>
+<tr>
+<td>Discrete Compounding</td>
+<td>with compounding frequency: <br>  <span class="arithmatex">\(FV = PV \times(1+r)^t = PV \times\left(1+\frac{r}{q} \right)^{qt}\)</span></td>
+<td></td>
+</tr>
+<tr>
+<td>Continuous Compounding</td>
+<td>the extrame case, when compound frequency  <span class="arithmatex">\(q\)</span> is infinite large - interest is added at every instant  $ \lim_{q \to \infty} FV = PVe^{rt}$</td>
+<td></td>
+</tr>
+<tr>
+<td>Effective Annual Rate (EAR)</td>
+<td>The true annual rate, including the effect of compounding. Formula:  <span class="arithmatex">\(\text{EAR} = \left(1 + \frac{r}{q} \right)^q - 1\)</span></td>
+<td>12% nominal annual rate compounded monthly ≈ 12.68% EAR. <br> It allows: <br> •  fair comparison for two investment offers with different compounding frequencies <br> •  Understanding how much you’re really earning or paying.</td>
+</tr>
+<tr>
+<td>Keep EAR the Same <br> Convert the Nominal Rate</td>
+<td>Keep Effective Annual Rate the same, convert from one nominal rate with its compounding frequency to another. Formula:  <span class="arithmatex">\(\frac{FV}{PV} = \left(1 + \frac{r_{q_1}}{q_1}\right)^{q_1} = \left(1 + \frac{r_{q_2}}{q_2}\right)^{q_2}\)</span>  <span class="arithmatex">\(\Rightarrow r_{q_2} = q_2 \times \left[\left(1 + \frac{r_{q_1}}{q_1}\right)^{q_1/q_2}-1\right]\)</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="yield-curve">Yield Curve<a class="headerlink" href="#yield-curve" title="Permanent link">&para;</a></h2>
+<h3 id="key-financial-terms-of-yield-curve">Key Financial Terms of Yield Curve<a class="headerlink" href="#key-financial-terms-of-yield-curve" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Yield <br> (y-axis)</td>
+<td>The spot interest rate (profits) earned from investing in a bond.</td>
+</tr>
+<tr>
+<td>Term to Maturity <br> (x-axis)</td>
+<td>The length of time your investment (e.g., Certificates of Deposit (CDs), bonds) is "locked in" and you have to wait before you get pay back</td>
+</tr>
+<tr>
+<td>Yield Curve</td>
+<td>A graph showing the relationship between the short-term and long-term interest rates of fixed income securities (typically <strong>goverment bonds</strong>, considered very safe).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="types-of-yield-curves">Types of Yield Curves<a class="headerlink" href="#types-of-yield-curves" title="Permanent link">&para;</a></h3>
+<p>Yield curve movements reflect investor behavior and expectations about the economy.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Shape</th>
+<th>Economic Interpretation</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal Yield Curve</td>
+<td>Upward-sloping <br>  short-term &lt; Long-term risk</td>
+<td>Economy expected to grow.</td>
+<td>Usually, long-term investment are riskier, investors usually demand higher interest to compensate <br> (this rule also applies to other investments that have maturity): <br> • More uncertainty and risk over the long term (e.g. inflation, interest rate changes) <br> • More opportunity cost (personal need but your money is locked up longer)</td>
+</tr>
+<tr>
+<td>Flat Yield Curve</td>
+<td>Flat line <br> short-term  <span class="arithmatex">\(\approx\)</span> Long-term risk</td>
+<td>Uncertainty.</td>
+<td></td>
+</tr>
+<tr>
+<td>Inverted Yield Curve</td>
+<td>Downward-sloping <br> short-term &gt; Long-term risk</td>
+<td>🚩 Leading indicator of the approaching of an economic recession.</td>
+<td>Investors think recession is coming in the near future, and are fleeing to long-term safety. <br> • They buy lots of long-term bonds, driving long-term yields down.  <br> • Meanwhile, short-term rates stay high (e.g., due to inflation or Fed policy).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="yield-curve-essentials">Yield Curve Essentials<a class="headerlink" href="#yield-curve-essentials" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>What the Yield Curve Represents</p>
+<ul>
+<li>The yield curve is a <em>term structure</em> of interest rates: it shows the annualized return an investor can expect for lending to a given borrower (e.g., a national treasury) over different maturities.</li>
+<li>Each maturity point—3 months, 2 years, 10 years, etc.—reflects a rate that’s inferred from all outstanding government securities around that horizon.</li>
+<li>Because individual bonds pay coupons at different times and in different amounts, analysts “strip” those cash flows or use fitted models to derive a <strong>zero-coupon</strong> (spot) rate for each maturity. The yield curve is built from those spot rates, giving a clean snapshot.</li>
+</ul>
+</li>
+<li>
+<p>Why There Are Many Bonds per Country</p>
+<ul>
+<li>Governments fund themselves continuously, issuing debt with diverse maturities to match financing needs and investor preferences.</li>
+<li>Each issuance has its own coupon rate, maturity date, and trading history; the market therefore juggles many bonds simultaneously.</li>
+<li>The yield curve consolidates this information into a single, smoothed profile of funding costs across time.</li>
+</ul>
+</li>
+<li>
+<p>Zero-Coupon vs. Coupon-Bearing Bonds</p>
+<ul>
+<li><strong>Coupon bonds</strong> distribute interest periodically. Their quoted yield blends multiple future cash flows and depends on bond-specific features.</li>
+<li><strong>Zero-coupon yields</strong> assume a single payoff at maturity. They strip away coupon effects, making it easier to compare maturities and to feed into models like Nelson–Siegel or spline fits.</li>
+<li>In practice, institutions (e.g., central banks) estimate zero-coupon curves from traded bonds. These “desmoothed” series are widely published because they simplify valuation, risk management, and policy analysis.</li>
+</ul>
+</li>
+<li>
+<p>Uses of the Yield Curve</p>
+<ul>
+<li><strong>Pricing &amp; valuation:</strong> Discount future cash flows at the appropriate spot rate.</li>
+<li><strong>Monetary policy signals:</strong> The slope (short vs. long rates) often reflects growth and inflation expectations.</li>
+<li><strong>Risk management:</strong> Duration, convexity, and scenario analysis rely on accurate term structure data.</li>
+<li><strong>Modeling:</strong> Term-structure models (Nelson–Siegel, spline, HJM, etc.) start from zero-coupon inputs to ensure internal consistency.</li>
+</ul>
+</li>
+<li>
+<p>Key Takeaways</p>
+<ul>
+<li>A yield curve is the distilled view of a country’s borrowing cost through time.</li>
+<li>Zero-coupon rates normalize the messy real world of coupon-bearing bonds, making the curve a consistent analytical tool.</li>
+<li>Multiple bonds exist because governments issue debt continuously; the curve reconciles them into one coherent story about market expectations.</li>
+</ul>
+</li>
+</ol>
+<h2 id="spot-and-forward-rate">Spot and Forward Rate<a class="headerlink" href="#spot-and-forward-rate" title="Permanent link">&para;</a></h2>
+<h3 id="notation_1">Notation<a class="headerlink" href="#notation_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(0\)</span></td>
+<td>today (at time 0)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(s\)</span></td>
+<td>when the investment starts.  <span class="arithmatex">\(0 \leq s &lt; t\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(t\)</span></td>
+<td>when the investment mature (ends)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(B(0, t)\)</span></td>
+<td>Present Price (at time 0) of a <strong>zero-coupon bond</strong> that will <br>mature at time <span class="arithmatex">\(t\)</span> (pays $1, normalization just for simplicity)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(r(0, t)\)</span>,  <span class="arithmatex">\(r(0, s)\)</span></td>
+<td><strong>Spot rate</strong> today (at time 0) for a bond maturing at time  <span class="arithmatex">\(t\)</span> or  <span class="arithmatex">\(s\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f(0,s,t - s)\)</span></td>
+<td><strong>Forward rate</strong> agreed today (at time 0), for investment starting at  <span class="arithmatex">\(s\)</span> and ending at  <span class="arithmatex">\(t\)</span>. <br>  <span class="arithmatex">\(t−s\)</span> = how long the investment lasts</td>
+</tr>
+<tr>
+<td>A zero-coupon bond:</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Doesn’t pay any interest along the way (no coupons)</li>
+<li>Pays a fixed amount — usually face value, like  $1000 or  $1 — at maturity</li>
+<li>Is sold at a discount, so your return = the price difference</li>
+</ul>
+<h3 id="spot-rate-vs-forward-rate">Spot Rate VS Forward Rate<a class="headerlink" href="#spot-rate-vs-forward-rate" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Spot Rate</th>
+<th>Forward Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Definition</td>
+<td>Annual interest rate is agreed today <br> and we start investment now</td>
+<td>Annual interest rate is agreed today <br> but we wait and start investment in the future</td>
+</tr>
+<tr>
+<td>Formula</td>
+<td>Derive spot rate from a sequence of forward rates.  <span class="arithmatex">\(r(0, t) = \left[ \prod_{i=1}^{t} (1 + f(0, i - 1, 1)) \right]^{\frac{1}{t}} - 1 \\= \left[ (1 + r(0, 1)) \cdot (1 + f(0, 1, 1)) \cdots (1 + f(0, t - 1, 1)) \right]^{\frac{1}{t}} - 1\)</span></td>
+<td>derive forward rate from spot rate  <span class="arithmatex">\(f(0, s, t - s) = \left[ \frac{(1 + r(0, t))^t}{(1 + r(0, s))^s} \right]^{\frac{1}{t - s}} - 1\)</span></td>
+</tr>
+<tr>
+<td>Idea behind both formulas</td>
+<td>Investing with a spot rate from time  <span class="arithmatex">\(0\)</span> to  <span class="arithmatex">\(t\)</span> should give the same result as investing one year at a time with the relevant forward rates. <br> Therefore: chain and average across years (root), and minus 1 to get interest rate from growth factor</td>
+<td>Total accumulated growth factor from  <span class="arithmatex">\(0\)</span> to  <span class="arithmatex">\(t\)</span> = Accumulated growth factor from  <span class="arithmatex">\(0\)</span> to  <span class="arithmatex">\(s\)</span>  <span class="arithmatex">\(\times\)</span> Accumulated growth factor from  <span class="arithmatex">\(s\)</span> to  <span class="arithmatex">\(t\)</span></td>
+</tr>
+</tbody>
+</table>
+<h4 id="vistualization">Vistualization<a class="headerlink" href="#vistualization" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code> 0  1 2 3 4 ...   i         t   Time
+ |-|-|-|-|-|-|-|-|-|-|-|-|-|
+                             → Total
+</code></pre></div>
+<div class="highlight"><pre><span></span><code> 0           s             t   Time
+ |-----------|-------------|
+                            → Total
+</code></pre></div>
+<h2 id="fixed-vs-variable-interest-rates">Fixed vs. Variable Interest Rates<a class="headerlink" href="#fixed-vs-variable-interest-rates" title="Permanent link">&para;</a></h2>
+<p>for deposits, loans, mortgages, bonds</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Fixed Interest Rate</th>
+<th>Variable Interest Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Definition</td>
+<td>Rate stays the same for the entire term</td>
+<td>Rate changes over time based on a benchmark rate</td>
+</tr>
+<tr>
+<td>certainty <br> and risk</td>
+<td>✅ High <br> stable and known</td>
+<td>❌ Low <br> subject to market movements, more complex</td>
+</tr>
+</tbody>
+</table>
+<h4 id="decision-factors-you-must-consider">Decision Factors You Must Consider<a class="headerlink" href="#decision-factors-you-must-consider" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Consideration</th>
+<th>Why It Matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How much money is involved</td>
+<td>Big sums → bigger impact of rate changes</td>
+</tr>
+<tr>
+<td>Time horizon</td>
+<td>Longer terms = greater exposure to rate shifts</td>
+</tr>
+<tr>
+<td>Need for liquidity</td>
+<td>Can you access funds or refinance if needed?</td>
+</tr>
+<tr>
+<td>Market rate expectations</td>
+<td>Rising or falling?</td>
+</tr>
+<tr>
+<td>Risk tolerance</td>
+<td>Are you comfortable with uncertain returns/costs?</td>
+</tr>
+</tbody>
+</table>
+<h2 id="nominal-rates-vs-real-rates">Nominal Rates vs. Real Rates<a class="headerlink" href="#nominal-rates-vs-real-rates" title="Permanent link">&para;</a></h2>
+<p>Inflation is a rise in prices of good and services, resulting in a drop in the purchasing power of money.
+Inflation rate is the rate at which prices rise. </p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Nominal Rates</th>
+<th>Real Rates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Definition</td>
+<td>Stated interest rate without removing inflation effect</td>
+<td>Interest rate after removing inflation effect <br> — actual purchasing power gain</td>
+</tr>
+<tr>
+<td>When useful</td>
+<td>Comparing products at a point in time</td>
+<td>Comparing across time or countries, inflation-adjusted analysis</td>
+</tr>
+<tr>
+<td>Formula <br> Fisher Equation: <br>  <span class="arithmatex">\(1 + r_n = (1 + r_r)(1 + \pi^e)\)</span> <br> Use approximation when  <span class="arithmatex">\(r_n\)</span> and  <span class="arithmatex">\(\pi^e\)</span> are small :  <span class="arithmatex">\(r_r \approx r_n - \pi^e\)</span></td>
+<td><span class="arithmatex">\(\Rightarrow r_n = (1 + r_r)\times (1 + \pi^e)-1\)</span></td>
+<td><span class="arithmatex">\(\Rightarrow r_r = \frac{1 + r_n}{1 + \pi^e} - 1\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-idea-behind-the-fisher-equation">The idea behind the Fisher Equation:<a class="headerlink" href="#the-idea-behind-the-fisher-equation" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\text{Purchasing Power} = \frac{(1 + r_n)}{(1 + \pi^e)} = 1 + r_r
+\]</div>
+<h3 id="notation_2">Notation<a class="headerlink" href="#notation_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(r_n\)</span></td>
+<td><strong>Nominal</strong> interest rate</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(r_r\)</span></td>
+<td><strong>Real</strong> interest rate (inflation-adjusted, reflects purchasing power)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\pi^e\)</span></td>
+<td>Expected inflation rate (price increase rate over time)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rate-of-saving-vs-rate-of-borrowing">Rate of Saving vs. Rate of Borrowing<a class="headerlink" href="#rate-of-saving-vs-rate-of-borrowing" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th><strong>Aspect</strong></th>
+<th><strong>Rate of Saving (Deposit)</strong></th>
+<th><strong>Rate of Borrowing (Loan)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Who earns/pays interest</strong></td>
+<td>You earn interest on your deposit</td>
+<td>You pay interest on borrowed funds</td>
+</tr>
+<tr>
+<td><strong>Typical rate example</strong></td>
+<td>3% per year</td>
+<td>7.5%–18% or more (depends on credit, loan type)</td>
+</tr>
+<tr>
+<td><strong>Why rates differ?</strong></td>
+<td>Banks take your money and pay low to you acquire funds (input, raw material)</td>
+<td>Banks Lends it out as product (service) and charge high to cover risk, costs, and profit</td>
+</tr>
+<tr>
+<td><strong>Risk to bank</strong></td>
+<td>Low (your deposit is safe, insured)</td>
+<td>High (borrowers may default, need to manage risk)</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": [], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>

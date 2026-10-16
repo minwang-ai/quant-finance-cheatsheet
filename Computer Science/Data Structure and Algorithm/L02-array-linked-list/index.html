@@ -1,0 +1,3084 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal notes for quantitative finance, computer science, math and statistics.">
+      
+      
+      
+        <link rel="canonical" href="https://minwang-ai.github.io/quant-finance-cheatsheet/Computer%20Science/Data%20Structure%20and%20Algorithm/L02-array-linked-list/">
+      
+      
+        <link rel="prev" href="../L01-intro/">
+      
+      
+        <link rel="next" href="../hashtable/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Data Structure - Quant Finance Cheatsheet</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-structure" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Quant Finance Cheatsheet" class="md-header__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quant Finance Cheatsheet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data Structure
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Quant Finance Cheatsheet" class="md-nav__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Quant Finance Cheatsheet
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quant Finance Cheatsheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C++
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/%3Ccctype%3E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    #include &lt;cctype&gt;
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure and Algorithm
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Structure and Algorithm
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-code-template-DS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Template - Data Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L01-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#interfaces-vs-data-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interfaces vs Data Structures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequence-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Interface
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Special case
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-data-structures-static-array-vs-dynamic-array-vs-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Data Structures: Static array vs Dynamic Array vs Linked List
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence Data Structures: Static array vs Dynamic Array vs Linked List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static Array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dynamic Array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amortized-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Amortized Analysis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="String">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#string-python-vs-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String - Python vs C++
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hashtable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hashing (hash map and sets)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operating System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operating System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/process%20management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/threads%20and%20concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Threads and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Socket Programming
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Socket Programming
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/Socket%20Programming/socket%20programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2: What is a Socket?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L00-Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L01-conditions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L02-loops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Loops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L03-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L04-libraries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L05-unit-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit Tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L06-file-IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L08-OOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Programming (OOP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/L09-others/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Et Cetera
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/N-IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input / Output (I/O)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/N-methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_12" id="__nav_2_5_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Data Structure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python Data Structure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20Data%20Structure/dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20Data%20Structure/iterables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Iterables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20Data%20Structure/list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lists
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20Data%20Structure/numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20Data%20Structure/set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    set
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20Data%20Structure/string/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String (str)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20Data%20Structure/tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tuples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Math and Stats
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Math and Stats
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics for Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics for Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L01-predicates-sets-proof/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Predicates, Sets, and Proofs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L02-contradiction-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contradiction and Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L04-state-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L05-sums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sums
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L6-asymptotics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asymptotics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitive Finance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitive Finance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Data/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Econometrics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Econometrics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Correlation%20and%20Multicollinearity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Correlation and Multicollinearity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Linear%20Regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Regression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Monte%20Carlo%20Simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monte Carlo Simulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Variable%20Transformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variable Transformation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Market
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Market
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_1" id="__nav_4_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cridit Risk and Financing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cridit Risk and Financing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/BUYING%20AND%20SELLING%20SHORT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Buying and Selling Short
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/COUNTERPARTIES%20AND%20CREDIT%20RISK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Risk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/SAVING%20AND%20BORROWING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitative Trading
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitative Trading
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Quantitative%20Trading/market_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Market Mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Quantitative%20Trading/stock_price/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stock Price
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#interfaces-vs-data-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interfaces vs Data Structures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequence-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Interface
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Special case
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-data-structures-static-array-vs-dynamic-array-vs-linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Data Structures: Static array vs Dynamic Array vs Linked List
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence Data Structures: Static array vs Dynamic Array vs Linked List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static Array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dynamic Array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linked List
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amortized-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Amortized Analysis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="String">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#string-python-vs-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String - Python vs C++
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="data-structure">Data Structure<a class="headerlink" href="#data-structure" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Course source: 6.006 Lecture 02</p>
+</blockquote>
+<h2 id="interfaces-vs-data-structures">Interfaces vs Data Structures<a class="headerlink" href="#interfaces-vs-data-structures" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Aspects</th>
+<th style="text-align: center;">Interface (API)</th>
+<th style="text-align: center;">Data Structures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Definition</strong></td>
+<td style="text-align: center;">A collection of supported <strong>operations</strong></td>
+<td style="text-align: center;">a way to <strong>store</strong> non-constant <strong>data</strong> inside Random Access Memory(RAM), with <strong>algorithms</strong> that <strong>support</strong> a set of <strong>operations</strong> (called <strong>interface</strong>) on the data</td>
+</tr>
+<tr>
+<td style="text-align: center;">Exposure Level</td>
+<td style="text-align: center;">for users</td>
+<td style="text-align: center;">under the hood</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Key Difference</strong></td>
+<td style="text-align: center;">a specification: <strong>what data</strong> we can store and <strong>what operations</strong> are supported and what they mean <br>(the problem)</td>
+<td style="text-align: center;">a representation: <strong>how</strong> to store data and <strong>how</strong> operations are supported by algorithms <br> (the solution)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="interfaces">Interfaces<a class="headerlink" href="#interfaces" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Types</th>
+<th style="text-align: left;">Definition</th>
+<th style="text-align: left;">Order</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Sequence</strong></td>
+<td style="text-align: left;">Maintain a sequence of items,  <span class="arithmatex">\(x_0, x_1, x_2, . . . , x_{n−1}\)</span> (<strong>zero indexing</strong>) and use  <span class="arithmatex">\(n\)</span> to denote the number of items stored in the data structure</td>
+<td style="text-align: left;">Extrinsic order to items (<strong>first, last,  <span class="arithmatex">\(i\)</span>-th</strong>)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Set</strong></td>
+<td style="text-align: left;">Maintain a set of items having unique keys (e.g., item <code>x</code> has key <code>x.key</code>)</td>
+<td style="text-align: left;">Intrinsic order to items (queries based on item <strong>keys</strong>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sequence-interface">Sequence Interface<a class="headerlink" href="#sequence-interface" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Operation Category</th>
+<th style="text-align: left;">Operation Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Container</strong></td>
+<td style="text-align: left;">- <code>build(X)</code>: given an iterable <code>X</code>, build new sequence from items in <code>X</code>  <br>- <code>len()</code>: return the number of stored items</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Static</strong><br>not change length</td>
+<td style="text-align: left;">- <code>iter_seq()</code> : return the stored items one-by-one in sequence order <br> - <code>get_at(i)</code>: return the  <span class="arithmatex">\(i^{th}\)</span> item  <span class="arithmatex">\(x_i\)</span><br> - <code>set_at(i, x)</code>: replace the    <span class="arithmatex">\(i^{th}\)</span> item  <span class="arithmatex">\(x_i\)</span> with <code>x</code> <br> - <code>get_first</code>,<code>get_last()</code><br> - <code>set_first(x)</code>,<code>set_last(x)</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Dynamic</strong><br>change length</td>
+<td style="text-align: left;">- <code>insert_at(i, x)</code>: add  <span class="arithmatex">\(x\)</span> as the  <span class="arithmatex">\(i^{th}\)</span> item. If there is a value there at index  <span class="arithmatex">\(x\)</span>, make  <span class="arithmatex">\(x\)</span> the new  <span class="arithmatex">\(x_i\)</span>. <br> - <code>delete_at(i)</code>: remove and return the  <span class="arithmatex">\(i^{th}\)</span>.  <br> - <code>insert_first(x)</code>: add  <span class="arithmatex">\(x\)</span> as the first item. Shift all elements. <br> - <code>delete_first()</code>: remove and return the first item <br> - <code>insert_last(x)</code>: add  <span class="arithmatex">\(x\)</span> as the last item. No shift. <br> - <code>delete_last()</code>: remove and return the last item <br><br>Note:<br> use different operation interfacees at different index  <span class="arithmatex">\(i\)</span>, first, last, because we can find <strong>more effient algorithms</strong> for <code>insert_first(x)</code> than <code>insert_at(i, x)</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="special-case">Special case<a class="headerlink" href="#special-case" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Data Structure</th>
+<th style="text-align: left;">Supported Operation</th>
+<th style="text-align: left;">Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">stack</td>
+<td style="text-align: left;">- <code>insert_last(x)</code> <br> - <code>delete_last()</code></td>
+<td style="text-align: left;">LIFO (<strong>Last In, First Out</strong>) <br>elements added and removed from the <strong>same end</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;">queue</td>
+<td style="text-align: left;">- <code>insert_last(x)</code> <br> - <code>delete_first()</code></td>
+<td style="text-align: left;">FIFO (<strong>First in, First out</strong>). <br> elements are added and removed from <strong>opposite ends</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sequence-data-structures-static-array-vs-dynamic-array-vs-linked-list">Sequence Data Structures: Static array vs Dynamic Array vs Linked List<a class="headerlink" href="#sequence-data-structures-static-array-vs-dynamic-array-vs-linked-list" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>Aspect</strong></th>
+<th style="text-align: left;"><strong>Static Array <br>(Fixed-Size)</strong></th>
+<th style="text-align: left;"><strong>Dynamic Array</strong></th>
+<th style="text-align: left;"><strong>Linked List <br> (Singly or Doubly)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Memory Layout</strong></td>
+<td style="text-align: left;">One <strong>contiguous</strong> block of memory. All elements stored <strong>sequentially</strong>.</td>
+<td style="text-align: left;"><strong>Contiguous</strong> block of memory at any given time.<br> (<strong>same</strong> as static array)</td>
+<td style="text-align: left;">All elements are stored in nodes, <strong>scattered</strong> in <strong>arbitrary order</strong> in different locations of memory (<strong>Non-contiguous</strong>). <br>- <strong>Singly</strong> linked list: Each <strong>node</strong> (defined by a custom class) stores not only an item value <code>node.item</code>  but also <strong>a pointer</strong>  <code>node.next</code>  (reference to the <strong>next</strong> node, store its <strong>memory address</strong> rather than the entire node itself). <br> * We can chain <code>.next</code>.<br> * The <strong>final</strong> node's next pointer is <strong>null</strong> (<code>None</code> in Python; <code>nullptr</code> in C++). <br>- <strong>Doubly</strong> linked list: store <strong>extra pointer</strong> <code>node.prev</code> to the <strong>previous</strong> node.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Build</strong> Memory Allocation</td>
+<td style="text-align: left;">allocate memory for array with <strong>exact</strong> size  <span class="arithmatex">\(n\)</span>  in  <span class="arithmatex">\(\color{blue}\Theta(n)\)</span> time,  <span class="arithmatex">\(\text{space} = O(\text{time})\)</span></td>
+<td style="text-align: left;">Allocate <strong>extra space</strong>  <span class="arithmatex">\(\text{size} = \Theta(n) &gt; n\)</span> so reallocation does not occur with every dynamic operation, only occur sometimes</td>
+<td style="text-align: left;">allocate memory for array size  <span class="arithmatex">\(n\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Size Management</strong></td>
+<td style="text-align: left;">👎 Must declare <strong>fixed size</strong> and type when initialized in advance. <br> - <strong>Everytime</strong> when the array is full, it can <strong><em>not</em></strong> store additional elements and have to <strong>reallocate</strong> a brand new array and <strong>copy</strong> values because the next word in memory might be already occupied by something else.</td>
+<td style="text-align: left;">👍 <strong>Resize as needed</strong> <br> - allocate a <strong>new</strong> block of memory (the exact growth factor is <strong>implementation-dependent</strong>, simplication: double the size, i.e., full ratio  <span class="arithmatex">\(r=1/2\)</span>), then <strong>copy data and deallocate</strong> the previous memory block automatically. <br> - When deleting from the tail, reduce size by allocating smaller memory (still maintain the full ratio and have extra space) and copy items</td>
+<td style="text-align: left;">👍 Number of nodes can <strong>grow or shrink arbitrarily</strong>.<br>- Each insertion simply <strong>allocates a new node</strong> (array of size  <span class="arithmatex">\(2\)</span> in memory)<br> - size is only limited by available <strong>memory</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Space Usage</strong></td>
+<td style="text-align: left;">Exact <strong>Fixed</strong> amount of contiguous memory allocated for the <strong>declared size</strong>.</td>
+<td style="text-align: left;">- May <strong>over-allocate</strong> extra unused capacity to allow future growth.<br> - Fixed size under the hood - still need <strong>resize</strong> <br>- In Python, <code>list</code> stores <strong>pointers</strong> to objects rather than objects themselves (objects themselves are separate Python objects); In C++, <code>std::vector&lt;T&gt;</code> stores <strong>objects themselves</strong>.</td>
+<td style="text-align: left;">- Each node requires <strong>pointer overhead</strong> for <code>next</code> (doubly linked list also needs <code>prev</code> plus possible allocator/object overhead.<br>- <strong>No</strong> need for contiguous space.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Check Length</strong></td>
+<td style="text-align: left;"><span class="arithmatex">\(\color{blue}O(1)\)</span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Read/Set an element</strong></td>
+<td style="text-align: left;">👍 <strong>Fast random access</strong> <code>arr[i]</code> in <strong><span class="arithmatex">\(\color{blue}O(1)\)</span></strong> <br><br>because elements (or pointers to elements) are contiguous so the location can be calculated: <br><code>array[i] = memory[address(array) + i]</code></td>
+<td style="text-align: left;">👍 <strong>Fast random access</strong> <code>arr[i]</code> in  <span class="arithmatex">\(\color{blue}O(1)\)</span> <br> <br>(same as static array).</td>
+<td style="text-align: left;">- 👎 <strong>No random access</strong> via direct indexing: to get the  <span class="arithmatex">\(i\)</span>-th element, <strong>must traverse</strong> from the head or tail in  <span class="arithmatex">\(\color{blue}O(n)\)</span>. <br><br> - 👍 <strong>Fast access at head:</strong> in  <span class="arithmatex">\(\color{blue}O(1)\)</span> because we already have a pointer to the first node (head node). <br><br> - 👍 <strong>Fast access at tail:</strong> in  <span class="arithmatex">\(\color{blue}O(1)\)</span> if we have a pointer to the tail node.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Traverse Sequence</strong> (iterate all values)</td>
+<td style="text-align: left;"><span class="arithmatex">\(\color{blue}O(n)\)</span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="arithmatex">\(\color{blue}O(n)\)</span> by reassiging <code>curr_node.next</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Insert / delete</strong></td>
+<td style="text-align: left;">- 👎 <strong>Slow insert</strong> at <strong>random</strong>  <span class="arithmatex">\(i\)</span>-th index in  <span class="arithmatex">\(\color{blue}O(n)\)</span> if the length &lt; allocated capacity because it requires <strong>shifting</strong> each element afterwards 1 position to the right, then insert. <br><br> - 👎 <strong>Insert</strong> at <strong>end</strong> <br> *case 1. in  <span class="arithmatex">\(\color{blue}O(1)\)</span> if the length &lt; allocated capacity <br> *case 2. in  <span class="arithmatex">\(\color{blue}O(n)\)</span> if length = allocated capacity because it <strong>cannot expand</strong> in place and must <strong>reallocate</strong> a new array and <strong>copy</strong>s all values. <br>- <strong>Delete</strong> from <strong>end</strong> in <strong><span class="arithmatex">\(\color{blue}O(1)\)</span></strong>: set <code>arr[n-1] = default</code>.<br><br> - 👎 Delete at front or at random <strong>i-th</strong> index in  <span class="arithmatex">\(\color{blue}O(n)\)</span>: shift each element afterwards 1 position to the left.</td>
+<td style="text-align: left;">- 👍 <strong>Insert</strong> at <strong>end</strong> is <strong>amortized  <span class="arithmatex">\(\color{blue}O(1)\)</span></strong> (the average time taken per operation over a sequence of operations).<br><br> - 👎 <strong>Insert</strong>/<strong>Delete</strong> at <strong>random</strong>  <span class="arithmatex">\(i-th\)</span> index in  <span class="arithmatex">\(\color{blue}O(n)\)</span> requires <strong>shifting</strong> each element. <br><br> - 👍 <strong>Delete</strong> at the <strong>end</strong> in  <span class="arithmatex">\(\color{blue}O(1)\)</span></td>
+<td style="text-align: left;"><br> - 👍 <strong>Fast insert/delete at head:</strong> in  <span class="arithmatex">\(\color{blue}O(1)\)</span> because we have <code>head</code> pointer and can simply <strong>manipulate nodes</strong> by <strong>relinking pointers</strong>. <br><br> - 👍 <strong>Fast insert at tail</strong> in  <span class="arithmatex">\(\color{blue}O(1)\)</span> if we have <code>tail</code> pointer (without traversing). <br><br> - 👍 <strong>Fast delete at tail</strong> in  <span class="arithmatex">\(\color{blue}O(1)\)</span> if we have <code>tail</code> pointer and <code>node.prev</code> pointer (Doubly linked list). <br><br> - 👎 <strong>Slow insert/delete</strong> at random  <span class="arithmatex">\(i\)</span>-th <strong>middle</strong> node in  <span class="arithmatex">\(\color{blue}O(n)\)</span> because we need to loop over items to find the reference to that node; if we already have reference to that specific node, then it becomes  <span class="arithmatex">\(\color{blue}O(1)\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Implementation Examples</strong></td>
+<td style="text-align: left;">- C++ <code>std::array&lt;int, N&gt;</code></td>
+<td style="text-align: left;">- C++ <code>std::vector&lt;T&gt;</code> (Must specify data type)<br>- Python built-in <code>list</code> <code>[]</code> (no need to specify data type and can contain multiple types at once)</td>
+<td style="text-align: left;">- C++ <code>std::list</code>, <code>std::forward_list</code><br>- Custom linked-list classes in Python or other languages.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>When to use</strong></td>
+<td style="text-align: left;">- When size is <strong>known</strong> in advance and <strong>won’t change</strong>.<br>- Need fast <strong>random access</strong>. <br> - Do <strong>not</strong> need any <strong>dynamic</strong> operations</td>
+<td style="text-align: left;">- Need <strong>fast random access</strong> <br> - Need <strong>frequent appends at the end</strong>, but still need growth beyond the initial size.</td>
+<td style="text-align: left;">- Frequent insertions and deletions at the <strong>head or tail node</strong>.<br>- Do <strong>not</strong> need fast <strong>random</strong> access.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="static-array">Static Array<a class="headerlink" href="#static-array" title="Permanent link">&para;</a></h3>
+<p>Memory addresses are apart with element size. </p>
+<p>Example:
+Figure: <strong>Array</strong> of Integers (a 32-bit int = 4 bytes, where 1 byte = 8 bits)</p>
+<p><img alt="Array of Integers" src="../figures/array-integers.png" /></p>
+<p>Figure: <strong>Array</strong> of Characters (a character = 1 byte, where 1 byte = 8 bits)</p>
+<p><img alt="Array of Characters" src="../figures/array-characters.png" /></p>
+<p>If there are elements after index  <span class="arithmatex">\(i\)</span>, have to <strong>shift</strong> all the elements after index  <span class="arithmatex">\(i\)</span>:</p>
+<ul>
+<li><code>insert_at(i, x)</code>:  <span class="arithmatex">\(x_i \rightarrow x_{i+1} \rightarrow x_{i+2} ...\rightarrow x_{n-1}\rightarrow x_{n}\)</span></li>
+<li><code>delete_at(i)</code>:  <span class="arithmatex">\(x_i \leftarrow x_{i+1} \leftarrow x_{i+2}... x_{n-2}\leftarrow x_{n-1}\)</span></li>
+</ul>
+<p>Figure: <strong>Static</strong> Array - insert: <strong>shift</strong> all items after the modified item</p>
+<p><img alt="dynamic array insert" src="../figures/static-array-insert.png" /></p>
+<h3 id="dynamic-array">Dynamic Array<a class="headerlink" href="#dynamic-array" title="Permanent link">&para;</a></h3>
+<p>Figure: <strong>Dynamic</strong> Array - insert: <strong>shift</strong> all items after the modified item</p>
+<p><img alt="dynamic array insert" src="../figures/dynamic-array-insert.png" /></p>
+<h3 id="linked-list">Linked List<a class="headerlink" href="#linked-list" title="Permanent link">&para;</a></h3>
+<p>Figure: <strong>Linked List</strong> - insert :manipulating nodes by <strong>relinking</strong></p>
+<p><img alt="linked list" src="../figures/linked-list.png" /></p>
+<p>Figure: <strong>Circular Linked List</strong> - ‼️ <strong>Avoid cycle</strong> (there is some node in the list that can be reached again by continuously following the next pointer)</p>
+<p><img alt="Circular linked list" src="../figures/circular-linked-list.png" /></p>
+<h2 id="amortized-analysis">Amortized Analysis<a class="headerlink" href="#amortized-analysis" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Aspects</th>
+<th>Meaning</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Definition</strong></td>
+<td>Data structure analysis technique : cost of the operation is amortized   <strong>(averaged/ distributed)</strong> over the operation sequence</td>
+<td>Operation has amortized cost  <span class="arithmatex">\(T(n)\)</span> if  <span class="arithmatex">\(k\)</span> operations cost at most  <span class="arithmatex">\(≤ kT(n)\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Example</strong></td>
+<td>Inserting into a dynamic array takes  <span class="arithmatex">\(\Theta(1)\)</span> amortized time</td>
+<td>Insert at last position, resize at  <span class="arithmatex">\(n=1,2,4,8,16,…,2^i\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Proof</strong></td>
+<td><span class="arithmatex">\(\begin{aligned}  \text{resized cost} &amp;= \Theta(2^0 + 2^1 + 2^2 + ...+ 2^i) \\  &amp;= \Theta(\sum_{i=0}^{\log n}2^i)\\ &amp;= 2^{\log n} \\ &amp;=\Theta(n) \space \text{in total} \\&amp;= \Theta(1) \space\text{amortized}\end{aligned}\)</span></td>
+<td>when  <span class="arithmatex">\(\begin{aligned}n &amp;= 2^i\\\log n &amp;=i\end{aligned}\)</span><br>Geometric series (grow at least <strong>exponentially</strong>) are <strong>dominated by the last item</strong>:  <span class="arithmatex">\(\sum_{i=0}^{k}2^i = 2^{k+1}-1\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>Table: <strong>Big O</strong> summary</p>
+<p><img alt="Big O summary" src="../figures/table-bigO-summary.png" /></p>
+<p><span class="arithmatex">\(_{(a)}\)</span> means amortized.</p>
+<h2 id="string">String<a class="headerlink" href="#string" title="Permanent link">&para;</a></h2>
+<h3 id="string-python-vs-c">String - Python vs C++<a class="headerlink" href="#string-python-vs-c" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature / Operation</th>
+<th>Python <code>str</code></th>
+<th>C++ <code>std::string</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mutability</strong></td>
+<td><strong>Immutable</strong><br> (can read by indexing, but <strong>cannot modify in place</strong>)</td>
+<td><strong>Mutable</strong> (can <strong>modify in place</strong>, e.g., <code>s[i] = 'd'</code>)</td>
+</tr>
+<tr>
+<td>Memory layout</td>
+<td>Implementation-dependent</td>
+<td>Contiguous character storage</td>
+</tr>
+<tr>
+<td><strong>Read</strong></td>
+<td><span class="arithmatex">\(\color{blue}O(1)\)</span></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Traversal</strong></td>
+<td><span class="arithmatex">\(\color{blue}O(n)\)</span></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Get length</strong></td>
+<td><span class="arithmatex">\(\color{blue}O(1)\)</span></td>
+<td></td>
+</tr>
+<tr>
+<td>Slicing / Substring</td>
+<td>O(k) to create a substring of length k</td>
+<td>O(k) to create a substring of length k</td>
+</tr>
+<tr>
+<td>Concatenation (<code>s1 + s2</code>)</td>
+<td>O(n + m)</td>
+<td>O(n + m) in the general case</td>
+</tr>
+<tr>
+<td>Append one character</td>
+<td>O(n) to create a new string</td>
+<td>Amortized O(1); worst-case O(n)</td>
+</tr>
+<tr>
+<td><strong>Set</strong> at <strong>random position</strong>  <span class="arithmatex">\(i\)</span></td>
+<td><span class="arithmatex">\(\color{blue}O(n)\)</span> to create a new string</td>
+<td><span class="arithmatex">\(\color{blue}O(1)\)</span> in place</td>
+</tr>
+<tr>
+<td><strong>Insert / delete</strong></td>
+<td>at <strong>random</strong> position/at <strong>end</strong>  <span class="arithmatex">\(\color{blue}O(n)\)</span> because have to <strong>create a new string</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>Search for a <strong>character</strong></td>
+<td><span class="arithmatex">\(\color{blue}O(n)\)</span></td>
+<td></td>
+</tr>
+<tr>
+<td>Search for a substring</td>
+<td>O(n) typical for single-character search; substring search depends on algorithm</td>
+<td>O(n) typical; substring search depends on algorithm</td>
+</tr>
+<tr>
+<td>Compare two strings</td>
+<td>O(min(n, m)) worst-case when a difference is found late or strings share a long prefix; O(n) if equal length n</td>
+<td>O(min(n, m)) worst-case when a difference is found late or strings share a long prefix; O(n) if equal length n</td>
+</tr>
+<tr>
+<td>Bounds checking</td>
+<td><code>s[i]</code> raises <code>IndexError</code> if out of range</td>
+<td><code>s[i]</code> does not guarantee bounds checking; <code>s.at(i)</code> checks and throws <code>std::out_of_range</code></td>
+</tr>
+<tr>
+<td>When to use</td>
+<td>Text processing; safe sharing because strings cannot be modified in place</td>
+<td>Text processing when in-place modification and mutable character sequences are useful</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>

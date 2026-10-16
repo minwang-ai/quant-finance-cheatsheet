@@ -1,0 +1,79 @@
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+  color: #0077b6;
+  font-weight: 700;
+}
+
+.md-typeset h1 {
+  font-size: 2.15rem;
+}
+
+.md-typeset h2 {
+  font-size: 1.65rem;
+}
+
+.md-typeset h3 {
+  font-size: 1.35rem;
+}
+
+.md-typeset h4 {
+  font-size: 1.15rem;
+}
+
+.md-typeset h5 {
+  font-size: 1rem;
+}
+
+.md-typeset h6 {
+  font-size: 0.9rem;
+}
+
+/* Give the document more room on desktop by narrowing both sidebars. */
+@media screen and (min-width: 76.25em) {
+  .md-grid {
+    max-width: 100rem;
+  }
+
+  .md-sidebar {
+    width: 10rem;
+  }
+
+  .md-sidebar--secondary {
+    width: 12rem;
+  }
+}
+
+/* Visually group captions with the image that follows them. */
+.md-typeset p:has(+ p > img) {
+  margin: 1.5rem 0 0;
+  padding: 0.65rem 1rem 0.45rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-bottom: 0;
+  border-radius: 0.35rem 0.35rem 0 0;
+  background: var(--md-code-bg-color);
+  color: var(--md-default-fg-color);
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.md-typeset p:has(+ p > img) strong {
+  color: var(--md-default-fg-color);
+  font-weight: 700;
+}
+
+.md-typeset p:has(> img) {
+  margin: 0 0 1.5rem;
+  padding: 0.75rem 1rem 1rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0 0 0.35rem 0.35rem;
+  background: var(--md-code-bg-color);
+  text-align: center;
+}
+
+.md-typeset p:has(> img) img {
+  margin: 0;
+}

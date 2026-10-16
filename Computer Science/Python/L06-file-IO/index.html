@@ -1,0 +1,3407 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal notes for quantitative finance, computer science, math and statistics.">
+      
+      
+      
+        <link rel="canonical" href="https://minwang-ai.github.io/quant-finance-cheatsheet/Computer%20Science/Python/L06-file-IO/">
+      
+      
+        <link rel="prev" href="../L05-unit-test/">
+      
+      
+        <link rel="next" href="../L08-OOP/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>File I/O - Quant Finance Cheatsheet</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#file-io" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Quant Finance Cheatsheet" class="md-header__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quant Finance Cheatsheet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              File I/O
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Quant Finance Cheatsheet" class="md-nav__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Quant Finance Cheatsheet
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quant Finance Cheatsheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C++
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/%3Ccctype%3E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    #include &lt;cctype&gt;
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure and Algorithm
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Structure and Algorithm
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Data%20Structure%20and%20Algorithm/00-code-template-DS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Template - Data Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Data%20Structure%20and%20Algorithm/L01-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Data%20Structure%20and%20Algorithm/L02-array-linked-list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Data%20Structure%20and%20Algorithm/hashtable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hashing (hash map and sets)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Data%20Structure%20and%20Algorithm/recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operating System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operating System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/process%20management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/threads%20and%20concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Threads and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Socket Programming
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Socket Programming
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/Socket%20Programming/socket%20programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2: What is a Socket?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L00-Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L01-conditions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L02-loops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Loops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L03-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L04-libraries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L05-unit-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit Tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File I/O
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#opening-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opening a File
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opening a File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Modes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#write-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-writing-text-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading &amp; Writing Text Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reading &amp; Writing Text Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writing-text-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing Text Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-text-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading Text Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structured-data-module-csv-for-comma-separated-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structured Data: module csv for comma separated values
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structured Data: module csv for comma separated values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-csv-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading CSV Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-csv-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing CSV Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-standard-vs-dictionary-csv-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison: Standard vs. Dictionary CSV Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparison: Standard vs. Dictionary CSV Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-code-csv-file-without-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example code: csv File without Header
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-code-csv-file-with-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example code: csv File with Header
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pretty-print-tabular-data-tabulate-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pretty-print tabular data: tabulate Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Binary Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#image-handling-pil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Handling (PIL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Handling (PIL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-and-save" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open and Save
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Processing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L08-OOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Programming (OOP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L09-others/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Et Cetera
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../N-IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input / Output (I/O)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../N-methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_12" id="__nav_2_5_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Data Structure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python Data Structure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Data%20Structure/dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Data%20Structure/iterables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Iterables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Data%20Structure/list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lists
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Data%20Structure/numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Data%20Structure/set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    set
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Data%20Structure/string/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String (str)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Data%20Structure/tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tuples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Math and Stats
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Math and Stats
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics for Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics for Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L01-predicates-sets-proof/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Predicates, Sets, and Proofs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L02-contradiction-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contradiction and Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L04-state-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L05-sums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sums
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L6-asymptotics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asymptotics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitive Finance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitive Finance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Data/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Econometrics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Econometrics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Correlation%20and%20Multicollinearity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Correlation and Multicollinearity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Linear%20Regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Regression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Monte%20Carlo%20Simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monte Carlo Simulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Variable%20Transformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variable Transformation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Market
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Market
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_1" id="__nav_4_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cridit Risk and Financing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cridit Risk and Financing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/BUYING%20AND%20SELLING%20SHORT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Buying and Selling Short
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/COUNTERPARTIES%20AND%20CREDIT%20RISK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Risk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/SAVING%20AND%20BORROWING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitative Trading
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitative Trading
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Quantitative%20Trading/market_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Market Mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Quantitative%20Trading/stock_price/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stock Price
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#opening-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opening a File
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opening a File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Modes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#write-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-writing-text-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading &amp; Writing Text Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reading &amp; Writing Text Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writing-text-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing Text Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-text-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading Text Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structured-data-module-csv-for-comma-separated-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structured Data: module csv for comma separated values
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structured Data: module csv for comma separated values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-csv-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading CSV Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-csv-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing CSV Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-standard-vs-dictionary-csv-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison: Standard vs. Dictionary CSV Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparison: Standard vs. Dictionary CSV Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-code-csv-file-without-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example code: csv File without Header
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-code-csv-file-with-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example code: csv File with Header
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pretty-print-tabular-data-tabulate-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pretty-print tabular data: tabulate Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Binary Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#image-handling-pil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Handling (PIL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Handling (PIL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-and-save" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open and Save
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Processing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="file-io">File I/O<a class="headerlink" href="#file-io" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Course source: CS50P Lecture 06</p>
+</blockquote>
+<p>File I/O (Input/Output) allows programs to <strong>read from and write to files</strong>, enabling <strong>persistent storage</strong> so that data is not lost and can be <strong>used later</strong> when the program ends. </p>
+<h2 id="opening-a-file">Opening a File<a class="headerlink" href="#opening-a-file" title="Permanent link">&para;</a></h2>
+<p>Best practice: using <strong><code>with</code></strong> keyword to open a file-like object at the <code>filepath</code>, write some content and <strong>automatically safely closes</strong> after exit this code block even if exceptions occur inside the block.</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="c1"># Use the file-like object file </span>
+</code></pre></div>
+<ul>
+<li>
+<p><code>filepath</code>: "/path/file_name.file_extension" 
+    (or simplely "file_name.file_extension" if it is in the current path)</p>
+</li>
+<li>
+<p><code>mode</code> (optional)</p>
+</li>
+<li>as <code>file</code>: the name of the variable that should be assigned the return value of <code>open</code></li>
+<li>we can actually <strong>open multiple files at once</strong> (use case: read one file and write another at the same time)
+    <div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_1</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_2</span><span class="p">:</span>
+    <span class="c1"># Use the file-like object file </span>
+</code></pre></div></li>
+</ul>
+<h3 id="file-modes">File Modes<a class="headerlink" href="#file-modes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Mode</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">If the File Exist or Not</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Write</strong></td>
+<td style="text-align: left;"><code>"w"</code></td>
+<td style="text-align: left;">Write fresh content or <strong>overwrite an existing file</strong>.</td>
+<td style="text-align: left;"><strong>create</strong> the file if missing. <br> However, if the file does exist, it will <strong>clear any existing content</strong> before writing new data.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Safe Create</strong></td>
+<td style="text-align: left;"><code>"x"</code></td>
+<td style="text-align: left;">create a new file <strong>only if it does not exist</strong></td>
+<td style="text-align: left;">Raise FileExistsError if the file already exists to <strong>prevent accidental overwrites</strong>. (handle it via try-except block)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Append</strong></td>
+<td style="text-align: left;"><code>"a"</code></td>
+<td style="text-align: left;">Append data to the <strong>end</strong> of the file <strong>without deleting existing content</strong>.</td>
+<td style="text-align: left;"><strong>create</strong> the file if missing</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Read</strong></td>
+<td style="text-align: left;"><code>"r"</code></td>
+<td style="text-align: left;">Read (<strong>default</strong> mode).</td>
+<td style="text-align: left;">Raise an <strong>error</strong> <code>FileNotFoundError</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Both read and write</strong></td>
+<td style="text-align: left;"><code>"+"</code></td>
+<td style="text-align: left;">combine with other modes (e.g., "r+", "w+") for both reading and writing</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="write-mode">Write Mode<a class="headerlink" href="#write-mode" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">var</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"prompt string"</span><span class="p">)</span> 
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="c1"># Use the file-like object file </span>
+    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># Writes a raw string to an opened file. It does not automatically add newlines so we must append `\n` manually.</span>
+</code></pre></div>
+<h4 id="read-mode">Read Mode<a class="headerlink" href="#read-mode" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>  
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>   <span class="c1"># Iterates through line-by-line. If we want the lines to be sorted, we can use sorted(file)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>  <span class="c1"># Removes extra trailing line break to prevent double new line issues caused by the file's `\n` and `print()`'s default newline. </span>
+</code></pre></div>
+If we want to further change the data, e.g., sorting, we can create a variable at the top, append info to collect it in one place.
+Example:
+<div class="highlight"><pre><span></span><code><span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>  
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>   
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>   
+        <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>  
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>   
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  
+</code></pre></div></p>
+<h2 id="reading-writing-text-files">Reading &amp; Writing Text Files<a class="headerlink" href="#reading-writing-text-files" title="Permanent link">&para;</a></h2>
+<p><code>file</code> must refer to a file that has been opened via <code>with open(filepath, mode) as file:</code>  </p>
+<h3 id="writing-text-files">Writing Text Files<a class="headerlink" href="#writing-text-files" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Parameters</th>
+<th style="text-align: left;">Return Value</th>
+<th style="text-align: left;">Pros &amp;Cons</th>
+<th style="text-align: left;">When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>write()</code></strong></td>
+<td style="text-align: left;">Writes <strong>a string</strong> to the end of the file.</td>
+<td style="text-align: left;"><code>file.write(string)</code></td>
+<td style="text-align: left;"><strong><code>string</code></strong>: The text string to write. <br> It does not automatically add newlines so we must append <code>\n</code> manually. Building a single string and calling <code>write()</code> once, i.e., <code>text = "\n".join(lines) + "\n"</code> can be more efficient and less error-prone compared to <code>writelines()</code>.</td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">+ Safe and predictable.  <br><br> - Cannot write lists/iterables natively without manual conversion.</td>
+<td style="text-align: left;">Best for writing <strong>individual strings or custom-formatted blocks</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>writelines()</code></strong></td>
+<td style="text-align: left;">Writes each line as an item in <strong>a list (or any iterable sequence) of strings</strong> to the end of the file.</td>
+<td style="text-align: left;"><code>file.writelines(list)</code></td>
+<td style="text-align: left;"><strong><code>list</code></strong>: A list or iterable of strings. <br><br> It does not add newlines automatically we must <strong>include <code>\n</code></strong> in each string in the list.</td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">+ Dumps an entire sequence of lines in a single call.<br><br>- <strong>Highly error-prone.</strong> Beginners often forget that it doesn't auto-add newlines, resulting in all list items squished onto a single line.</td>
+<td style="text-align: left;">Use when you already <strong>have a pre-formatted list of strings that already contain newline characters</strong> at the end.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reading-text-files">Reading Text Files<a class="headerlink" href="#reading-text-files" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Parameters</th>
+<th style="text-align: left;">Return Value</th>
+<th style="text-align: left;">Pros &amp;Cons</th>
+<th style="text-align: left;">When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Direct Iteration</strong></td>
+<td style="text-align: left;">Iterate line-by-line</td>
+<td style="text-align: left;"><code>for line in file:</code></td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">Yields a <strong>string</strong> representing one line at a time.</td>
+<td style="text-align: left;">+ <strong>Extremely memory-efficient.</strong> Only keeps one line in RAM at a time (perfect for massive files).<br><br>- Cannot access lines out of order (<strong>no indexing or slicing</strong>).</td>
+<td style="text-align: left;"><strong>Default best practice</strong> for standard line-by-line file processing.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>read()</code></strong></td>
+<td style="text-align: left;">Reads <code>n</code> characters, or the entire file as a single string if <code>n</code> is omitted.</td>
+<td style="text-align: left;"><code>file.read(n=-1)</code></td>
+<td style="text-align: left;">- <strong><code>n</code></strong> <em>(Optional)</em>: The number of characters to read. <strong>Defaults</strong> to <code>-1</code> (reads the <strong>entire file</strong>).</td>
+<td style="text-align: left;">A <strong>string</strong> containing all the read characters.</td>
+<td style="text-align: left;">+ Gives you the entire file as one <strong>easily searchable string</strong>.<br><br>- <strong>Poor memory efficiency</strong> for large files; loads the entire file into RAM at once.</td>
+<td style="text-align: left;">When we need to process <strong>small files as a single block</strong> (e.g., parsing JSON/XML) or <strong>searching for substrings</strong> across line boundaries.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>readline()</code></strong></td>
+<td style="text-align: left;">Reads the next line of the file with all text up to and <strong>including the newline character</strong>.</td>
+<td style="text-align: left;"><code>file.readline(n=-1)</code></td>
+<td style="text-align: left;"><strong><code>n</code></strong> <em>(Optional)</em>: <strong>Maximum characters</strong> to read from the line. If n is provided as a parameter, then only n characters will be returned if the line is longer than n. (Note: Parameter <code>n</code> is ignored in the browser version of Python and is rarely used).</td>
+<td style="text-align: left;">A <strong>string</strong> containing the next line of tex  (includes <code>\n</code>). Returns an empty string <code>""</code> when the end of the file is reached.</td>
+<td style="text-align: left;">+ Great for grabbing a <strong>specific single line</strong> (e.g., reading a <strong>header</strong> line before starting a loop to process data).<br><br> - Clunky if you just want to loop through the whole file.</td>
+<td style="text-align: left;">When you need precise, <strong>manual control</strong> over step-by-step reading.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>readlines()</code></strong></td>
+<td style="text-align: left;">Read <strong>all the lines</strong> of the file</td>
+<td style="text-align: left;"><code>lines = file.readlines()</code></td>
+<td style="text-align: left;"><strong><code>n</code></strong> <em>(Optional)</em>: If <code>n</code> is not provided then all lines of the file are returned. If <code>n</code> provided, characters are read up to <code>n</code> but rounded up so that an entire line is returned. (Note: Ignored in the browser version).</td>
+<td style="text-align: left;">A <strong>list of strings</strong>, where each item represents <strong>a single line of the file</strong>.</td>
+<td style="text-align: left;">+ Gives you a standard list you can <strong>manipulate</strong> with list operations immediately.<br><br>- <strong>Unsafe for large files</strong> as it loads all lines into RAM simultaneously.</td>
+<td style="text-align: left;">When you specifically need the lines stored in a list structure for sorting, reversing, indexing, or checking the list length.</td>
+</tr>
+</tbody>
+</table>
+<p>Note:</p>
+<ul>
+<li><strong>Adjust index</strong> for slicing because txt file lines are <strong>1-indexed</strong> (conventionally), while Python lists/sequences are <strong>0-indexed</strong>.</li>
+<li>Use <strong><code>line.strip()</code></strong> on strings when reading from a file to <strong>remove any leading or trailing whitespace, including newline character <code>\n</code></strong> before processing or printing(because print will automatically add a newline character <code>\n</code>).</li>
+</ul>
+<h2 id="structured-data-module-csv-for-comma-separated-values">Structured Data: module <a href="https://docs.python.org/3/library/csv.html"><code>csv</code></a> for comma separated values<a class="headerlink" href="#structured-data-module-csv-for-comma-separated-values" title="Permanent link">&para;</a></h2>
+<p><strong>automatically</strong> parse and deal with <strong>corner cases</strong> (such as handling extra commas embedded inside quoted strings)</p>
+<p><code>import csv</code></p>
+<h3 id="reading-csv-files">Reading CSV Files<a class="headerlink" href="#reading-csv-files" title="Permanent link">&para;</a></h3>
+<p>within <code>with open("file_name.csv") as file:</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Return Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>csv.reader()</code></strong></td>
+<td style="text-align: left;"><code>reader = csv.reader(file)</code></td>
+<td style="text-align: left;">Reads a CSV file.</td>
+<td style="text-align: left;">Returns a reader object that yields <strong>each row as a list of strings</strong> accessed by index where each value in the list corresponds to an element in that row, e.g., <code>row[0]</code> is the first element of the given row, <code>row[1]</code> is the second element.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a href="https://docs.python.org/3/library/csv.html#csv.DictReader"><code>csv.DictReader()</code></a></strong></td>
+<td style="text-align: left;"><code>reader = csv.DictReader(file)</code></td>
+<td style="text-align: left;">Reads a CSV file with <strong>header rows</strong> dynamically, making your program much more <strong>flexible and robust if columns are added or reordered</strong>.</td>
+<td style="text-align: left;">Returns a reader object that yields <strong>each row as a dictionary</strong>, mapping header titles to row values (e.g., <code>row["header_1"]</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="writing-csv-files">Writing CSV Files<a class="headerlink" href="#writing-csv-files" title="Permanent link">&para;</a></h3>
+<p>within <code>with open("file_name.csv", mode) as file:</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Parameters</th>
+<th style="text-align: left;">Return Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>csv.writer()</code></strong></td>
+<td style="text-align: left;"><code>writer = csv.writer(file)</code></td>
+<td style="text-align: left;">Creates a writer object to write data to a CSV file.</td>
+<td style="text-align: left;"><strong><code>file</code></strong>: An opened file object (typically in <code>"w"</code> or <code>"a"</code> mode).</td>
+<td style="text-align: left;">Returns a standard writer object.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a href="https://docs.python.org/3/library/csv.html#csv.DictWriter"><code>csv.DictWriter()</code></a></strong></td>
+<td style="text-align: left;"><code>writer = csv.DictWriter(file, fieldnames=["header_1", "header_2"])</code></td>
+<td style="text-align: left;">Prepares a CSV file for structured writing mapped to specific keys.</td>
+<td style="text-align: left;">- <strong><code>file</code></strong>: An opened file object.<br>- <strong><code>fieldnames</code></strong>: A list of strings representing <strong>column headers</strong>. <br><br><em>Note: To add a column dynamically, we can use <strong>list concatenation <code>+</code></strong></em></td>
+<td style="text-align: left;">Prepares a CSV file for structured writing mapped to specific dictionary keys.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a href="https://docs.python.org/3/library/csv.html#csv.DictWriter.writeheader"><code>writeheader()</code></a></strong></td>
+<td style="text-align: left;"><code>writer.writeheader()</code> <br><br> <em><strong>Only</strong> used with <code>DictWriter</code>.</em></td>
+<td style="text-align: left;">Writes a row with the column names specified in the <code>fieldnames</code> list to the file as the <strong>header</strong> row of the CSV.</td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">returns <code>None</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>writerow()</code></strong></td>
+<td style="text-align: left;"><code>writer.writerow(data)</code> <br><br> data: Takes a <strong>list</strong> <code>[var1, var2]</code>(for standard writer) or a <strong>dictionary</strong> (for DictWriter). I</td>
+<td style="text-align: left;">Writes a single structured line of data into the CSV file.</td>
+<td style="text-align: left;"><strong><code>data</code></strong>: Takes a <strong>list</strong> <code>[var1, var2]</code> (for standard writer) or a <strong>dictionary</strong> mapping fieldnames to values (for <code>DictWriter</code>). <br><br><em>Note: If we just want to <strong>add a new column</strong>, simply append the value to the list/dict <code>row</code> then pass it to <code>writer.writerow(row)</code>.</em></td>
+<td style="text-align: left;">Writes the fields to the corresponding columns and returns <code>None</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="comparison-standard-vs-dictionary-csv-methods">Comparison: Standard vs. Dictionary CSV Methods<a class="headerlink" href="#comparison-standard-vs-dictionary-csv-methods" title="Permanent link">&para;</a></h3>
+<p>Best practice: <strong>dictionary-based</strong> methods for writing defensive Python code.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Standard Version (<code>csv.reader</code> / <code>writer</code>)</th>
+<th style="text-align: left;">Dictionary Version (<code>csv.DictReader</code> / <code>DictWriter</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Data Representation</strong></td>
+<td style="text-align: left;">Handles rows as <strong>lists</strong> of strings.</td>
+<td style="text-align: left;">Handles rows as <strong>dictionaries</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Access Method</strong></td>
+<td style="text-align: left;">Numerical indices: <code>row[0]</code>, <code>row[1]</code>.</td>
+<td style="text-align: left;">Header-name keys: <code>row["header_1"]</code>, <code>row["header_2"]</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Robustness to Changes</strong></td>
+<td style="text-align: left;"><strong>Fragile.</strong> If someone adds, swaps, or deletes columns, your index references will point to the wrong data and break your code.</td>
+<td style="text-align: left;"><strong>Highly Robust (Defensive).</strong> As long as the header names in the CSV remain consistent, the code will not break even if columns are added or swapped.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>CSV Headers</strong></td>
+<td style="text-align: left;">Does not require or assume a header row.</td>
+<td style="text-align: left;">Requires a header row on the first line (or explicit <code>fieldnames</code> parameters when writing).</td>
+</tr>
+</tbody>
+</table>
+<h4 id="example-code-csv-file-without-header">Example code: csv File without Header<a class="headerlink" href="#example-code-csv-file-without-header" title="Permanent link">&para;</a></h4>
+<p><strong>reader</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+
+<span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"file_name.csv"</span><span class="p">),</span> <span class="s2">"r"</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">attr_1</span><span class="p">,</span> <span class="n">attr_2</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>   <span class="c1"># A reader works in a for loop, where each iteration the reader gives us another row from our CSV file. We can unpack attributes directly</span>
+        <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"attr_1"</span><span class="p">:</span> <span class="n">attr_1</span><span class="p">,</span> <span class="n">attr_2</span><span class="p">:</span> <span class="n">attr_2</span><span class="p">})</span>
+
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="s2">"attr_1"</span><span class="p">]):</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<strong>writer</strong> 
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+
+<span class="n">attr_1</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"string_prompt "</span><span class="p">)</span>
+<span class="n">attr_2</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"string_prompt "</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"file_name.csv"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>  
+    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">attr_1</span><span class="p">,</span> <span class="n">attr_2</span><span class="p">])</span>
+</code></pre></div></p>
+<h4 id="example-code-csv-file-with-header">Example code: csv File with Header<a class="headerlink" href="#example-code-csv-file-with-header" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code>header_1, header_2
+header_1_value, header_2_value
+</code></pre></div>
+<strong>DictReader</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+
+<span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"file_name.csv"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+        <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">items</span><span class="p">[</span><span class="s2">"attr_1"</span><span class="p">]):</span>
+    <span class="c1"># ...</span>
+</code></pre></div></p>
+<p><strong>DictWriter</strong> 
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+
+<span class="n">header_1</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"string_prompt"</span><span class="p">)</span>
+<span class="n">header_2</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"string_prompt"</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"file_name.csv"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="p">[</span><span class="s2">"header_1"</span><span class="p">,</span> <span class="s2">"header_2"</span><span class="p">])</span>  
+    <span class="n">writer</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
+
+    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">({</span><span class="s2">"header_1"</span><span class="p">:</span> <span class="n">header_1</span><span class="p">,</span> <span class="s2">"header_2"</span><span class="p">:</span> <span class="n">header_2</span><span class="p">})</span>   <span class="c1"># Write each row. Since it is a dictionary, the order does not matter</span>
+</code></pre></div></p>
+<h3 id="pretty-print-tabular-data-tabulate-package">Pretty-print tabular data: <code>tabulate</code> Package<a class="headerlink" href="#pretty-print-tabular-data-tabulate-package" title="Permanent link">&para;</a></h3>
+<p><code>pip install tabulate</code> </p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Function</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Parameters</th>
+<th style="text-align: left;">Return Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>tabulate()</code></strong></td>
+<td style="text-align: left;">Formats tabular data (like lists of lists or lists of dictionaries) into a beautiful, human-readable ASCII art table.</td>
+<td style="text-align: left;"><code>from tabulate import tabulate</code><br><br><code>print(tabulate(data, headers=(), tablefmt="simple"))</code></td>
+<td style="text-align: left;">- <strong><code>tabular_data</code></strong>: The table content (e.g., a list of lists or a list of dictionaries).<br>- <strong><code>headers</code></strong>: Specifies what to use as column headers (e.g., <code>"firstrow"</code> if using a list of <strong>lists</strong>, or <code>"keys"</code> if using a list of <strong>dictionaries</strong>).<br>- <strong><code>tablefmt</code></strong>: A string representing the table design style (e.g., <code>"grid"</code>).</td>
+<td style="text-align: left;">A formatted <strong>string</strong> containing the ASCII table layout.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="binary-files">Binary Files<a class="headerlink" href="#binary-files" title="Permanent link">&para;</a></h2>
+<p>A binary file is a collection of <strong>ones and zeros</strong> representing <strong>compiled data (like images or music or video)</strong> rather than text characters.</p>
+<h3 id="image-handling-pil">Image Handling (<a href="https://pillow.readthedocs.io/"><code>PIL</code></a>)<a class="headerlink" href="#image-handling-pil" title="Permanent link">&para;</a></h3>
+<p>A popular third-party library used for reading, writing, and manipulating image files.
+<code>from PIL import Image, ImageOps</code></p>
+<h4 id="open-and-save">Open and Save<a class="headerlink" href="#open-and-save" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Parameters</th>
+<th style="text-align: left;">Return Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>Image.open()</code></strong></td>
+<td style="text-align: left;">Opens an image file for processing.</td>
+<td style="text-align: left;"><code>with Image.open("file_path") as image:</code></td>
+<td style="text-align: left;"><strong><code>file_path</code></strong>: A string representing the filename or path to the input image file. Supports formats like<code>.gif</code>, <code>.jpeg</code>, and <code>.png</code></td>
+<td style="text-align: left;">An <code>Image</code> object</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>image.save()</code></strong></td>
+<td style="text-align: left;">Saves the image to a specified <strong>output</strong> file path. Can also compile multiple frames into animated <strong>GIFs</strong>.</td>
+<td style="text-align: left;"><code>images.save(file_path, format=None, **params)</code> <br><br><em>For animated GIFs:</em><br><code>image.save(file_path, save_all=True, append_images=[...], duration=200, loop=0)</code></td>
+<td style="text-align: left;">- <strong><code>file_path</code></strong>: String representing the output file path. <br> <strong>params</strong>: <br>- <strong><code>save_all</code></strong> <em>(Optional)</em>: Set to <code>True</code> to save all frames of a GIF.<br>- <strong><code>append_images</code></strong> <em>(Optional)</em>: List of subsequent Image frames to append.<br>- <strong><code>duration</code></strong> <em>(Optional)</em>: Frame display duration in milliseconds.<br>- <strong><code>loop</code></strong> <em>(Optional)</em>: Loop count (0 for infinite).</td>
+<td style="text-align: left;">Returns <code>None</code>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="image-processing">Image Processing<a class="headerlink" href="#image-processing" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Parameters</th>
+<th style="text-align: left;">Return Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>image.rotate()</code></strong></td>
+<td style="text-align: left;">Rotates the image counter-clockwise by the specified angle.</td>
+<td style="text-align: left;"><code>rotated_image = image.rotate(degrees)</code></td>
+<td style="text-align: left;"><strong><code>degrees</code></strong>: An integer representing the counter-clockwise rotation angle (e.g., <code>90</code>, <code>180</code>, <code>270</code>).</td>
+<td style="text-align: left;">A new, rotated <strong><code>Image</code> object</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>image.filter()</code></strong></td>
+<td style="text-align: left;">Applies a specified visual effect or processing filter to the image.</td>
+<td style="text-align: left;"><code>from PIL import ImageFilter</code><br><code>filtered_image = image.filter(ImageFilter.filter_name)</code></td>
+<td style="text-align: left;"><strong><code>filter_name</code></strong>: An ImageFilter, e.g., <code>BLUR</code>, <code>FIND_EDGES</code>, <code>CONTOUR</code>, or <code>SHARPEN</code>.</td>
+<td style="text-align: left;">A new, filtered <strong><code>Image</code> object</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>image.size</code></strong>  <em>(Attribute)</em></td>
+<td style="text-align: left;">Retrieves the horizontal and vertical dimensions of the image.</td>
+<td style="text-align: left;"><code>width, height = image.size</code></td>
+<td style="text-align: left;">None.</td>
+<td style="text-align: left;">A <strong>tuple of integers</strong> <code>(width, height)</code> representing the size.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>ImageOps.fit()</code></strong></td>
+<td style="text-align: left;"><strong>Crops and resizes</strong> an image to match a target size and aspect ratio using a default center-cropping method.</td>
+<td style="text-align: left;"><code>cropped_image = ImageOps.fit(image, size)</code></td>
+<td style="text-align: left;">- <strong><code>image</code></strong>: The source Image object.<br>- <strong><code>size</code></strong>: A tuple of integers representing the target size <code>(width, height)</code>.</td>
+<td style="text-align: left;">A new, resized and cropped <strong><code>Image</code> object</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>image.paste()</code></strong></td>
+<td style="text-align: left;"><strong>Overlays</strong> another image on top of the current image, using an optional transparency mask.</td>
+<td style="text-align: left;"><code>background.paste(foreground, box=None, mask=None)</code></td>
+<td style="text-align: left;">- <strong><code>foreground</code></strong>: The Image object to overlay.<br>- <strong><code>box</code></strong> <em>(Optional)</em>: A tuple <code>(x, y)</code> indicating top-left placement.<br>- <strong><code>mask</code></strong> <em>(Optional)</em>: An Image object used as a mask to determine which pixels in the background to update (We can pass the foreground image itself preserves its transparency).</td>
+<td style="text-align: left;">Returns <code>None</code> (modifies the original image <strong>in-place</strong>).</td>
+</tr>
+</tbody>
+</table>
+<p>Example: create gif memes / animations
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+
+<span class="n">images</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># accumulate all the images</span>
+<span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>    <span class="c1"># the images paths are provided as command-line arguments</span>
+    <span class="k">with</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">as</span> <span class="n">image</span><span class="p">:</span>
+    <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+<span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+    <span class="s2">"output.gif"</span><span class="p">,</span> <span class="n">save_all</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">append_images</span> <span class="o">=</span> <span class="p">[</span><span class="n">images</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">duration</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">loop</span> <span class="o">=</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">)</span>   <span class="c1"># save the first image while append the other images, to compile a list of individual images into an animated, looping GIF.</span>
+</code></pre></div></p>
+<p>Example: Overlay a foreground picture on top of the background
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">overlay</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">background_filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">background</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">foreground_filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">foreground</span><span class="p">:</span>
+        <span class="c1"># 1. Resize and crop the background to match the shirt's size (no copy needed)</span>
+        <span class="n">background_cropped</span> <span class="o">=</span> <span class="n">ImageOps</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">background</span><span class="p">,</span><span class="n">foreground</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+
+        <span class="c1"># 2. Paste the shirt on top using the shirt itself as a transparency mask</span>
+        <span class="n">background_cropped</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">foreground</span><span class="p">,</span> <span class="n">foreground</span><span class="p">)</span>
+
+        <span class="c1"># 3. Save the finished image</span>
+        <span class="n">background_cropped</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_file</span><span class="p">)</span>
+</code></pre></div></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>

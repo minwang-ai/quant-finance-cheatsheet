@@ -1,0 +1,3370 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal notes for quantitative finance, computer science, math and statistics.">
+      
+      
+      
+        <link rel="canonical" href="https://minwang-ai.github.io/quant-finance-cheatsheet/Computer%20Science/Python/L04-libraries/">
+      
+      
+        <link rel="prev" href="../L03-exceptions/">
+      
+      
+        <link rel="next" href="../L05-unit-test/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Libraries - Quant Finance Cheatsheet</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#libraries" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Quant Finance Cheatsheet" class="md-header__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quant Finance Cheatsheet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Libraries
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Quant Finance Cheatsheet" class="md-nav__button md-logo" aria-label="Quant Finance Cheatsheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Quant Finance Cheatsheet
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/minwang-ai/quant-finance-cheatsheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    minwang-ai/quant-finance-cheatsheet
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quant Finance Cheatsheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C++
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../C%2B%2B/%3Ccctype%3E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    #include &lt;cctype&gt;
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure and Algorithm
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Data Structure and Algorithm
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Data%20Structure%20and%20Algorithm/00-code-template-DS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Template - Data Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Data%20Structure%20and%20Algorithm/L01-intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Data%20Structure%20and%20Algorithm/L02-array-linked-list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Data%20Structure%20and%20Algorithm/hashtable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hashing (hash map and sets)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Data%20Structure%20and%20Algorithm/recursion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operating System
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operating System
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/process%20management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/threads%20and%20concurrency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Threads and concurrency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Socket Programming
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Socket Programming
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Operating%20System/Socket%20Programming/socket%20programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 2: What is a Socket?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L00-Intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L01-conditions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L02-loops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Loops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L03-exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Libraries
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#import-functions-classes-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Import Functions, Classes, Variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Built-in Modules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Built-in Modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#random" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datetime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        datetime
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="datetime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#date" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        date
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timedelta-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        timedelta objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-arguments-sys-argparse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-Line Arguments: sys &amp; argparse
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command-Line Arguments: sys &amp; argparse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#argparse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        argparse
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packages-apis-requests-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packages &amp; APIs: requests &amp; json
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Packages &amp; APIs: requests &amp; json">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#third-party-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Third-Party Library
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inflect-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        inflect Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pdf-generation-fpdf2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PDF Generation (fpdf2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PDF Generation (fpdf2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#object-oriented-subclassing-with-fpdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object-Oriented Subclassing with FPDF
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-your-own-modules-and-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making Your Own Modules and Packages
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L05-unit-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unit Tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L06-file-IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L08-OOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Programming (OOP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../L09-others/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Et Cetera
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../N-IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input / Output (I/O)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../N-methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_12" id="__nav_2_5_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Data Structure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python Data Structure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Data%20Structure/dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Data%20Structure/iterables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Iterables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Data%20Structure/list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lists
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Data%20Structure/numbers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Data%20Structure/set/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    set
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Data%20Structure/string/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    String (str)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20Data%20Structure/tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tuples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Math and Stats
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Math and Stats
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics for Computer Science
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics for Computer Science
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L01-predicates-sets-proof/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Predicates, Sets, and Proofs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L02-contradiction-induction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contradiction and Induction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L04-state-machines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L05-sums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sums
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Math%20and%20Stats/Mathematics%20for%20Computer%20Science/L6-asymptotics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asymptotics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitive Finance
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitive Finance
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Data/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Econometrics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Econometrics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Correlation%20and%20Multicollinearity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Correlation and Multicollinearity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Linear%20Regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Regression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Monte%20Carlo%20Simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monte Carlo Simulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Econometrics/Variable%20Transformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Variable Transformation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Financial Market
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Financial Market
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_1" id="__nav_4_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cridit Risk and Financing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cridit Risk and Financing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/BUYING%20AND%20SELLING%20SHORT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Buying and Selling Short
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/COUNTERPARTIES%20AND%20CREDIT%20RISK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Risk
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Financial%20Market/Cridit%20Risk%20and%20Financing/SAVING%20AND%20BORROWING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitative Trading
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Quantitative Trading
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Quantitative%20Trading/market_mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Market Mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quantitive%20Finance/Quantitative%20Trading/stock_price/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stock Price
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#import-functions-classes-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Import Functions, Classes, Variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Built-in Modules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Built-in Modules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#random" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        random
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datetime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        datetime
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="datetime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#date" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        date
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timedelta-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        timedelta objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-arguments-sys-argparse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-Line Arguments: sys &amp; argparse
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command-Line Arguments: sys &amp; argparse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#argparse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        argparse
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packages-apis-requests-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packages &amp; APIs: requests &amp; json
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Packages &amp; APIs: requests &amp; json">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#third-party-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Third-Party Library
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inflect-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        inflect Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pdf-generation-fpdf2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PDF Generation (fpdf2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PDF Generation (fpdf2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#object-oriented-subclassing-with-fpdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object-Oriented Subclassing with FPDF
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-your-own-modules-and-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making Your Own Modules and Packages
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="libraries">Libraries<a class="headerlink" href="#libraries" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Course source: CS50P Lecture 04</p>
+</blockquote>
+<p>Instead of copying and pasting code from an old project of yours or others, you can <strong>share</strong> functions or features by <strong>creating modules</strong> and <strong>import</strong> modules/functions to your new project. </p>
+<h2 id="import-functions-classes-variables"><a href="https://www.pythontutorials.net/blog/from-import-vs-import/#key-differences-a-side-by-side-comparison">Import Functions, Classes, Variables</a><a class="headerlink" href="#import-functions-classes-variables" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">keywords</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Syntpurposeax</th>
+<th style="text-align: left;">Notes</th>
+<th style="text-align: left;">Pros and Cons</th>
+<th style="text-align: left;">When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>import</code></strong> (<strong>preferred</strong>)</td>
+<td style="text-align: left;">import the entire module (<strong>all</strong> the functions, classes, variables)  into the current namespace</td>
+<td style="text-align: left;"><code>import &lt;module&gt;</code> <br> optional:<br> <code>import &lt;module&gt; as &lt;alias&gt;</code></td>
+<td style="text-align: left;">When we call the functions, we need to <strong>specify the module name as a prefix</strong> <code>module.function()</code></td>
+<td style="text-align: left;">+ <strong>Clarify the origin of names</strong> of functions and variables to the module. Keep namespace clean, as it <strong>prevents potential naming conflicts</strong>. <br> + <strong>Avoid ImportError</strong> in case of <strong>circular imports</strong> <br> <br>- <strong>Calling multiple times</strong> of <code>module.function</code> makes the code <strong>longer, ugly and annoying</strong></td>
+<td style="text-align: left;">- not use the functions/classes/variables frequently <br> - want to clarify the origin of names</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>from ... import ...</code></strong></td>
+<td style="text-align: left;">Case 1. only import some <strong>specific functions/classes/variables</strong> of a module into the current namespace <br><br> Case 2. import <strong>submodules</strong></td>
+<td style="text-align: left;"><code>from &lt;module&gt; import &lt;function&gt;,&lt;class&gt;, &lt;variable&gt;</code> <br> <br> <code>from &lt;module&gt; import &lt;submodule&gt;</code></td>
+<td style="text-align: left;">When we call the functions, we simply call the function <code>function()</code> <strong>without</strong> specifying the module name as a prefix<br><br> Note:<br> <strong>Avoid</strong> using  <code>from &lt;module&gt; import *</code> because they make it unclear which names are present in the namespace (hide the origin of names, and risk overwriting built-in functions), confusing both readers and many automated tools.</td>
+<td style="text-align: left;">- Without the module prefix leads to <strong>cleaner code</strong> when using that function multiple times <br> - We <strong>cannot use</strong> the same name for the variable or functions name as the one from the libraries, otherwise cause potential <strong>naming conflicts</strong>.</td>
+<td style="text-align: left;">- Use a name <strong>frequently</strong> <br> - The <strong>module name is long</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Note:</p>
+<ul>
+<li><strong>Both</strong> methods load the <strong>entire module</strong>.</li>
+<li>Group Imports Logically:<ul>
+<li>Standard library imports (e.g., <code>import os</code>).</li>
+<li>Third-party imports (e.g., <code>import requests</code>).</li>
+<li>Local/application-specific imports (e.g., <code>from mypackage import utils</code>).</li>
+</ul>
+</li>
+</ul>
+<h2 id="built-in-modules">Built-in Modules<a class="headerlink" href="#built-in-modules" title="Permanent link">&para;</a></h2>
+<h3 id="random"><a href="https://docs.python.org/3/library/random.html"><code>random</code></a><a class="headerlink" href="#random" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Parameters</th>
+<th style="text-align: left;">Return Value</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>random.seed()</code></strong></td>
+<td style="text-align: left;">By setting a <strong>fixed</strong> seed value, <strong>randomness becomes reproducible</strong>, which is essential for debugging, testing and scientific experiments.</td>
+<td style="text-align: left;"><code>random.seed(a=None, version=2)</code></td>
+<td style="text-align: left;">- <code>a</code> (Optional): it's the seed value (integer, float, str, bytes or bytearray). If None, the system time is used.<br> - <code>version</code>(Optional): defaults value is 2, using a more advanced seeding algorithm. version=1 uses an older method.</td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;"><strong>Important</strong> for reproductivity</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>random.choice()</code></strong></td>
+<td style="text-align: left;">Choose <strong>a</strong> random element from a sequence.</td>
+<td style="text-align: left;"><code>random.choice(seq)</code></td>
+<td style="text-align: left;"><code>seq</code> (list/tuple/string)</td>
+<td style="text-align: left;">A single random element</td>
+<td style="text-align: left;">Use case: "Heads/Tails" logic.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>random.choices()</code></strong></td>
+<td style="text-align: left;">Choose <strong>multiple</strong> random elements from a sequence (sampling <strong>with replacement</strong>, meaning each time only choose one and put it back).</td>
+<td style="text-align: left;"><code>random.choice(seq, k)</code></td>
+<td style="text-align: left;">-<code>seq</code> (list/tuple/string) <br> - <code>k</code>: the number of items to randomly choose <br> - <code>weights</code>: (optional) a list of weights in percentage (add up to <strong>100</strong>) for each item in the sequence</td>
+<td style="text-align: left;">A list of random elements</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>random.samples()</code></strong></td>
+<td style="text-align: left;">Choose <strong>multiple</strong> random elements from a sequence (sampling <strong>without replacement</strong>, meaning choose one shuffling the remaining and choose again without putting the chose one back).</td>
+<td style="text-align: left;"><code>random.sample(seq, k)</code></td>
+<td style="text-align: left;">-<code>seq</code> (list/tuple/string) <br> - <code>k</code>: the number of items to randomly choose</td>
+<td style="text-align: left;">A list of random elements</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>random.randint()</code></strong></td>
+<td style="text-align: left;">Generate a <strong>random integer</strong> between two values inclusive.</td>
+<td style="text-align: left;"><code>random.randint(start, end)</code></td>
+<td style="text-align: left;">- <code>start</code>, <code>end</code>: <strong>inclusive</strong> range [<code>start</code>, <code>end</code>]</td>
+<td style="text-align: left;"><code>int</code></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>random.randrange()</code></strong></td>
+<td style="text-align: left;">Generate a <strong>random integer</strong> within a specified range.</td>
+<td style="text-align: left;"><code>random.randrange(start, stop, step)</code></td>
+<td style="text-align: left;">- <code>start</code> (optional): The starting number of the range. Default is 0. <br> - <code>stop</code> (required): The upper limit (<strong>exclusive</strong>) for the generated number <br> - <code>step</code> (optional): The step size. Default is 1 and cannot be zero (raises <code>ValueError</code>).</td>
+<td style="text-align: left;"><code>int</code></td>
+<td style="text-align: left;">- Even or odd Numbers <br> - Dice roll - <br> Random selection from a list: random index</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>random.shuffle()</code></strong></td>
+<td style="text-align: left;"><strong>Reorder</strong> a <strong>list</strong> randomly <strong>in-place</strong>.</td>
+<td style="text-align: left;"><code>random.shuffle(x)</code></td>
+<td style="text-align: left;"><code>x</code> (a list)</td>
+<td style="text-align: left;"><code>None</code> Modifies the original list</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="statistics"><a href="https://docs.python.org/3/library/statistics.html"><code>statistics</code></a><a class="headerlink" href="#statistics" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Parameters</th>
+<th style="text-align: left;">Return Value</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>statistics.mean()</code></strong></td>
+<td style="text-align: left;">Calculate the arithmetic mean (average).</td>
+<td style="text-align: left;"><code>statistics.mean(data)</code></td>
+<td style="text-align: left;"><code>data</code> (list of numbers)</td>
+<td style="text-align: left;"><code>float</code></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="datetime"><code>datetime</code><a class="headerlink" href="#datetime" title="Permanent link">&para;</a></h3>
+<h4 id="date"><a href="https://docs.python.org/3/library/datetime.html#date-objects"><code>date</code></a><a class="headerlink" href="#date" title="Permanent link">&para;</a></h4>
+<p><code>from datetime import date</code>
+| Method / Class / Attribute | Purpose | Syntax | Parameters  | Return Value |
+| :--- | :--- | :--- | :--- | :--- |
+| <strong><code>date</code></strong> <em>(Class)</em> | create a calendar <strong>date</strong> (year, month, day) in the Gregorian calendar. | <code>d = date(year, month, day)</code> | - <strong><code>year</code></strong>: Integer (e.g., <code>2024</code>).<br>- <strong><code>month</code></strong>: Integer (<code>1</code>–<code>12</code>).<br>- <strong><code>day</code></strong>: Integer (<code>1</code>–<code>31</code>). | An instance of a <strong><code>date</code> object</strong>. |
+| <strong><a href="https://docs.python.org/3/library/datetime.html#datetime.date.today"><code>date.today()</code></a></strong> | Retrieves the current local calendar date. | <code>today_date = date.today()</code> | None. | a <strong><code>date</code> object</strong> representing today. |
+| <strong><code>date.fromisoformat()</code></strong> | Parses an ISO 8601 formatted date string (<code>YYYY-MM-DD</code>). | <code>d = date.fromisoformat(date_str)</code> | <strong><code>date_str</code></strong>: String in <code>YYYY-MM-DD</code> format. | A <strong><code>date</code> object</strong> if valid; automatically; raises a <strong><code>ValueError</code></strong> if invalid. |</p>
+<h3 id="timedelta-objects"><a href="https://docs.python.org/3/library/datetime.html#timedelta-objects">timedelta objects</a><a class="headerlink" href="#timedelta-objects" title="Permanent link">&para;</a></h3>
+<p><code>from datetime import timedelta</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method / Class / Attribute</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Parameters</th>
+<th style="text-align: left;">Return Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Date Subtraction (<code>-</code>)</strong></td>
+<td style="text-align: left;">Computes the difference between two <code>date</code> objects (operator overloading via <code>__sub__</code>).</td>
+<td style="text-align: left;"><code>delta = date2 - date1</code></td>
+<td style="text-align: left;">- <strong><code>date2</code></strong>: End date object.<br>- <strong><code>date1</code></strong>: Starting date object.</td>
+<td style="text-align: left;">a <strong><code>timedelta</code> object</strong> representing the duration between the two dates, which itself comes with several (read-only) "instance attributes"</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>timedelta()</code></strong></td>
+<td style="text-align: left;">Constructs a <strong>custom time interval</strong> for relative date calculations/testing.</td>
+<td style="text-align: left;"><code>delta = timedelta(days=365)</code></td>
+<td style="text-align: left;"><strong><code>days</code></strong>: Integer representing duration in days.</td>
+<td style="text-align: left;">A <strong><code>timedelta</code> object</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>timedelta.days</code></strong> <em>(Attribute)</em></td>
+<td style="text-align: left;">Accesses the total number of days stored in a <code>timedelta</code> object.</td>
+<td style="text-align: left;"><code>num_days = delta.days</code></td>
+<td style="text-align: left;">None (read-only attribute).</td>
+<td style="text-align: left;">An <strong>integer</strong> representing the total days difference.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="command-line-arguments-sys-argparse">Command-Line Arguments: <a href="https://docs.python.org/3/library/sys.html"><code>sys</code></a> &amp; <a href="https://docs.python.org/3/library/argparse.html"><code>argparse</code></a><a class="headerlink" href="#command-line-arguments-sys-argparse" title="Permanent link">&para;</a></h2>
+<h3 id="sys"><code>sys</code><a class="headerlink" href="#sys" title="Permanent link">&para;</a></h3>
+<p>The <code>sys</code> is a module that allows us to take user input from the command line when we automate running Python scripts quickly.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Parameters (as input)</th>
+<th style="text-align: left;">Return Value</th>
+<th style="text-align: left;">Example/Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>sys.argv</code></strong> <br> stands for <strong>arg</strong>ument <strong>v</strong>ector</td>
+<td style="text-align: left;">Access <strong>a list of all the arguments</strong> that user typed at the command line as inputs to the program when running python script to influence the behavior of the program.</td>
+<td style="text-align: left;"><code>sys.argv[i]</code></td>
+<td style="text-align: left;"><strong><code>i</code> (index)</strong>: An integer representing the position of the argument in the list.</td>
+<td style="text-align: left;"><code>str</code></td>
+<td style="text-align: left;">- <code>sys.argv[0]</code> is always the python <strong>file_name.py</strong> <br> -  <code>sys.argv[1]</code> is the <strong>first user input</strong>. Using <strong>slicing</strong> <code>sys.argv[1:]</code> to skip the file name. <br><br> - Use <strong>conditions</strong>, e.g., <code>if len(sys.argv) == 2</code> to avoid <strong>IndexError</strong> (list index out of range) when accessing <code>sys.argv</code> <br><br> - Use <strong>quote</strong> for string <code>"str"</code> to pass a string as one argument</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>sys.exit()</code></strong></td>
+<td style="text-align: left;"><strong>Exit</strong> the whole program <strong>earlier</strong>  and optionally print an error message if an error arises.</td>
+<td style="text-align: left;"><code>sys.exit(msg)</code></td>
+<td style="text-align: left;"><strong><code>msg</code> (string)</strong> (optional): A message displayed to the user when the program terminates.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Used to stop a program gracefully if the user provides incorrect inputs.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a href="https://docs.python.org/3/library/os.path.html#os.path.splitext"><code>os.path.splitext()</code></a></strong></td>
+<td style="text-align: left;">Splits a file path into its root name and its <strong>file extension</strong>.</td>
+<td style="text-align: left;"><code>root, ext = os.path.splitext(path)</code></td>
+<td style="text-align: left;"><strong><code>path</code></strong>: A string representing the filename or file path.</td>
+<td style="text-align: left;">A <strong>tuple of two strings</strong> <code>(root, ext)</code>.</td>
+<td style="text-align: left;"><em>Example: <code>"photo.png"</code> returns <code>("photo", ".png")</code>.</em></td>
+</tr>
+</tbody>
+</table>
+<h3 id="argparse"><code>argparse</code><a class="headerlink" href="#argparse" title="Permanent link">&para;</a></h3>
+<p><code>argparse</code> stands for <strong>argument parser</strong>, a library that handles all the parsing of complicated strings of command-line arguments. 
+To parse something means to read it, pick it apart to analyze it.
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s2">"description about the program"</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"-n"</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="n">default_value</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"descrption about this argument"</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">argument_data_type</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span> 
+
+<span class="c1"># access args.n</span>
+</code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Component</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>ArgumentParser</code></strong></td>
+<td style="text-align: left;">Creates a parser object to handle command-line flags and parameters.</td>
+<td style="text-align: left;"><code>import argparse</code><br ><code>parser = argparse.ArgumentParser(description="...")</code></td>
+<td style="text-align: left;"><strong>Replaces</strong> complex manual <strong><code>sys.argv</code></strong> parsing logic.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>add_argument()</code></strong></td>
+<td style="text-align: left;">Add command line arguments that we should expect from the user</td>
+<td style="text-align: left;"><code>parser.add_argument("-n", default= ... , help="...", type= ...</code></td>
+<td style="text-align: left;">We can <strong>specifies expected flag name, types, default values</strong>, and help text.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>parse_args()</code></strong></td>
+<td style="text-align: left;">Parses terminal arguments and returns them as <strong>object attributes</strong>.</td>
+<td style="text-align: left;"><code>args = parser.parse_args()</code><br><code>args.attribute</code></td>
+<td style="text-align: left;">Automatically generates <code>-h</code> <code>--help</code> documentation about how to use the program for users.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="packages-apis-requests-json">Packages &amp; APIs: <a href="https://docs.python-requests.org/"><code>requests</code></a> &amp; <a href="https://docs.python.org/3/library/json.html"><code>json</code></a><a class="headerlink" href="#packages-apis-requests-json" title="Permanent link">&para;</a></h2>
+<p>Third-party packages (installed via package manager <code>pip install package_name</code>) allow us to interact with external data and functionalities. <a href="https://pypi.org/">PyPI</a> is a repository or directory of all available third-party packages currently  available.</p>
+<p><strong>APIs</strong> (application program interfaces) refer to <strong>third-party services</strong> that we can write code to connect to <strong>download and access data</strong>.
+<code>requests</code> is a package that allows our program to make internet request using python code behave as a web browser. We can <strong>constructe URL</strong> by reading the API <strong>documentation</strong> we request.</p>
+<p>The format in the downloaded text file is called <strong>JSON</strong> (javascript object notation) , a <strong>language agnostic text-based</strong> format that is used to exchange text-based data between applications. Python has a built-in <code>json</code> library that can help us interpret the  data received.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Return Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>requests.get()</code></strong></td>
+<td style="text-align: left;"><strong>Download data</strong> from a URL and store it into response object, like typing url in a web browser and enter.</td>
+<td style="text-align: left;"><code>response = requests.get(url)</code></td>
+<td style="text-align: left;">url: The https url to the API in string format. Check the documentation of the API.</td>
+<td style="text-align: left;"><code>Response</code> object</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>response.json()</code></strong></td>
+<td style="text-align: left;">Converts that <strong>JSON</strong> response into a Python <strong>dictionary</strong> so that we can extract specific information</td>
+<td style="text-align: left;"><code>content = response.json()</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>dict</code> or <code>list</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>json.dumps()</code></strong></td>
+<td style="text-align: left;">Format JSON data for <strong>nice printing</strong>.</td>
+<td style="text-align: left;"><code>json.dumps(obj, indent=2)</code></td>
+<td style="text-align: left;">- obj <br> - <code>indent</code>: Indentation making nested data more readable.</td>
+<td style="text-align: left;"><code>str</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Best practice</strong>: using <strong>try-except block</strong> for requests:</p>
+<p><strong>get.py</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_item</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'key1'</span><span class="p">:</span> <span class="s1">'value1'</span><span class="p">,</span> <span class="s1">'key2'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'value2'</span><span class="p">,</span> <span class="s1">'value3'</span><span class="p">]}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s2">"https_url"</span><span class="p">,</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">payload</span>
+        <span class="p">)</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>  <span class="c1"># will raise an HTTPError if the HTTP request returned an unsuccessful status code.</span>
+    <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Couldnt complete request!"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="n">content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="s2">"key"</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">content</span><span class="p">[</span><span class="s2">"data"</span><span class="p">]]</span>
+</code></pre></div></p>
+<p><strong>main.py</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">package.module</span><span class="w"> </span><span class="kn">import</span> <span class="n">functions</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="n">item</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"Item: "</span><span class="p">)</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="n">get_item</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">item</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="c1"># access data</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span> 
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div></p>
+<h3 id="third-party-library">Third-Party Library<a class="headerlink" href="#third-party-library" title="Permanent link">&para;</a></h3>
+<h3 id="inflect-module"><code>inflect</code> Module<a class="headerlink" href="#inflect-module" title="Permanent link">&para;</a></h3>
+<p>for <strong>generating natural language plurals, ordinals, and converting numbers to words</strong>.</p>
+<p><code>import inflect</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Parameters</th>
+<th style="text-align: left;">Return Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>inflect.engine()</code></strong></td>
+<td style="text-align: left;">The important first step: creates an instance of the <strong>inflect engine</strong> to perform text generation.</td>
+<td style="text-align: left;"><code>p = inflect.engine()</code></td>
+<td style="text-align: left;">None.</td>
+<td style="text-align: left;">An <strong><code>inflect.engine</code> object</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>p.number_to_words()</code></strong></td>
+<td style="text-align: left;">Converts <strong>numeric integers into English words</strong>.</td>
+<td style="text-align: left;"><code>words = p.number_to_words(number, andword="")</code></td>
+<td style="text-align: left;">- <strong><code>number</code></strong>: Number to convert.<br>- <strong><code>andword</code></strong> <em>(Optional)</em>: String to join tens/hundreds (set to <code>""</code> to <strong>remove "and"</strong>).</td>
+<td style="text-align: left;">A <strong>string</strong> containing the number spelled out in words (in <strong>lowercase</strong>).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pdf-generation-fpdf2">PDF Generation (<code>fpdf2</code>)<a class="headerlink" href="#pdf-generation-fpdf2" title="Permanent link">&para;</a></h3>
+<p>The <code>FPDF</code> class is the primary engine for creating and exporting PDF documents.</p>
+<p>The canvas uses a standard 2D millimeter-based coordinate system </p>
+<ul>
+<li>Origin  <span class="arithmatex">\((0,0)\)</span>: Located at the <strong>top-left corner</strong> of the PDF page</li>
+<li><span class="arithmatex">\(X\)</span>-Axis (Horizontal): Measures distance from the left edge (<span class="arithmatex">\(0\text{ mm}\)</span>) to the right edge (<span class="arithmatex">\(210\text{ mm}\)</span>).</li>
+<li><span class="arithmatex">\(Y\)</span>-Axis (Vertical): Measures distance from the top edge (<span class="arithmatex">\(0\text{ mm}\)</span>) down to the bottom edge (<span class="arithmatex">\(297\text{ mm}\)</span>).</li>
+<li><strong>Internal Cursor</strong>: fpdf2 maintains an internal drawing cursor  <span class="arithmatex">\((x, y)\)</span> that tracks where the next text or image will be placed automatically unless we override it.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method / Constructor</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Syntax Example</th>
+<th style="text-align: left;">Parameters / Options</th>
+<th style="text-align: left;">Return Value / Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>FPDF()</code> Constructor</strong></td>
+<td style="text-align: left;">Instantiates a new PDF document object with page dimensions and units.</td>
+<td style="text-align: left;"><code>pdf = FPDF(orientation="P", unit="mm", format="A4")</code></td>
+<td style="text-align: left;">- <strong><code>orientation</code></strong>: <code>"P"</code> (Portrait) or <code>"L"</code> (Landscape) or <code>"Letter"</code>, <code>Legal</code>. <br>- <strong><code>unit</code></strong>: Measure unit (<code>"mm"</code>, <code>"cm"</code>, <code>"pt"</code>, <code>"in"</code>).<br>- <strong><code>format</code></strong>: Standard page sizes (<code>"A4"</code> = 210x297mm).</td>
+<td style="text-align: left;">Returns a new <strong><code>FPDF</code> instance</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>pdf.add_page()</code></strong></td>
+<td style="text-align: left;">Adds a <strong>new blank page</strong> to the PDF document. <br><br> The origin is at the <strong>upper-left corner</strong> and the current position is by default placed at 1 cm from the borders; the margins can be changed with <code>set_margins</code>.</td>
+<td style="text-align: left;"><code>pdf.add_page()</code></td>
+<td style="text-align: left;">None.</td>
+<td style="text-align: left;">Appends a page</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>pdf.set_font()</code></strong></td>
+<td style="text-align: left;">Before we can print text, it is <strong>mandatory</strong>, otherwise the document would be invalid.</td>
+<td style="text-align: left;"><code>pdf.set_font("helvetica", style="B", size=30)</code></td>
+<td style="text-align: left;">- <strong><code>family</code></strong>: Built-in fonts (<code>"helvetica"</code>, <code>"times"</code>, <code>"courier"</code>, <code>Symbol</code> and <code>ZapfDingbats</code>).<br>- <strong><code>style</code></strong>: <code>""</code> (Regular), <code>"B"</code> (Bold), <code>"I"</code> (Italic), <code>"U"</code> (Underline).<br>- <strong><code>size</code></strong>: Font size in points (<code>pt</code>).</td>
+<td style="text-align: left;">Updates active document font settings.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>pdf.set_text_color()</code></strong></td>
+<td style="text-align: left;">Sets the <strong>foreground text color</strong> using RGB or grayscale values.</td>
+<td style="text-align: left;"><code>pdf.set_text_color(255, 255, 255)</code></td>
+<td style="text-align: left;">- <strong>RGB</strong>: Three integers (<code>0</code>–<code>255</code>) for Red, Green, Blue (e.g., <strong><code>255, 255, 255</code> for white</strong>).<br>- <strong>Grayscale</strong>: Single integer (<code>0</code>–<code>255</code>).</td>
+<td style="text-align: left;">Changes active text color.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>pdf.cell()</code></strong></td>
+<td style="text-align: left;">Renders a <strong>rectangular block</strong> of text at the current cursor position.</td>
+<td style="text-align: left;"><code>pdf.cell(w=0, h=10, text="string text", new_x= , new_y="NEXT", align="C")</code></td>
+<td style="text-align: left;">- <strong><code>w</code></strong>: Cell width (<code>0</code> stretches cell <strong>across entire printable width</strong>).<br>- <strong><code>h</code></strong>: Cell height in mm (negative height moves cursor upward). <br> - <strong><code>new_x</code></strong>: New current position in x after the call. <br>- <strong><code>new_y</code></strong>: Set to <code>"NEXT"</code> to automatically advance cursor to next line. - <br> center (bool): center the cell horizontally on the page. <br>- <strong><code>align</code></strong>: <code>"C"</code> (Center), <code>"L"</code> (Left), <code>"R"</code> (Right), <code>"X:</code>(center around current x position)</td>
+<td style="text-align: left;">Draws text cell on the page.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>pdf.image()</code></strong></td>
+<td style="text-align: left;">Embeds an image (PNG/JPEG) onto the page.</td>
+<td style="text-align: left;"><code>pdf.image("image.png", x="C", y=, w=width)</code></td>
+<td style="text-align: left;">- <strong><code>name</code></strong>: Path to image file.<br>- <strong><code>x</code></strong>: Horizontal coordinate or <code>"C"</code> (Center horizontally).<br>- <strong><code>y</code></strong>: Vertical coordinate in mm (omitting <code>y</code> uses current cursor position).<br>- <strong><code>w</code></strong>: Target width in mm (height <code>h</code> <strong>scales automatically</strong>).</td>
+<td style="text-align: left;">Renders image on the PDF canvas.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>pdf.set_y()</code></strong></td>
+<td style="text-align: left;">Sets the vertical position of the <strong>cursor</strong> explicitly.</td>
+<td style="text-align: left;"><code>pdf.set_y(140)</code></td>
+<td style="text-align: left;"><strong><code>y</code></strong>: Absolute vertical position in mm (positive value measured from top edge; negative value measured from bottom).</td>
+<td style="text-align: left;">Moves active drawing cursor vertically.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>pdf.epw</code></strong> <em>(Property)</em></td>
+<td style="text-align: left;">Gets the <strong>Effective Page Width</strong> (total width minus left and right margins).</td>
+<td style="text-align: left;"><code>w = pdf.epw</code></td>
+<td style="text-align: left;">None (read-only property).</td>
+<td style="text-align: left;">Returns float representing printable width in mm.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>pdf.output()</code></strong></td>
+<td style="text-align: left;">Compiles and writes the PDF data to a file on <strong>disk</strong>.</td>
+<td style="text-align: left;"><code>pdf.output("file_name.pdf")</code></td>
+<td style="text-align: left;"><strong><code>name</code></strong>: Destination filename or file path string.</td>
+<td style="text-align: left;">Saves the generated PDF file to disk.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="object-oriented-subclassing-with-fpdf">Object-Oriented Subclassing with <code>FPDF</code><a class="headerlink" href="#object-oriented-subclassing-with-fpdf" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Concept</th>
+<th style="text-align: left;">Syntax</th>
+<th style="text-align: left;">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Subclassing <code>FPDF</code></strong></td>
+<td style="text-align: left;"><code>class NewClass(FPDF):</code></td>
+<td style="text-align: left;">Extends the base <code>FPDF</code> class to encapsulate <strong>custom PDF layouts and header</strong> behaviors.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Parent Initialization (<code>super()</code>)</strong></td>
+<td style="text-align: left;"><code>super().__init__(orientation="P", unit="mm", format="A4")</code></td>
+<td style="text-align: left;">Invokes the constructor of the parent <code>FPDF</code> class to ensure full initialization.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Method Overriding (<code>header</code>)</strong></td>
+<td style="text-align: left;"><code>def header(self):</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>self.set_font("helvetica", "B", 30)</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>self.cell(0, 10, "Title", align="C")</code></td>
+<td style="text-align: left;">Overrides <code>FPDF</code>'s built-in empty <code>header()</code> method to automatically print a header on every new page.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="making-your-own-modules-and-packages">Making Your Own Modules and Packages<a class="headerlink" href="#making-your-own-modules-and-packages" title="Permanent link">&para;</a></h2>
+<p>Create a <strong>folder</strong> for the <strong>Package</strong>: </p>
+<ul>
+<li><code>__init__.py</code>: An <strong>empty file</strong>, just helps Python realize this folder is a package including multiple modules.</li>
+<li><code>module.py</code> files: about functionalities</li>
+</ul>
+<p><strong>module.py</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">package</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Code to run only when executing this file directly</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">my_function</span><span class="p">():</span>
+    <span class="c1"># Reusable library function</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>  <span class="c1"># special variable __name__ is automatically set to be "__main__" when we run the python file from the command line to prevent the following `main()` function from executing if we `import` any function into another project. </span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>
